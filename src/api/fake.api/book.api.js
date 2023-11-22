@@ -1,29 +1,163 @@
 const genres = {
-    fantasy: { _id: "67rdca3eeb7f6fgeed471811", name: "Фэнтези", color: "primary" },
+    fantasy: {
+        _id: "67rdca3eeb7f6fgeed471811",
+        name: "Фэнтези",
+        color: "primary"
+    },
     horror: { _id: "67rdca3eeb7f6fgeed471812", name: "Ужасы", color: "danger" },
-    romance: { _id: "67rdca3eeb7f6fgeed471813", name: "Романтика", color: "success" },
-    mystery: { _id: "67rdca3eeb7f6fgeed471814", name: "Мистика", color: "warning" },
-    fiction: { _id: "67rdca3eeb7f6fgeed471815", name: "Художественная литература", color: "secondary" },
-    history: { _id: "67rdca3eeb7f6fgeed471816", name: "Исторический роман", color: "info" },
-    thriller: { _id: "67rdca3eeb7f6fgeed471817", name: "Триллер", color: "dark" }
+    romance: {
+        _id: "67rdca3eeb7f6fgeed471813",
+        name: "Романтика",
+        color: "success"
+    },
+    mystery: {
+        _id: "67rdca3eeb7f6fgeed471814",
+        name: "Мистика",
+        color: "warning"
+    },
+    fiction: {
+        _id: "67rdca3eeb7f6fgeed471815",
+        name: "Художественная литература",
+        color: "secondary"
+    },
+    history: {
+        _id: "67rdca3eeb7f6fgeed471816",
+        name: "Исторический роман",
+        color: "info"
+    },
+    thriller: {
+        _id: "67rdca3eeb7f6fgeed471817",
+        name: "Триллер",
+        color: "dark"
+    },
+    science: {
+        _id: "67rdca3eeb7f6fgeed471816",
+        name: "Научная литература",
+        color: "info"
+    },
+    adventure: {
+        _id: "67rdca3eeb7f6fgeed471817",
+        name: "Приключения",
+        color: "success"
+    }
 };
-
 
 const authors = {
-    tolkien: { _id: "67rdca3eeb7f6fgeed471815", name: "Дж.Р.Р. Толкин", birthYear: 1892, deathYear: 1973 },
-    rowling: { _id: "67rdca3eeb7f6fgeed471816", name: "Джоан Роулинг", birthYear: 1965, deathYear: null },
-    king: { _id: "67rdca3eeb7f6fgeed471817", name: "Стивен Кинг", birthYear: 1947, deathYear: null },
-    austen: { _id: "67rdca3eeb7f6fgeed471818", name: "Джейн Остин", birthYear: 1775, deathYear: 1817 },
-    doyle: { _id: "67rdca3eeb7f6fgeed471819", name: "Артур Конан Дойл", birthYear: 1859, deathYear: 1930 },
-    brown: { _id: "67rdca3eeb7f6fgeed471820", name: "Дэн Браун", birthYear: 1964, deathYear: null },
-    orwell: { _id: "67rdca3eeb7f6fgeed471821", name: "Джордж Оруэлл", birthYear: 1903, deathYear: 1950 },
-    shakespeare: { _id: "67rdca3eeb7f6fgeed471822", name: "Уильям Шекспир", birthYear: 1564, deathYear: 1616 },
-    martin: { _id: "67rdca3eeb7f6fgeed471823", name: "Джордж Мартин", birthYear: 1948, deathYear: null },
-    bulgakov: { _id: "67rdca3eeb7f6fgeed471824", name: "Михаил Булгаков", birthYear: 1891, deathYear: 1940 },
-    tolstoy: { _id: "67rdca3eeb7f6fgeed471825", name: "Лев Толстой", birthYear: 1828, deathYear: 1910 },
-    remarque: { _id: "67rdca3eeb7f6fgeed471826", name: "Эрих Мария Ремарк", birthYear: 1898, deathYear: 1970 },
+    tolkien: {
+        _id: "67rdca3eeb7f6fgeed471815",
+        name: "Дж.Р.Р. Толкин",
+        birthYear: 1892,
+        deathYear: 1973
+    },
+    rowling: {
+        _id: "67rdca3eeb7f6fgeed471816",
+        name: "Джоан Роулинг",
+        birthYear: 1965,
+        deathYear: null
+    },
+    king: {
+        _id: "67rdca3eeb7f6fgeed471817",
+        name: "Стивен Кинг",
+        birthYear: 1947,
+        deathYear: null
+    },
+    austen: {
+        _id: "67rdca3eeb7f6fgeed471818",
+        name: "Джейн Остин",
+        birthYear: 1775,
+        deathYear: 1817
+    },
+    doyle: {
+        _id: "67rdca3eeb7f6fgeed471819",
+        name: "Артур Конан Дойл",
+        birthYear: 1859,
+        deathYear: 1930
+    },
+    brown: {
+        _id: "67rdca3eeb7f6fgeed471820",
+        name: "Дэн Браун",
+        birthYear: 1964,
+        deathYear: null
+    },
+    orwell: {
+        _id: "67rdca3eeb7f6fgeed471821",
+        name: "Джордж Оруэлл",
+        birthYear: 1903,
+        deathYear: 1950
+    },
+    shakespeare: {
+        _id: "67rdca3eeb7f6fgeed471822",
+        name: "Уильям Шекспир",
+        birthYear: 1564,
+        deathYear: 1616
+    },
+    martin: {
+        _id: "67rdca3eeb7f6fgeed471823",
+        name: "Джордж Мартин",
+        birthYear: 1948,
+        deathYear: null
+    },
+    bulgakov: {
+        _id: "67rdca3eeb7f6fgeed471824",
+        name: "Михаил Булгаков",
+        birthYear: 1891,
+        deathYear: 1940
+    },
+    tolstoy: {
+        _id: "67rdca3eeb7f6fgeed471825",
+        name: "Лев Толстой",
+        birthYear: 1828,
+        deathYear: 1910
+    },
+    remarque: {
+        _id: "67rdca3eeb7f6fgeed471826",
+        name: "Эрих Мария Ремарк",
+        birthYear: 1898,
+        deathYear: 1970
+    },
+    rodari: {
+        _id: "67rdca3eeb7f6fgeed471818",
+        name: "Джани Родари",
+        birthYear: 1920,
+        deathYear: 1980
+    },
+    krzhizhanovsky: {
+        _id: "67rdca3eeb7f6fgeed471819",
+        name: "Сигизмунд Кржижановский",
+        birthYear: 1887,
+        deathYear: 1950
+    },
+    saintExupery: {
+        _id: "67rdca3eeb7f6fgeed471820",
+        name: "Антуан де Сент-Экзюпери",
+        birthYear: 1900,
+        deathYear: 1944
+    },
+    dumas: {
+        _id: "67rdca3eeb7f6fgeed471821",
+        name: "Александр Дюма",
+        birthYear: 1802,
+        deathYear: 1870
+    },
+    zafon: {
+        _id: "67rdca3eeb7f6fgeed471822",
+        name: "Карлос Руис Сафон",
+        birthYear: 1964,
+        deathYear: null
+    },
+    lebon: {
+        _id: "67rdca3eeb7f6fgeed471823",
+        name: "Гюстав Лебон",
+        birthYear: 1841,
+        deathYear: 1931
+    },
+    glukhovsky: {
+        _id: "67rdca3eeb7f6fgeed471824",
+        name: "Дмитрий Глуховский",
+        birthYear: 1979,
+        deathYear: null
+    }
 };
-
 
 const books = [
     {
@@ -189,27 +323,25 @@ const books = [
         price: 13.99
     },
     {
-        _id:"67rdca3eeb7f6fgeed471833",
-        title:"Странствия Чиполлино",
-        genre : genres.fantasy,
-        author : authors.rodari ,
-        publicationYear :1971 ,
-        rating :4.2 ,
-        price :9.99
+        _id: "67rdca3eeb7f6fgeed471833",
+        title: "Странствия Чиполлино",
+        genre: genres.fantasy,
+        author: authors.rodari,
+        publicationYear: 1971,
+        rating: 4.2,
+        price: 9.99
     },
     {
-        _id: "67rdca3eeb7f6fgeed471820",
+        _id: "67rdca3eeb7f6fgeed471834",
         title: "Код Да Винчи",
         genre: genres.mystery,
         author: authors.brown,
         publicationYear: 2003,
         rating: 4.3,
         price: 24.99
-    },
+    }
 ];
-
 
 export function fetchAllBooks() {
     return books;
 }
-
