@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Bookmark from "./bookmark";
+import Badge from "./badge";
 
 const Book = ({
     index,
@@ -10,18 +12,27 @@ const Book = ({
     publicationYear,
     rating,
     price,
+    onToggleBookmark,
+    status,
     ...rest
 }) => {
-    console.log("rest:", rest);
     return (
         <tr>
             <th scope="row">{index + 1}</th>
             <td>{title}</td>
-            <td>{genre.name}</td>
+            <td>
+                <Badge {...genre} />
+            </td>
             <td>{author.name}</td>
             <td>{publicationYear}</td>
             <td>{rating}</td>
             <td>{price}</td>
+            <td className="text-center">
+                <Bookmark
+                    onClick={() => onToggleBookmark(_id)}
+                    status={status}
+                />
+            </td>
             <td>
                 <button className="btn btn-sm btn-danger" {...rest}>
                     Delete
@@ -40,6 +51,8 @@ Book.propTypes = {
     publicationYear: PropTypes.number,
     rating: PropTypes.number,
     price: PropTypes.number,
+    onToggleBookmark: PropTypes.func,
+    status: PropTypes.bool,
     rest: PropTypes.shape({
         onClick: PropTypes.func
     })

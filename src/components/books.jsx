@@ -4,14 +4,25 @@ import Book from "./book";
 
 const Books = () => {
     const [books, setBooks] = useState(api.books.fetchAllBooks());
-    const handleDelete = (bookId) => {
+    const handleDelete = (status, bookId) => {
+        console.log("status:", status);
+        if (status) return;
         setBooks(books.filter((book) => book._id !== bookId));
     };
-    console.log("length:", books.length);
+    const handleToggleBookmark = (bookId) => {
+        setBooks(
+            books.map((book) => {
+                return book._id === bookId
+                    ? { ...book, status: !book.status }
+                    : book;
+            })
+        );
+    };
+
     return (
         <>
             {books.length > 0 && (
-                <table className="table">
+                <table className="table table-dark table-striped table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -21,7 +32,9 @@ const Books = () => {
                             <th scope="col">Publication year</th>
                             <th scope="col">Rating</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Favorites</th>
+                            <th scope="col" className="text-center">
+                                Favorites
+                            </th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -30,7 +43,10 @@ const Books = () => {
                             <Book
                                 key={book._id}
                                 index={i}
-                                onClick={() => handleDelete(book._id)}
+                                onToggleBookmark={handleToggleBookmark}
+                                onClick={() =>
+                                    handleDelete(book.status, book._id)
+                                }
                                 {...book}
                             />
                         ))}
