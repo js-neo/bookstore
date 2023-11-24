@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../api";
 import Book from "./book";
+import Pagination from "./pagination";
 
 const Books = () => {
-    const [books, setBooks] = useState(api.books.fetchAllBooks());
+    const allBooks = api.books.fetchAllBooks();
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 5;
+    const pagesCount = Math.ceil(allBooks.length / pageSize);
+    const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = currentPage * pageSize;
+    const [books, setBooks] = useState(allBooks.slice(0, pageSize));
+
+    useEffect(() => {
+        setBooks(allBooks.slice(startIndex, endIndex));
+    }, [currentPage]);
+
     const handleDelete = (status, bookId) => {
-        console.log("status:", status);
         if (status) return;
-        setBooks(books.filter((book) => book._id !== bookId));
+        setBooks(allBooks.filter((book) => book._id !== bookId));
     };
     const handleToggleBookmark = (bookId) => {
         setBooks(
@@ -19,10 +31,14 @@ const Books = () => {
         );
     };
 
+    const handleChangePage = (page) => {
+        setCurrentPage(page);
+    };
+
     return (
         <>
-            {books.length > 0 && (
-                <table className="table table-dark table-striped table-hover">
+            {allBooks.length > 0 && (
+                <table className="table table-dark table-striped table-hover m-0">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -53,6 +69,11 @@ const Books = () => {
                     </tbody>
                 </table>
             )}
+            <Pagination
+                onChangePage={handleChangePage}
+                pages={pages}
+                currentPage={currentPage}
+            />
         </>
     );
 };
