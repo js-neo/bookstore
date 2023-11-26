@@ -5,7 +5,6 @@ const App = () => {
     return (
         <div className="vh-100 bg-dark">
             <Books />
-            <p className="text-light btn">Test text</p>
         </div>
     );
 };

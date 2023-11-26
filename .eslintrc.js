@@ -38,6 +38,7 @@ module.exports = {
                 allowTemplateLiterals: true
             }
         ],
-        "multiline-ternary": [0]
+        "multiline-ternary": [0],
+        "one-var": ["error", "always"]
     }
 };

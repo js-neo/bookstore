@@ -1,43 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import api from "../api";
 import Book from "./book";
 import Pagination from "./pagination";
 
 const Books = () => {
-    const allBooks = api.books.fetchAllBooks();
-    const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 5;
-    const pagesCount = Math.ceil(allBooks.length / pageSize);
-    const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
-    const startIndex = (currentPage - 1) * pageSize;
-    const endIndex = currentPage * pageSize;
-    const [books, setBooks] = useState(allBooks.slice(0, pageSize));
+    const [books, setBooks] = useState(api.books.fetchAllBooks()),
+        [currentPage, setCurrentPage] = useState(1),
+        PAGE_SIZE = 5,
+        pagesCount = Math.ceil(books.length / PAGE_SIZE),
+        pages = Array.from({ length: pagesCount }, (_, i) => i + 1),
+        startIndex = (currentPage - 1) * PAGE_SIZE,
+        endIndex = currentPage * PAGE_SIZE,
+        handleDelete = (status, bookId) => {
+            if (status) return;
+            setBooks(books.filter((book) => book._id !== bookId));
+        },
+        handleToggleBookmark = (bookId) => {
+            setBooks(
+                books.map((book) => {
+                    return book._id === bookId
+                        ? { ...book, status: !book.status }
+                        : book;
+                })
+            );
+        },
+        handleChangePage = (page) => {
+            setCurrentPage(page);
+        };
 
-    useEffect(() => {
-        setBooks(allBooks.slice(startIndex, endIndex));
-    }, [currentPage]);
-
-    const handleDelete = (status, bookId) => {
-        if (status) return;
-        setBooks(allBooks.filter((book) => book._id !== bookId));
-    };
-    const handleToggleBookmark = (bookId) => {
-        setBooks(
-            books.map((book) => {
-                return book._id === bookId
-                    ? { ...book, status: !book.status }
-                    : book;
-            })
-        );
-    };
-
-    const handleChangePage = (page) => {
-        setCurrentPage(page);
-    };
+    if (currentPage > pagesCount) {
+        setCurrentPage(pagesCount);
+    }
 
     return (
         <>
-            {allBooks.length > 0 && (
+            {books.length > 0 && (
                 <table className="table table-dark table-striped table-hover m-0">
                     <thead>
                         <tr>
@@ -55,7 +52,7 @@ const Books = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {books.map((book, i) => (
+                        {books.slice(startIndex, endIndex).map((book, i) => (
                             <Book
                                 key={book._id}
                                 index={i}
@@ -69,11 +66,13 @@ const Books = () => {
                     </tbody>
                 </table>
             )}
-            <Pagination
-                onChangePage={handleChangePage}
-                pages={pages}
-                currentPage={currentPage}
-            />
+            {pagesCount > 1 && (
+                <Pagination
+                    onChangePage={handleChangePage}
+                    pages={pages}
+                    currentPage={currentPage}
+                />
+            )}
         </>
     );
 };
