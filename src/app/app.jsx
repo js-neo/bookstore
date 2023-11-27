@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Books from "./components/books";
 import api from "./api";
+import TotalStatus from "./components/totalStatus";
 
 const App = () => {
     const [books, setBooks] = useState(api.books.fetchAllBooks()),
@@ -19,6 +20,7 @@ const App = () => {
         };
     return (
         <div className="vh-100 bg-dark">
+            <TotalStatus length={books.length} />
             <Books
                 books={books}
                 onDelete={handleDelete}
