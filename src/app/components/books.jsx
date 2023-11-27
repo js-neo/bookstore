@@ -1,29 +1,15 @@
 import React, { useState } from "react";
-import api from "../api";
 import Book from "./book";
 import Pagination from "./pagination";
+import PropTypes from "prop-types";
+import { paginate } from "../utils/paginate";
 
-const Books = () => {
-    const [books, setBooks] = useState(api.books.fetchAllBooks()),
-        [currentPage, setCurrentPage] = useState(1),
+const Books = ({ books, onDelete, ...rest }) => {
+    const [currentPage, setCurrentPage] = useState(1),
         PAGE_SIZE = 5,
         pagesCount = Math.ceil(books.length / PAGE_SIZE),
         pages = Array.from({ length: pagesCount }, (_, i) => i + 1),
-        startIndex = (currentPage - 1) * PAGE_SIZE,
-        endIndex = currentPage * PAGE_SIZE,
-        handleDelete = (status, bookId) => {
-            if (status) return;
-            setBooks(books.filter((book) => book._id !== bookId));
-        },
-        handleToggleBookmark = (bookId) => {
-            setBooks(
-                books.map((book) => {
-                    return book._id === bookId
-                        ? { ...book, status: !book.status }
-                        : book;
-                })
-            );
-        },
+        booksSlice = paginate(books, PAGE_SIZE, currentPage),
         handleChangePage = (page) => {
             setCurrentPage(page);
         };
@@ -52,14 +38,12 @@ const Books = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {books.slice(startIndex, endIndex).map((book, i) => (
+                        {booksSlice.map((book, i) => (
                             <Book
                                 key={book._id}
                                 index={i}
-                                onToggleBookmark={handleToggleBookmark}
-                                onClick={() =>
-                                    handleDelete(book.status, book._id)
-                                }
+                                onClick={() => onDelete(book.status, book._id)}
+                                {...rest}
                                 {...book}
                             />
                         ))}
@@ -75,6 +59,11 @@ const Books = () => {
             )}
         </>
     );
+};
+
+Books.propTypes = {
+    books: PropTypes.array,
+    onDelete: PropTypes.func
 };
 
 export default Books;
