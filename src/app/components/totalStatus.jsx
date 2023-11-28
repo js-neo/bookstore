@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const TotalStatus = ({ length }) => {
+const TotalStatus = ({ length, favorites }) => {
     const editorWords = (num) => {
         console.log("num:", num);
         console.log(
@@ -25,14 +25,26 @@ const TotalStatus = ({ length }) => {
     };
     editorWords(length);
     return (
-        <div className="text-light">{`В коллекции ${length} книг${editorWords(
-            length
-        )}`}</div>
+        <>
+            {length > 0 && (
+                <div className="badge bg-primary border border-light text-start text-light my-4">
+                    <h4>{`Всего в коллекции ${length} книг${editorWords(
+                        length
+                    )}`}</h4>
+                    {favorites > 0 && (
+                        <h4>{`Всего в избранном ${favorites} книг${editorWords(
+                            favorites
+                        )}`}</h4>
+                    )}
+                </div>
+            )}
+        </>
     );
 };
 
 TotalStatus.propTypes = {
-    length: PropTypes.number
+    length: PropTypes.number,
+    favorites: PropTypes.number
 };
 
 export default TotalStatus;

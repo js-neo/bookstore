@@ -20,7 +20,10 @@ const App = () => {
         };
     return (
         <div className="vh-100 bg-dark">
-            <TotalStatus length={books.length} />
+            <TotalStatus
+                length={books.length}
+                favorites={books.filter((book) => book.status === true).length}
+            />
             <Books
                 books={books}
                 onDelete={handleDelete}
