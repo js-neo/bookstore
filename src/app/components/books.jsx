@@ -3,16 +3,19 @@ import Book from "./book";
 import Pagination from "./pagination";
 import PropTypes from "prop-types";
 import { paginate } from "../utils/paginate";
+import Dropdown from "./dropdown";
 
 const Books = ({ books, onDelete, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1),
-        PAGE_SIZE = 5,
+        [selectedOption, setSelectedOption] = useState(""),
+        PAGE_SIZE = 8,
         pagesCount = Math.ceil(books.length / PAGE_SIZE),
         pages = Array.from({ length: pagesCount }, (_, i) => i + 1),
         booksSlice = paginate(books, PAGE_SIZE, currentPage),
         handleChangePage = (page) => {
             setCurrentPage(page);
-        };
+        },
+        handleSelect = (eventProp) => setSelectedOption(eventProp);
 
     if (currentPage > pagesCount) {
         setCurrentPage(pagesCount);
@@ -20,6 +23,7 @@ const Books = ({ books, onDelete, ...rest }) => {
 
     return (
         <>
+            <Dropdown selectedOption={selectedOption} onSelect={handleSelect} />
             {books.length > 0 && (
                 <table className="table table-dark table-striped table-hover m-0">
                     <thead>

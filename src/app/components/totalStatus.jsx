@@ -25,7 +25,7 @@ const TotalStatus = ({ length, favorites }) => {
     };
     editorWords(length);
     return (
-        <>
+        <div>
             {length > 0 && (
                 <div className="badge bg-primary border border-light text-start text-light my-4">
                     <h4>{`Всего в коллекции ${length} книг${editorWords(
@@ -38,7 +38,7 @@ const TotalStatus = ({ length, favorites }) => {
                     )}
                 </div>
             )}
-        </>
+        </div>
     );
 };
 
