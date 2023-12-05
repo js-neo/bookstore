@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Book from "./book";
 import Pagination from "./pagination";
 import PropTypes from "prop-types";
@@ -8,6 +8,7 @@ import Dropdown from "./dropdown";
 const Books = ({ books, onDelete, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1),
         [selectedOption, setSelectedOption] = useState(""),
+        [menuVisibility, setMenuVisibility] = useState({}),
         PAGE_SIZE = 8,
         pagesCount = Math.ceil(books.length / PAGE_SIZE),
         pages = Array.from({ length: pagesCount }, (_, i) => i + 1),
@@ -15,7 +16,25 @@ const Books = ({ books, onDelete, ...rest }) => {
         handleChangePage = (page) => {
             setCurrentPage(page);
         },
-        handleSelect = (eventProp) => setSelectedOption(eventProp);
+        handleSelect = (propEvent) => {
+            setSelectedOption(propEvent);
+            setMenuVisibility((prevState) => {
+                return { ...prevState, [propEvent]: !prevState[propEvent] };
+            });
+        };
+    console.log("menuVisibility:", menuVisibility);
+
+    useEffect(() => {
+        const handleOutsideClickMenu = ({ target }) => {
+            console.log("Document click");
+            if (!target.closest(".dropdown")) {
+                setMenuVisibility({});
+            }
+        };
+        document.addEventListener("click", handleOutsideClickMenu);
+        return () =>
+            document.removeEventListener("click", handleOutsideClickMenu);
+    }, []);
 
     if (currentPage > pagesCount) {
         setCurrentPage(pagesCount);
@@ -23,7 +42,11 @@ const Books = ({ books, onDelete, ...rest }) => {
 
     return (
         <>
-            <Dropdown selectedOption={selectedOption} onSelect={handleSelect} />
+            <Dropdown
+                selectedOption={selectedOption}
+                menuVisibility={menuVisibility}
+                onSelect={handleSelect}
+            />
             {books.length > 0 && (
                 <table className="table table-dark table-striped table-hover m-0">
                     <thead>
