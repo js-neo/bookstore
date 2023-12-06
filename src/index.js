@@ -5,6 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
 import App from "./app/app";
 
+// eslint-disable-next-line react/no-deprecated
 ReactDOM.render(
     <React.StrictMode>
         <App />

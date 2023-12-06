@@ -7,7 +7,7 @@ import Dropdown from "./dropdown";
 
 const Books = ({ books, onDelete, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1),
-        [selectedOption, setSelectedOption] = useState(""),
+        [currentFilter, setCurrentFilter] = useState(""),
         [menuVisibility, setMenuVisibility] = useState({}),
         PAGE_SIZE = 8,
         pagesCount = Math.ceil(books.length / PAGE_SIZE),
@@ -17,9 +17,9 @@ const Books = ({ books, onDelete, ...rest }) => {
             setCurrentPage(page);
         },
         handleSelect = (propEvent) => {
-            setSelectedOption(propEvent);
+            setCurrentFilter(propEvent);
             setMenuVisibility((prevState) => {
-                return { ...prevState, [propEvent]: !prevState[propEvent] };
+                return { [propEvent]: !prevState[propEvent] };
             });
         };
     console.log("menuVisibility:", menuVisibility);
@@ -43,7 +43,7 @@ const Books = ({ books, onDelete, ...rest }) => {
     return (
         <>
             <Dropdown
-                selectedOption={selectedOption}
+                currentFilter={currentFilter}
                 menuVisibility={menuVisibility}
                 onSelect={handleSelect}
             />
