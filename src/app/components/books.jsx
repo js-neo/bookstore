@@ -9,10 +9,25 @@ const Books = ({ books, onDelete, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1),
         [currentFilter, setCurrentFilter] = useState(""),
         [menuVisibility, setMenuVisibility] = useState({}),
+        [selectedFilter, setSelectedFilter] = useState(null),
         PAGE_SIZE = 8,
         pagesCount = Math.ceil(books.length / PAGE_SIZE),
         pages = Array.from({ length: pagesCount }, (_, i) => i + 1),
-        booksSlice = paginate(books, PAGE_SIZE, currentPage),
+        filteredBooks = selectedFilter
+            ? books.filter((book) => {
+                  console.log("book:", book);
+                  console.log(
+                      "selectedFilter.listItem:",
+                      selectedFilter.listItem
+                  );
+                  return typeof book[selectedFilter.propKey] === "number" ||
+                      typeof book[selectedFilter.propKey] === "string"
+                      ? selectedFilter.listItem === book
+                      : selectedFilter.listItem ===
+                            book[selectedFilter.propKey];
+              })
+            : books,
+        booksSlice = paginate(filteredBooks, PAGE_SIZE, currentPage),
         handleChangePage = (page) => {
             setCurrentPage(page);
         },
@@ -21,8 +36,16 @@ const Books = ({ books, onDelete, ...rest }) => {
             setMenuVisibility((prevState) => {
                 return { [propEvent]: !prevState[propEvent] };
             });
+        },
+        handleFilter = (listItem, propKey) => {
+            setSelectedFilter({
+                listItem,
+                propKey
+            });
+            console.log("filteredBooks:", filteredBooks);
         };
-    console.log("menuVisibility:", menuVisibility);
+
+    console.log("selectedFilter:", selectedFilter);
 
     useEffect(() => {
         const handleOutsideClickMenu = ({ target }) => {
@@ -46,6 +69,7 @@ const Books = ({ books, onDelete, ...rest }) => {
                 currentFilter={currentFilter}
                 menuVisibility={menuVisibility}
                 onSelect={handleSelect}
+                onFilter={handleFilter}
             />
             {books.length > 0 && (
                 <table className="table table-dark table-striped table-hover m-0">

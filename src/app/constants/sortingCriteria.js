@@ -15,7 +15,7 @@ export const sortingCriteria = [
     },
     {
         _id: "45dc3g2f1e6r7e8d9ab0013",
-        eventKey: "publication year",
+        eventKey: "publicationYear",
         criteria: "Год издания",
         category: "books",
         filterKey: "publicationYear"

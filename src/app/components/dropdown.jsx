@@ -3,7 +3,7 @@ import { sortingCriteria } from "../constants/sortingCriteria";
 import api from "../api";
 import PropTypes from "prop-types";
 
-const Dropdown = ({ currentFilter, menuVisibility, onSelect }) => {
+const Dropdown = ({ currentFilter, menuVisibility, onSelect, onFilter }) => {
     const toggleShow = (eventKey) => {
         return menuVisibility[eventKey] && currentFilter === eventKey
             ? "show"
@@ -17,7 +17,8 @@ const Dropdown = ({ currentFilter, menuVisibility, onSelect }) => {
                     <div key={_id} className="dropdown">
                         <button
                             type="button"
-                            className={`btn btn-primary dropdown-toggle mx-2 border border-light ${toggleShow(
+                            id={_id}
+                            className={`btn btn-primary dropdown-toggle mx-2 border border-light border-2 ${toggleShow(
                                 eventKey
                             )}`}
                             data-bs-toggle="dropdown"
@@ -31,9 +32,10 @@ const Dropdown = ({ currentFilter, menuVisibility, onSelect }) => {
                             {criteria}
                         </button>
                         <ul
-                            className={`dropdown-menu bg-dark border border-light  ${toggleShow(
+                            className={`dropdown-menu dropdown-menu-dark ${toggleShow(
                                 eventKey
                             )}`}
+                            aria-labelledby={_id}
                             style={{
                                 maxHeight: "200px",
                                 overflowY: "auto",
@@ -51,11 +53,16 @@ const Dropdown = ({ currentFilter, menuVisibility, onSelect }) => {
                                 .sort((a, b) =>
                                     a[filterKey] > b[filterKey] ? 1 : -1
                                 )
-                                .map((item, i) => {
+                                .map((item) => {
                                     return (
-                                        <li key={i}>
+                                        <li
+                                            key={item._id}
+                                            onClick={() =>
+                                                onFilter(item, eventKey)
+                                            }
+                                        >
                                             <a
-                                                className="dropdown-item text-light"
+                                                className={`dropdown-item`}
                                                 href="#"
                                             >
                                                 {item[filterKey]}
@@ -74,7 +81,8 @@ const Dropdown = ({ currentFilter, menuVisibility, onSelect }) => {
 Dropdown.propTypes = {
     currentFilter: PropTypes.string,
     menuVisibility: PropTypes.object,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    onFilter: PropTypes.func
 };
 
 export default Dropdown;
