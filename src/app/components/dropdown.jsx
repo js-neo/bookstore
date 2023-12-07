@@ -3,7 +3,13 @@ import { sortingCriteria } from "../constants/sortingCriteria";
 import api from "../api";
 import PropTypes from "prop-types";
 
-const Dropdown = ({ currentFilter, menuVisibility, onSelect, onFilter }) => {
+const Dropdown = ({
+    currentFilter,
+    menuVisibility,
+    onSelect,
+    onFilter,
+    onClearFilter
+}) => {
     const toggleShow = (eventKey) => {
         return menuVisibility[eventKey] && currentFilter === eventKey
             ? "show"
@@ -74,6 +80,12 @@ const Dropdown = ({ currentFilter, menuVisibility, onSelect, onFilter }) => {
                     </div>
                 )
             )}
+            <button
+                className="btn btn-sm btn-primary mx-2 border border-light border-2"
+                onClick={onClearFilter}
+            >
+                Сброс фильтров
+            </button>
         </div>
     );
 };
@@ -82,7 +94,8 @@ Dropdown.propTypes = {
     currentFilter: PropTypes.string,
     menuVisibility: PropTypes.object,
     onSelect: PropTypes.func,
-    onFilter: PropTypes.func
+    onFilter: PropTypes.func,
+    onClearFilter: PropTypes.func
 };
 
 export default Dropdown;

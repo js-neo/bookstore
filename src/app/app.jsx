@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Books from "./components/books";
 import api from "./api";
 import TotalStatus from "./components/totalStatus";
+import Header from "./components/header";
 
 const App = () => {
     const [books, setBooks] = useState(api.books.fetchAllBooks()),
@@ -20,6 +21,7 @@ const App = () => {
         };
     return (
         <div className="vh-100 bg-dark">
+            <Header />
             <TotalStatus
                 length={books.length}
                 favorites={books.filter((book) => book.status === true).length}

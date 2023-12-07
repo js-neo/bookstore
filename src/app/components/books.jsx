@@ -9,7 +9,7 @@ const Books = ({ books, onDelete, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1),
         [currentFilter, setCurrentFilter] = useState(""),
         [menuVisibility, setMenuVisibility] = useState({}),
-        [selectedFilter, setSelectedFilter] = useState(null),
+        [selectedFilter, setSelectedFilter] = useState({}),
         PAGE_SIZE = 8,
         pagesCount = Math.ceil(books.length / PAGE_SIZE),
         pages = Array.from({ length: pagesCount }, (_, i) => i + 1),
@@ -43,7 +43,8 @@ const Books = ({ books, onDelete, ...rest }) => {
                 propKey
             });
             console.log("filteredBooks:", filteredBooks);
-        };
+        },
+        handleClearFilter = () => setSelectedFilter({});
 
     console.log("selectedFilter:", selectedFilter);
 
@@ -70,6 +71,7 @@ const Books = ({ books, onDelete, ...rest }) => {
                 menuVisibility={menuVisibility}
                 onSelect={handleSelect}
                 onFilter={handleFilter}
+                onClearFilter={handleClearFilter}
             />
             {books.length > 0 && (
                 <table className="table table-dark table-striped table-hover m-0">
