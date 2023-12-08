@@ -18,7 +18,7 @@ const App = () => {
             );
         };
     return (
-        <div className="container">
+        <div className="custom-container">
             <div className="row justify-content-center">
                 <div className="col-11">
                     <Books

@@ -54,6 +54,15 @@ code {
     background-color: #343a40;
 }
 
+ .custom-container {
+     width: 95vw;
+     max-width: 100%;
+     margin-left: auto;
+     margin-right: auto;
+ }
+
+
+
 
 
 
