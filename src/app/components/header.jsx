@@ -57,10 +57,13 @@ const Header = () => {
                     >
                         <input
                             type="search"
-                            className="form-control form-control-dark text-bg-dark text-white"
+                            className="form-control form-control-dark custom-input"
                             placeholder="Search..."
                             aria-label="Search"
-                            style={{ color: "#fff", opacity: "0.7" }}
+                            style={{
+                                color: "#fff",
+                                "::placeholder": { color: "#fff", opacity: 0.7 }
+                            }}
                         />
                     </form>
 
