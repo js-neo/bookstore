@@ -21,11 +21,11 @@ const TotalStatus = ({ length, favorites }) => {
         <div>
             {length > 0 && (
                 <div className="d-flex justify-content-between badge bg-primary border border-light border-2 text-start text-light my-4">
-                    <h4>{`Всего в коллекции ${length} книг${editorWords(
+                    <h4 className="mx-5">{`В коллекции ${length} книг${editorWords(
                         length
                     )}`}</h4>
                     {favorites > 0 && (
-                        <h4>{`Всего в избранном ${favorites} книг${editorWords(
+                        <h4 className="mx-5">{`В избранном ${favorites} книг${editorWords(
                             favorites
                         )}`}</h4>
                     )}

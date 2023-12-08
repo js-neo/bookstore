@@ -17,77 +17,82 @@ const Dropdown = ({
             : "";
     };
     return (
-        <div className="d-flex m-2">
-            <span className="text-light">Сортировка по: </span>
-            {sortingCriteria.map(
-                ({ _id, eventKey, criteria, category, filterKey }) => (
-                    <div key={_id} className="dropdown">
-                        <button
-                            type="button"
-                            id={_id}
-                            className={`btn btn-primary dropdown-toggle mx-2 border border-light border-2 ${toggleShow(
-                                eventKey
-                            )}`}
-                            data-bs-toggle="dropdown"
-                            aria-expanded={
-                                menuVisibility[eventKey] === eventKey
-                                    ? "true"
-                                    : "false"
-                            }
-                            onClick={() => onSelect(eventKey)}
-                        >
-                            {criteria}
-                        </button>
-                        <ul
-                            className={`dropdown-menu dropdown-menu-dark ${toggleShow(
-                                eventKey
-                            )}`}
-                            aria-labelledby={_id}
-                            style={{
-                                maxHeight: "200px",
-                                overflowY: "auto",
-                                overflowX: "hidden"
-                            }}
-                        >
-                            {Object.values(
-                                api[category][
-                                    `fetchAll${
-                                        category.slice(0, 1).toUpperCase() +
-                                        category.slice(1)
-                                    }`
-                                ]()
-                            )
-                                .sort((a, b) =>
-                                    a[filterKey] > b[filterKey] ? 1 : -1
+        <div className="d-flex mt-4 mb-2 justify-content-between">
+            <div className="d-flex align-items-center">
+                <span className="text-light fw-bold text-shadow">
+                    Фильтры:{" "}
+                </span>
+
+                {sortingCriteria.map(
+                    ({ _id, eventKey, criteria, category, filterKey }) => (
+                        <div key={_id} className="dropdown">
+                            <button
+                                type="button"
+                                id={_id}
+                                className={`btn btn-primary dropdown-toggle mx-2 border border-light border-2 ${toggleShow(
+                                    eventKey
+                                )}`}
+                                data-bs-toggle="dropdown"
+                                aria-expanded={
+                                    menuVisibility[eventKey] === eventKey
+                                        ? "true"
+                                        : "false"
+                                }
+                                onClick={() => onSelect(eventKey)}
+                            >
+                                {criteria}
+                            </button>
+                            <ul
+                                className={`dropdown-menu dropdown-menu-dark ${toggleShow(
+                                    eventKey
+                                )}`}
+                                aria-labelledby={_id}
+                                style={{
+                                    maxHeight: "200px",
+                                    overflowY: "auto",
+                                    overflowX: "hidden"
+                                }}
+                            >
+                                {Object.values(
+                                    api[category][
+                                        `fetchAll${
+                                            category.slice(0, 1).toUpperCase() +
+                                            category.slice(1)
+                                        }`
+                                    ]()
                                 )
-                                .map((item) => {
-                                    return (
-                                        <li
-                                            key={item._id}
-                                            onClick={() =>
-                                                onFilter(item, eventKey)
-                                            }
-                                        >
-                                            <a
-                                                className={`dropdown-item ${
-                                                    selectedFilter.listItem ===
-                                                    item
-                                                        ? "active"
-                                                        : ""
-                                                }`}
-                                                href="#"
+                                    .sort((a, b) =>
+                                        a[filterKey] > b[filterKey] ? 1 : -1
+                                    )
+                                    .map((item) => {
+                                        return (
+                                            <li
+                                                key={item._id}
+                                                onClick={() =>
+                                                    onFilter(item, eventKey)
+                                                }
                                             >
-                                                {item[filterKey]}
-                                            </a>
-                                        </li>
-                                    );
-                                })}
-                        </ul>
-                    </div>
-                )
-            )}
+                                                <a
+                                                    className={`dropdown-item ${
+                                                        selectedFilter.listItem ===
+                                                        item
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                    href="#"
+                                                >
+                                                    {item[filterKey]}
+                                                </a>
+                                            </li>
+                                        );
+                                    })}
+                            </ul>
+                        </div>
+                    )
+                )}
+            </div>
             <button
-                className="btn btn-sm btn-primary mx-2 border border-light border-2"
+                className="btn btn-primary border border-light border-2"
                 onClick={onClearFilter}
             >
                 Сброс фильтров

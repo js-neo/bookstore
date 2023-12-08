@@ -22,10 +22,7 @@ const Header = () => {
 
                     <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li>
-                            <a
-                                href="#"
-                                className="nav-link px-2 text-secondary"
-                            >
+                            <a href="#" className="nav-link px-2 text-light">
                                 Home
                             </a>
                         </li>
@@ -67,19 +64,23 @@ const Header = () => {
                         />
                     </form>
 
-                    <div className="text-end">
-                        <button
-                            type="button"
-                            className="btn btn-outline-primary me-2"
-                        >
-                            Login
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-primary border border-light"
-                        >
-                            Sign-up
-                        </button>
+                    <div className="text-end d-flex">
+                        <div className="button-container">
+                            <button
+                                type="button"
+                                className="btn btn-outline-primary me-2 custom-button"
+                            >
+                                Login
+                            </button>
+                        </div>
+                        <div className="button-container">
+                            <button
+                                type="button"
+                                className="btn btn-outline-primary custom-button"
+                            >
+                                Sign-up
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
