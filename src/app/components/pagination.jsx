@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const Pagination = ({ currentPage, pages, onChangePage }) => {
     return (
-        <nav aria-label="..." className="navbar bg-dark pt-3 fixed-bottom">
+        <nav aria-label="..." className="navbar bg-dark pt-3">
             <ul className="pagination">
                 {currentPage > 1 && (
                     <li

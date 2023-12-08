@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 const Dropdown = ({
     currentFilter,
     menuVisibility,
+    selectedFilter,
     onSelect,
     onFilter,
     onClearFilter
@@ -68,7 +69,12 @@ const Dropdown = ({
                                             }
                                         >
                                             <a
-                                                className={`dropdown-item`}
+                                                className={`dropdown-item ${
+                                                    selectedFilter.listItem ===
+                                                    item
+                                                        ? "active"
+                                                        : ""
+                                                }`}
                                                 href="#"
                                             >
                                                 {item[filterKey]}
@@ -93,6 +99,7 @@ const Dropdown = ({
 Dropdown.propTypes = {
     currentFilter: PropTypes.string,
     menuVisibility: PropTypes.object,
+    selectedFilter: PropTypes.object,
     onSelect: PropTypes.func,
     onFilter: PropTypes.func,
     onClearFilter: PropTypes.func
