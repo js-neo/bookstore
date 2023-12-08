@@ -6,11 +6,7 @@ const Pagination = ({ currentPage, pages, onChangePage }) => {
         <nav aria-label="..." className="navbar bg-dark pt-3">
             <ul className="pagination">
                 {currentPage > 1 && (
-                    <li
-                        className={`page-item ${
-                            currentPage === 1 ? "disabled" : ""
-                        }`}
-                    >
+                    <li className={`page-item mx-1`}>
                         <a
                             className={`page-link bg-dark btn ${
                                 currentPage !== 1 ? "text-light" : ""
@@ -28,7 +24,7 @@ const Pagination = ({ currentPage, pages, onChangePage }) => {
                             key={page}
                             className={`page-item ${
                                 currentPage === page ? "active" : ""
-                            }`}
+                            } mx-1`}
                             aria-current={currentPage === page ? "page" : null}
                         >
                             <a
@@ -43,7 +39,7 @@ const Pagination = ({ currentPage, pages, onChangePage }) => {
                     );
                 })}
                 {currentPage < pages.length && (
-                    <li className="page-item">
+                    <li className="page-item mx-1">
                         <a
                             className={`page-link bg-dark btn ${
                                 currentPage !== pages.length ? "text-light" : ""

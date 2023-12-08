@@ -17,7 +17,7 @@ const Dropdown = ({
             : "";
     };
     return (
-        <div className="d-flex">
+        <div className="d-flex m-2">
             <span className="text-light">Сортировка по: </span>
             {sortingCriteria.map(
                 ({ _id, eventKey, criteria, category, filterKey }) => (
