@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Book from "./book";
 import Pagination from "./pagination";
 import Header from "./header";
 import TotalStatus from "./totalStatus";
 import PropTypes from "prop-types";
 import { paginate } from "../utils/paginate";
 import Dropdown from "./dropdown";
+import BooksTable from "./booksTable";
 
 const Books = ({ books, onDelete, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1),
@@ -40,7 +40,14 @@ const Books = ({ books, onDelete, ...rest }) => {
                 propKey
             });
         },
-        handleClearFilter = () => setFilterValue({});
+        handleClearFilter = () => setFilterValue({}),
+        handleSort = (direct, filterKey) => {
+            console.log("direction:", direct);
+            const newBooks = [...books];
+            return direct === "up "
+                ? newBooks.sort((a, b) => (a > b ? 1 : -1))
+                : newBooks.sort((a, b) => (a > b ? -1 : 1));
+        };
 
     useEffect(() => {
         const handleOutsideClickMenu = ({ target }) => {
@@ -79,34 +86,12 @@ const Books = ({ books, onDelete, ...rest }) => {
                 onClearFilter={handleClearFilter}
             />
             {count > 0 && (
-                <table className="table table-dark table-striped table-hover m-0">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Genre</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Publication year</th>
-                            <th scope="col">Rating</th>
-                            <th scope="col">Price</th>
-                            <th scope="col" className="text-center">
-                                Favorites
-                            </th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {booksSlice.map((book, i) => (
-                            <Book
-                                key={book._id}
-                                index={i}
-                                onClick={() => onDelete(book.status, book._id)}
-                                {...rest}
-                                {...book}
-                            />
-                        ))}
-                    </tbody>
-                </table>
+                <BooksTable
+                    books={booksSlice}
+                    onDelete={onDelete}
+                    onSort={handleSort}
+                    {...rest}
+                />
             )}
             {pagesCount > 1 && (
                 <div className="d-flex justify-content-center">
