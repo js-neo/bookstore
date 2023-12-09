@@ -9,38 +9,38 @@ import Dropdown from "./dropdown";
 
 const Books = ({ books, onDelete, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1),
-        [currentFilter, setCurrentFilter] = useState(""),
+        [selectedFilter, setSelectedFilter] = useState(""),
         [menuVisibility, setMenuVisibility] = useState({}),
-        [selectedFilter, setSelectedFilter] = useState({}),
-        PAGE_SIZE = 8,
-        filteredBooks = selectedFilter
+        [filterValue, setFilterValue] = useState({}),
+        PAGE_SIZE = 2,
+        filteredBooks = filterValue
             ? books.filter((book) => {
-                  return typeof book[selectedFilter.propKey] === "number" ||
-                      typeof book[selectedFilter.propKey] === "string"
-                      ? selectedFilter.listItem === book
-                      : selectedFilter.listItem ===
-                            book[selectedFilter.propKey];
+                  return typeof book[filterValue.propKey] === "number" ||
+                      typeof book[filterValue.propKey] === "string"
+                      ? filterValue.listItem === book
+                      : filterValue.listItem === book[filterValue.propKey];
               })
             : books,
+        count = filteredBooks.length,
         booksSlice = paginate(filteredBooks, PAGE_SIZE, currentPage),
-        pagesCount = Math.ceil(filteredBooks.length / PAGE_SIZE),
+        pagesCount = Math.ceil(count / PAGE_SIZE),
         pages = Array.from({ length: pagesCount }, (_, i) => i + 1),
         handleChangePage = (page) => {
             setCurrentPage(page);
         },
         handleSelect = (propEvent) => {
-            setCurrentFilter(propEvent);
+            setSelectedFilter(propEvent);
             setMenuVisibility((prevState) => {
                 return { [propEvent]: !prevState[propEvent] };
             });
         },
         handleFilter = (listItem, propKey) => {
-            setSelectedFilter({
+            setFilterValue({
                 listItem,
                 propKey
             });
         },
-        handleClearFilter = () => setSelectedFilter({});
+        handleClearFilter = () => setFilterValue({});
 
     useEffect(() => {
         const handleOutsideClickMenu = ({ target }) => {
@@ -53,6 +53,10 @@ const Books = ({ books, onDelete, ...rest }) => {
             document.removeEventListener("click", handleOutsideClickMenu);
     }, []);
 
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [filterValue]);
+
     if (currentPage > pagesCount) {
         setCurrentPage(pagesCount);
     }
@@ -61,20 +65,20 @@ const Books = ({ books, onDelete, ...rest }) => {
         <div className="vh-100 bg-dark">
             <Header />
             <TotalStatus
-                length={filteredBooks.length}
+                length={count}
                 favorites={
                     filteredBooks.filter((book) => book.status === true).length
                 }
             />
             <Dropdown
-                currentFilter={currentFilter}
-                menuVisibility={menuVisibility}
                 selectedFilter={selectedFilter}
+                menuVisibility={menuVisibility}
+                filterValue={filterValue}
                 onSelect={handleSelect}
                 onFilter={handleFilter}
                 onClearFilter={handleClearFilter}
             />
-            {filteredBooks.length > 0 && (
+            {count > 0 && (
                 <table className="table table-dark table-striped table-hover m-0">
                     <thead>
                         <tr>

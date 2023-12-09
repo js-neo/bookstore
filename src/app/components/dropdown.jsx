@@ -4,15 +4,15 @@ import api from "../api";
 import PropTypes from "prop-types";
 
 const Dropdown = ({
-    currentFilter,
-    menuVisibility,
     selectedFilter,
+    menuVisibility,
+    filterValue,
     onSelect,
     onFilter,
     onClearFilter
 }) => {
     const toggleShow = (eventKey) => {
-        return menuVisibility[eventKey] && currentFilter === eventKey
+        return menuVisibility[eventKey] && selectedFilter === eventKey
             ? "show"
             : "";
     };
@@ -74,7 +74,7 @@ const Dropdown = ({
                                             >
                                                 <a
                                                     className={`dropdown-item ${
-                                                        selectedFilter.listItem ===
+                                                        filterValue.listItem ===
                                                         item
                                                             ? "active"
                                                             : ""
@@ -102,9 +102,9 @@ const Dropdown = ({
 };
 
 Dropdown.propTypes = {
-    currentFilter: PropTypes.string,
+    selectedFilter: PropTypes.string,
     menuVisibility: PropTypes.object,
-    selectedFilter: PropTypes.object,
+    filterValue: PropTypes.object,
     onSelect: PropTypes.func,
     onFilter: PropTypes.func,
     onClearFilter: PropTypes.func
