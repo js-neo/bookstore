@@ -12,17 +12,43 @@ const Books = ({ books, onDelete, ...rest }) => {
         [selectedFilter, setSelectedFilter] = useState(""),
         [menuVisibility, setMenuVisibility] = useState({}),
         [filterValue, setFilterValue] = useState({}),
-        PAGE_SIZE = 2,
-        filteredBooks = filterValue
-            ? books.filter((book) => {
-                  return typeof book[filterValue.propKey] === "number" ||
-                      typeof book[filterValue.propKey] === "string"
-                      ? filterValue.listItem === book
-                      : filterValue.listItem === book[filterValue.propKey];
-              })
-            : books,
+        [sortBy, setSortBy] = useState({ iterator: "title", order: "up" }),
+        PAGE_SIZE = 8,
+        filteredBooks =
+            Object.keys(filterValue).length !== 0
+                ? books.filter((book) => {
+                      return typeof book[filterValue.propKey] === "object"
+                          ? filterValue.listItem === book[filterValue.propKey]
+                          : filterValue.listItem === book;
+                  })
+                : books,
         count = filteredBooks.length,
-        booksSlice = paginate(filteredBooks, PAGE_SIZE, currentPage),
+        sortedBooks = (sortedKey, direct) => {
+            return direct === "up"
+                ? filteredBooks.sort((a, b) => {
+                      let prop1 = a[sortedKey] ? a[sortedKey] : false,
+                          prop2 = b[sortedKey] ? b[sortedKey] : false;
+                      if (typeof prop1 === "object") {
+                          prop1 = prop1.name;
+                          prop2 = prop2.name;
+                      }
+                      return prop1 > prop2 ? 1 : -1;
+                  })
+                : filteredBooks.sort((a, b) => {
+                      let prop1 = a[sortedKey] ? a[sortedKey] : false,
+                          prop2 = b[sortedKey] ? b[sortedKey] : false;
+                      if (typeof a[sortedKey] === "object") {
+                          prop1 = prop1.name;
+                          prop2 = prop2.name;
+                      }
+                      return prop2 > prop1 ? 1 : -1;
+                  });
+        },
+        booksSlice = paginate(
+            sortedBooks(sortBy.iterator, sortBy.order),
+            PAGE_SIZE,
+            currentPage
+        ),
         pagesCount = Math.ceil(count / PAGE_SIZE),
         pages = Array.from({ length: pagesCount }, (_, i) => i + 1),
         handleChangePage = (page) => {
@@ -41,12 +67,8 @@ const Books = ({ books, onDelete, ...rest }) => {
             });
         },
         handleClearFilter = () => setFilterValue({}),
-        handleSort = (direct, filterKey) => {
-            console.log("direction:", direct);
-            const newBooks = [...books];
-            return direct === "up "
-                ? newBooks.sort((a, b) => (a > b ? 1 : -1))
-                : newBooks.sort((a, b) => (a > b ? -1 : 1));
+        handleSort = (sortedKey, direct) => {
+            setSortBy({ iterator: sortedKey, order: direct });
         };
 
     useEffect(() => {

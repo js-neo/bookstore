@@ -13,31 +13,34 @@ const BooksTable = ({ books, onDelete, onSort, ...rest }) => {
                     </th>
                     <th scope="col" className="text-center">
                         <span>Title </span>
-                        <TriangleButtons onSort={onSort} />
+                        <TriangleButtons onSort={onSort} sortedKey="title" />
                     </th>
                     <th scope="col" className="text-center">
                         <span>Genre </span>
-                        <TriangleButtons onSort={onSort} />
+                        <TriangleButtons onSort={onSort} sortedKey="genre" />
                     </th>
                     <th scope="col" className="text-center">
                         <span>Author </span>
-                        <TriangleButtons onSort={onSort} />
+                        <TriangleButtons onSort={onSort} sortedKey="author" />
                     </th>
                     <th scope="col" className="text-center">
                         <span>Publication year </span>
-                        <TriangleButtons onSort={onSort} />
+                        <TriangleButtons
+                            onSort={onSort}
+                            sortedKey="publicationYear"
+                        />
                     </th>
                     <th scope="col" className="text-center">
                         <span>Rating </span>
-                        <TriangleButtons onSort={onSort} />
+                        <TriangleButtons onSort={onSort} sortedKey="rating" />
                     </th>
                     <th scope="col" className="text-center">
                         <span>Price </span>
-                        <TriangleButtons onSort={onSort} />
+                        <TriangleButtons onSort={onSort} sortedKey="price" />
                     </th>
                     <th scope="col" className="text-center">
                         <span>Favorites </span>
-                        <TriangleButtons onSort={onSort} />
+                        <TriangleButtons onSort={onSort} sortedKey="status" />
                     </th>
                     <th scope="col" className="text-center"></th>
                 </tr>
