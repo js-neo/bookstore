@@ -1,48 +1,63 @@
 import React from "react";
 import Book from "./book";
 import PropTypes from "prop-types";
-import TriangleButtons from "./triangleButtons";
 
 const BooksTable = ({ books, onDelete, onSort, ...rest }) => {
     return (
         <table className="table table-dark table-striped table-hover mt-4">
             <thead>
                 <tr className="border border-light border-2">
-                    <th scope="col" className="text-center">
-                        #
-                    </th>
-                    <th scope="col" className="text-center">
+                    <th scope="col">#</th>
+                    <th
+                        scope="col"
+                        onClick={() => onSort("title")}
+                        style={{ cursor: "pointer" }}
+                    >
                         <span>Title </span>
-                        <TriangleButtons onSort={onSort} sortedKey="title" />
                     </th>
-                    <th scope="col" className="text-center">
+                    <th
+                        scope="col"
+                        onClick={() => onSort("genre.name")}
+                        style={{ cursor: "pointer" }}
+                    >
                         <span>Genre </span>
-                        <TriangleButtons onSort={onSort} sortedKey="genre" />
                     </th>
-                    <th scope="col" className="text-center">
+                    <th
+                        scope="col"
+                        onClick={() => onSort("author.name")}
+                        style={{ cursor: "pointer" }}
+                    >
                         <span>Author </span>
-                        <TriangleButtons onSort={onSort} sortedKey="author" />
                     </th>
-                    <th scope="col" className="text-center">
+                    <th
+                        scope="col"
+                        onClick={() => onSort("publicationYear")}
+                        style={{ cursor: "pointer" }}
+                    >
                         <span>Publication year </span>
-                        <TriangleButtons
-                            onSort={onSort}
-                            sortedKey="publicationYear"
-                        />
                     </th>
-                    <th scope="col" className="text-center">
+                    <th
+                        scope="col"
+                        onClick={() => onSort("rating")}
+                        style={{ cursor: "pointer" }}
+                    >
                         <span>Rating </span>
-                        <TriangleButtons onSort={onSort} sortedKey="rating" />
                     </th>
-                    <th scope="col" className="text-center">
+                    <th
+                        scope="col"
+                        onClick={() => onSort("price")}
+                        style={{ cursor: "pointer" }}
+                    >
                         <span>Price </span>
-                        <TriangleButtons onSort={onSort} sortedKey="price" />
                     </th>
-                    <th scope="col" className="text-center">
+                    <th
+                        scope="col"
+                        onClick={() => onSort("status")}
+                        style={{ cursor: "pointer" }}
+                    >
                         <span>Favorites </span>
-                        <TriangleButtons onSort={onSort} sortedKey="status" />
                     </th>
-                    <th scope="col" className="text-center"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>

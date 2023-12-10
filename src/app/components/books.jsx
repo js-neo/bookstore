@@ -6,49 +6,29 @@ import PropTypes from "prop-types";
 import { paginate } from "../utils/paginate";
 import Dropdown from "./dropdown";
 import BooksTable from "./booksTable";
+import _ from "lodash";
 
 const Books = ({ books, onDelete, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1),
         [selectedFilter, setSelectedFilter] = useState(""),
         [menuVisibility, setMenuVisibility] = useState({}),
         [filterValue, setFilterValue] = useState({}),
-        [sortBy, setSortBy] = useState({ iterator: "title", order: "up" }),
+        [sortBy, setSortBy] = useState({ iterator: "title", order: "asc" }),
         PAGE_SIZE = 8,
-        filteredBooks =
-            Object.keys(filterValue).length !== 0
-                ? books.filter((book) => {
-                      return typeof book[filterValue.propKey] === "object"
-                          ? filterValue.listItem === book[filterValue.propKey]
-                          : filterValue.listItem === book;
-                  })
-                : books,
+        filteredBooks = _.isEmpty(filterValue)
+            ? books
+            : books.filter((book) => {
+                  return typeof book[filterValue.propKey] === "object"
+                      ? filterValue.listItem === book[filterValue.propKey]
+                      : filterValue.listItem === book;
+              }),
         count = filteredBooks.length,
-        sortedBooks = (sortedKey, direct) => {
-            return direct === "up"
-                ? filteredBooks.sort((a, b) => {
-                      let prop1 = a[sortedKey] ? a[sortedKey] : false,
-                          prop2 = b[sortedKey] ? b[sortedKey] : false;
-                      if (typeof prop1 === "object") {
-                          prop1 = prop1.name;
-                          prop2 = prop2.name;
-                      }
-                      return prop1 > prop2 ? 1 : -1;
-                  })
-                : filteredBooks.sort((a, b) => {
-                      let prop1 = a[sortedKey] ? a[sortedKey] : false,
-                          prop2 = b[sortedKey] ? b[sortedKey] : false;
-                      if (typeof a[sortedKey] === "object") {
-                          prop1 = prop1.name;
-                          prop2 = prop2.name;
-                      }
-                      return prop2 > prop1 ? 1 : -1;
-                  });
-        },
-        booksSlice = paginate(
-            sortedBooks(sortBy.iterator, sortBy.order),
-            PAGE_SIZE,
-            currentPage
+        sortedBooks = _.orderBy(
+            filteredBooks,
+            [sortBy.iterator],
+            [sortBy.order]
         ),
+        booksSlice = paginate(sortedBooks, PAGE_SIZE, currentPage),
         pagesCount = Math.ceil(count / PAGE_SIZE),
         pages = Array.from({ length: pagesCount }, (_, i) => i + 1),
         handleChangePage = (page) => {
@@ -67,8 +47,17 @@ const Books = ({ books, onDelete, ...rest }) => {
             });
         },
         handleClearFilter = () => setFilterValue({}),
-        handleSort = (sortedKey, direct) => {
-            setSortBy({ iterator: sortedKey, order: direct });
+        handleSort = (sortedKey) => {
+            setSortBy((prevState) => {
+                if (prevState.iterator === sortedKey) {
+                    return {
+                        ...prevState,
+                        order: prevState.order === "asc" ? "desc" : "asc"
+                    };
+                } else {
+                    return { iterator: sortedKey, order: "asc" };
+                }
+            });
         };
 
     useEffect(() => {
