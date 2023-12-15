@@ -1,39 +1,39 @@
 export const columns = {
-    rowNumber: { _id: "3g9c9f3r8v0y5w1p3r1h6o3k", name: "#" },
+    rowNumber: { _id: "42gths3daw1x9gscwl566272", name: "#" },
     title: {
-        _id: "8l8w1h0k0o3q2h5m2c8m7p5c",
+        _id: "29oice4med6v9liwle494953",
         iterator: "title",
         name: "Title"
     },
     genres: {
-        _id: "7o4z6d0a6j5q7t0o8g8l6h8b",
+        _id: "75ykdo4aea1y9blgnl414513",
         iterator: "genre.name",
         name: "Genre"
     },
     authors: {
-        _id: "7k0p3u8l7p7d7q8y7r7v9j5b",
+        _id: "19hwiy1srb6y4chiso290687",
         iterator: "author.name",
         name: "Author"
     },
     publicationYear: {
-        _id: "6o7s7l4k4v6b5q9c6j2n8d8f",
+        _id: "18cieb1ssk5s7siybk258557",
         iterator: "publicationYear",
         name: "Publication Year"
     },
     rating: {
-        _id: "3e1n5u1c4o0t8a4r6g5m8f3p",
+        _id: "37onhi7uui3z9qvzoa123482",
         iterator: "rating",
         name: "Rating"
     },
     price: {
-        _id: "6p9j2j5g7r1v5j7g8y1r2g7r",
+        _id: "44fvsa9lrq8o4pvlfo223222",
         iterator: "price",
         name: "Price"
     },
     bookmark: {
-        _id: "1y7u0b6r2f3u6o0f8r4j7h1s",
+        _id: "22jphs8qxp3v2mwuyo449643",
         iterator: "status",
         name: "Favorites"
     },
-    delete: { _id: "2p8t6h1a6l3p2a2g2q7t0u3h" }
+    delete: { _id: "71lvpb4qfu9h8tbsgh207532" }
 };

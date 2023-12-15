@@ -6,7 +6,7 @@ import HeaderTable from "./headerTable";
 const BooksTable = ({ books, selectedSort, onDelete, onSort, ...rest }) => {
     return (
         <table className="table table-dark table-striped table-hover mt-4">
-            <HeaderTable selectedSort={selectedSort} onSort={onSort} />
+            <HeaderTable {...{ onSort, selectedSort }} />
             <tbody>
                 {books.map((book, i) => (
                     <Book

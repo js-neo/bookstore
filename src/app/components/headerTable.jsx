@@ -25,7 +25,7 @@ const HeaderTable = ({ selectedSort, onSort }) => {
                                 ? () => handleSort(columns[column].iterator)
                                 : null
                         }
-                        role={columns[column].iterator ? "button" : null}
+                        {...{ role: columns[column].iterator && "button" }}
                     >
                         <span>{columns[column].name}</span>
                     </th>
