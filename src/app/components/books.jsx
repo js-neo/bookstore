@@ -47,17 +47,8 @@ const Books = ({ books, onDelete, ...rest }) => {
             });
         },
         handleClearFilter = () => setFilterValue({}),
-        handleSort = (sortedKey) => {
-            setSortBy((prevState) => {
-                if (prevState.iterator === sortedKey) {
-                    return {
-                        ...prevState,
-                        order: prevState.order === "asc" ? "desc" : "asc"
-                    };
-                } else {
-                    return { iterator: sortedKey, order: "asc" };
-                }
-            });
+        handleSort = (sortConfig) => {
+            setSortBy(sortConfig);
         };
 
     useEffect(() => {
@@ -99,6 +90,7 @@ const Books = ({ books, onDelete, ...rest }) => {
             {count > 0 && (
                 <BooksTable
                     books={booksSlice}
+                    selectedSort={sortBy}
                     onDelete={onDelete}
                     onSort={handleSort}
                     {...rest}
