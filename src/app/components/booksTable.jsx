@@ -1,23 +1,13 @@
 import React from "react";
-import Book from "./book";
 import PropTypes from "prop-types";
-import HeaderTable from "./headerTable";
+import TableHeader from "./tableHeader";
+import TableBody from "./tableBody";
 
 const BooksTable = ({ books, selectedSort, onDelete, onSort, ...rest }) => {
     return (
         <table className="table table-dark table-striped table-hover mt-4">
-            <HeaderTable {...{ onSort, selectedSort }} />
-            <tbody>
-                {books.map((book, i) => (
-                    <Book
-                        key={book._id}
-                        index={i}
-                        onClick={() => onDelete(book.status, book._id)}
-                        {...rest}
-                        {...book}
-                    />
-                ))}
-            </tbody>
+            <TableHeader {...{ onSort, selectedSort }} />
+            <TableBody data={books} />
         </table>
     );
 };

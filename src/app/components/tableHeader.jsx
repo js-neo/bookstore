@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { columns } from "../constants/columns";
 
-const HeaderTable = ({ selectedSort, onSort }) => {
+const TableHeader = ({ selectedSort, onSort }) => {
     const handleSort = (sortedKey) => {
         if (selectedSort.iterator === sortedKey) {
             onSort({
@@ -21,11 +21,11 @@ const HeaderTable = ({ selectedSort, onSort }) => {
                         key={columns[column]._id}
                         scope="col"
                         onClick={
-                            columns[column].iterator
-                                ? () => handleSort(columns[column].iterator)
+                            columns[column].path
+                                ? () => handleSort(columns[column].path)
                                 : null
                         }
-                        {...{ role: columns[column].iterator && "button" }}
+                        {...{ role: columns[column].path && "button" }}
                     >
                         <span>{columns[column].name}</span>
                     </th>
@@ -35,10 +35,10 @@ const HeaderTable = ({ selectedSort, onSort }) => {
     );
 };
 
-HeaderTable.propTypes = {
+TableHeader.propTypes = {
     columns: PropTypes.object,
     selectedSort: PropTypes.object,
     onSort: PropTypes.func
 };
 
-export default HeaderTable;
+export default TableHeader;
