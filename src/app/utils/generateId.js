@@ -13,7 +13,7 @@ export function generateId() {
         }
     }
 
-    return `_id: "${id}"`;
+    return `${id}`;
 }
 
 export function generateUniqueId() {

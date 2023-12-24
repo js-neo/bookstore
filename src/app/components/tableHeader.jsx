@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { columns } from "../constants/columns";
 
-const TableHeader = ({ selectedSort, onSort }) => {
+const TableHeader = ({ selectedSort, onSort, columns }) => {
     const handleSort = (sortedKey) => {
         if (selectedSort.iterator === sortedKey) {
             onSort({

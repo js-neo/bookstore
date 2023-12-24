@@ -8,7 +8,7 @@ import Dropdown from "./dropdown";
 import BooksTable from "./booksTable";
 import _ from "lodash";
 
-const Books = ({ books, onDelete, ...rest }) => {
+const Books = ({ books, onDelete, onToggleBookmark }) => {
     const [currentPage, setCurrentPage] = useState(1),
         [selectedFilter, setSelectedFilter] = useState(""),
         [menuVisibility, setMenuVisibility] = useState({}),
@@ -91,9 +91,11 @@ const Books = ({ books, onDelete, ...rest }) => {
                 <BooksTable
                     books={booksSlice}
                     selectedSort={sortBy}
+                    currentPage={currentPage}
+                    pageSize={PAGE_SIZE}
                     onDelete={onDelete}
                     onSort={handleSort}
-                    {...rest}
+                    onToggleBookmark={onToggleBookmark}
                 />
             )}
             {pagesCount > 1 && (
@@ -111,7 +113,8 @@ const Books = ({ books, onDelete, ...rest }) => {
 
 Books.propTypes = {
     books: PropTypes.array,
-    onDelete: PropTypes.func
+    onDelete: PropTypes.func,
+    onToggleBookmark: PropTypes.func
 };
 
 export default Books;
