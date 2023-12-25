@@ -13,7 +13,7 @@ const Books = ({ books, onDelete, onToggleBookmark }) => {
         [selectedFilter, setSelectedFilter] = useState(""),
         [menuVisibility, setMenuVisibility] = useState({}),
         [filterValue, setFilterValue] = useState({}),
-        [sortBy, setSortBy] = useState({ iterator: "title", order: "asc" }),
+        [sortBy, setSortBy] = useState({ path: "title", order: "asc" }),
         PAGE_SIZE = 8,
         filteredBooks = _.isEmpty(filterValue)
             ? books
@@ -23,11 +23,7 @@ const Books = ({ books, onDelete, onToggleBookmark }) => {
                       : filterValue.listItem === book;
               }),
         count = filteredBooks.length,
-        sortedBooks = _.orderBy(
-            filteredBooks,
-            [sortBy.iterator],
-            [sortBy.order]
-        ),
+        sortedBooks = _.orderBy(filteredBooks, [sortBy.path], [sortBy.order]),
         booksSlice = paginate(sortedBooks, PAGE_SIZE, currentPage),
         pagesCount = Math.ceil(count / PAGE_SIZE),
         pages = Array.from({ length: pagesCount }, (_, i) => i + 1),

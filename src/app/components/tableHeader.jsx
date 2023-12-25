@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 
 const TableHeader = ({ selectedSort, onSort, columns }) => {
     const handleSort = (sortedKey) => {
-        if (selectedSort.iterator === sortedKey) {
+        if (selectedSort.path === sortedKey) {
             onSort({
                 ...selectedSort,
                 order: selectedSort.order === "asc" ? "desc" : "asc"
             });
         } else {
-            onSort({ iterator: sortedKey, order: "asc" });
+            onSort({ path: sortedKey, order: "asc" });
         }
     };
     return (
