@@ -12,7 +12,17 @@ const TableHeader = ({ selectedSort, onSort, columns }) => {
                 onSort({ path: sortedKey, order: "asc" });
             }
         },
-        getCaretDirect = (order) => (order === "asc" ? "up" : "down");
+        renderSortArrow = (selectedSort, currentPath) =>
+            selectedSort.path === currentPath && (
+                <span className="text-primary ms-2">
+                    <i
+                        className={`bi bi-caret-${
+                            selectedSort.order === "asc" ? "up" : "down"
+                        }-fill`}
+                    ></i>
+                </span>
+            );
+
     return (
         <thead>
             <tr className="border border-light border-2">
@@ -28,15 +38,7 @@ const TableHeader = ({ selectedSort, onSort, columns }) => {
                         {...{ role: columns[column].path && "button" }}
                     >
                         <span>{columns[column].name}</span>
-                        {columns[column].path === selectedSort.path && (
-                            <span className="text-primary ms-2">
-                                <i
-                                    className={`bi bi-caret-${getCaretDirect(
-                                        selectedSort.order
-                                    )}-fill`}
-                                ></i>
-                            </span>
-                        )}
+                        {renderSortArrow(selectedSort, columns[column].path)}
                     </th>
                 ))}
             </tr>
