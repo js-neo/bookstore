@@ -3,15 +3,16 @@ import PropTypes from "prop-types";
 
 const TableHeader = ({ selectedSort, onSort, columns }) => {
     const handleSort = (sortedKey) => {
-        if (selectedSort.path === sortedKey) {
-            onSort({
-                ...selectedSort,
-                order: selectedSort.order === "asc" ? "desc" : "asc"
-            });
-        } else {
-            onSort({ path: sortedKey, order: "asc" });
-        }
-    };
+            if (selectedSort.path === sortedKey) {
+                onSort({
+                    ...selectedSort,
+                    order: selectedSort.order === "asc" ? "desc" : "asc"
+                });
+            } else {
+                onSort({ path: sortedKey, order: "asc" });
+            }
+        },
+        getCaretDirect = (order) => (order === "asc" ? "up" : "down");
     return (
         <thead>
             <tr className="border border-light border-2">
@@ -27,6 +28,15 @@ const TableHeader = ({ selectedSort, onSort, columns }) => {
                         {...{ role: columns[column].path && "button" }}
                     >
                         <span>{columns[column].name}</span>
+                        {columns[column].path === selectedSort.path && (
+                            <span className="text-primary ms-2">
+                                <i
+                                    className={`bi bi-caret-${getCaretDirect(
+                                        selectedSort.order
+                                    )}-fill`}
+                                ></i>
+                            </span>
+                        )}
                     </th>
                 ))}
             </tr>
