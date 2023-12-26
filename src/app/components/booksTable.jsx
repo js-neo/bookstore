@@ -4,6 +4,7 @@ import TableHeader from "./tableHeader";
 import TableBody from "./tableBody";
 import Badge from "./badge";
 import Bookmark from "./bookmark";
+import Table from "./table";
 
 const BooksTable = ({
     books,
@@ -75,10 +76,10 @@ const BooksTable = ({
         },
         startRowIndex = currentPage * pageSize - pageSize;
     return (
-        <table className="table table-dark table-striped table-hover mt-4">
+        <Table {...{ onSort, selectedSort, columns, books, startRowIndex }}>
             <TableHeader {...{ onSort, selectedSort, columns }} />
             <TableBody {...{ data: books, columns, startRowIndex }} />
-        </table>
+        </Table>
     );
 };
 BooksTable.propTypes = {
