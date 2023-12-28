@@ -1,6 +1,6 @@
 export function generateId() {
-    const characters = "abcdefghijklmnopqrstuvwxyz",
-        numbers = "0123456789";
+    const characters = "abcdefghijklmnopqrstuvwxyz";
+    const numbers = "0123456789";
     let id = "";
 
     for (let i = 0; i < 24; i++) {
@@ -17,8 +17,8 @@ export function generateId() {
 }
 
 export function generateUniqueId() {
-    const letters = "abcdefghijklmnopqrstuvwxyz",
-        numbers = "0123456789";
+    const letters = "abcdefghijklmnopqrstuvwxyz";
+    const numbers = "0123456789";
     let id = "";
 
     // Генерация первых двух символов (числа от 0 до 9)

@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 
 const TotalStatus = ({ length, favorites }) => {
     const editorWords = (num) => {
-        const penultimateDigit = Number(num.toString().slice(-2, -1)),
-            lastOneDigit = Number(num.toString().slice(-1)),
-            exceptions = [2, 3, 4];
+        const penultimateDigit = Number(num.toString().slice(-2, -1));
+        const lastOneDigit = Number(num.toString().slice(-1));
+        const exceptions = [2, 3, 4];
         if (exceptions.includes(lastOneDigit) && penultimateDigit !== 1) {
             return "и";
         }

@@ -205,7 +205,9 @@ const books = [
 ];
 
 function fetchAllBooks() {
-    return books;
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(books), 2000);
+    });
 }
 
 export default {

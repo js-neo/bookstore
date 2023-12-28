@@ -1,6 +1,5 @@
 import React from "react";
 import { sortingCriteria } from "../constants/sortingCriteria";
-import api from "../api";
 import PropTypes from "prop-types";
 
 const Dropdown = ({
@@ -9,7 +8,8 @@ const Dropdown = ({
     filterValue,
     onSelect,
     onFilter,
-    onClearFilter
+    onClearFilter,
+    ...rest
 }) => {
     const toggleShow = (eventKey) => {
         return menuVisibility[eventKey] && selectedFilter === eventKey
@@ -53,14 +53,7 @@ const Dropdown = ({
                                     overflowX: "hidden"
                                 }}
                             >
-                                {Object.values(
-                                    api[category][
-                                        `fetchAll${
-                                            category.slice(0, 1).toUpperCase() +
-                                            category.slice(1)
-                                        }`
-                                    ]()
-                                )
+                                {Object.values(rest[category])
                                     .sort((a, b) =>
                                         a[filterKey] > b[filterKey] ? 1 : -1
                                     )
@@ -102,6 +95,9 @@ const Dropdown = ({
 };
 
 Dropdown.propTypes = {
+    books: PropTypes.array,
+    genres: PropTypes.object,
+    authors: PropTypes.object,
     selectedFilter: PropTypes.string,
     menuVisibility: PropTypes.object,
     filterValue: PropTypes.object,

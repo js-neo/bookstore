@@ -3,25 +3,25 @@ import PropTypes from "prop-types";
 
 const TableHeader = ({ selectedSort, onSort, columns }) => {
     const handleSort = (sortedKey) => {
-            if (selectedSort.path === sortedKey) {
-                onSort({
-                    ...selectedSort,
-                    order: selectedSort.order === "asc" ? "desc" : "asc"
-                });
-            } else {
-                onSort({ path: sortedKey, order: "asc" });
-            }
-        },
-        renderSortArrow = (selectedSort, currentPath) =>
-            selectedSort.path === currentPath && (
-                <span className="text-primary ms-2">
-                    <i
-                        className={`bi bi-caret-${
-                            selectedSort.order === "asc" ? "up" : "down"
-                        }-fill`}
-                    ></i>
-                </span>
-            );
+        if (selectedSort.path === sortedKey) {
+            onSort({
+                ...selectedSort,
+                order: selectedSort.order === "asc" ? "desc" : "asc"
+            });
+        } else {
+            onSort({ path: sortedKey, order: "asc" });
+        }
+    };
+    const renderSortArrow = (selectedSort, currentPath) =>
+        selectedSort.path === currentPath && (
+            <span className="text-primary ms-2">
+                <i
+                    className={`bi bi-caret-${
+                        selectedSort.order === "asc" ? "up" : "down"
+                    }-fill`}
+                ></i>
+            </span>
+        );
 
     return (
         <thead>
