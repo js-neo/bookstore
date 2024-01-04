@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Pagination from "./pagination";
-import Header from "./header";
 import TotalStatus from "./totalStatus";
 import PropTypes from "prop-types";
 import { paginate } from "../utils/paginate";
@@ -12,6 +11,7 @@ import api from "../api";
 const Books = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedFilter, setSelectedFilter] = useState("");
+
     const [menuVisibility, setMenuVisibility] = useState({});
     const [filterValue, setFilterValue] = useState({});
     const [sortBy, setSortBy] = useState({ path: "title", order: "asc" });
@@ -45,6 +45,7 @@ const Books = () => {
     const handleChangePage = (page) => {
         setCurrentPage(page);
     };
+
     const handleSelect = (propEvent) => {
         setSelectedFilter(propEvent);
         setMenuVisibility((prevState) => {
@@ -101,10 +102,9 @@ const Books = () => {
 
         return (
             <div className="custom-container">
-                <div className="row justify-content-center">
+                <div className="d-flex justify-content-center">
                     <div className="col-11">
                         <div className="vh-100 bg-dark">
-                            <Header />
                             <TotalStatus
                                 length={count}
                                 favorites={
