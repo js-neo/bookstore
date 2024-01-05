@@ -210,6 +210,16 @@ function fetchAllBooks() {
     });
 }
 
+function getBookById(bookId) {
+    return new Promise((resolve) => {
+        setTimeout(
+            () => resolve(books.find((book) => book._id === bookId)),
+            1000
+        );
+    });
+}
+
 export default {
-    fetchAllBooks
+    fetchAllBooks,
+    getBookById
 };

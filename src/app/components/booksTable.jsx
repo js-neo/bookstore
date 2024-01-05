@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Badge from "./badge";
 import Bookmark from "./bookmark";
 import Table from "./table";
+import { Link } from "react-router-dom";
 
 const BooksTable = ({
     books,
@@ -21,7 +22,10 @@ const BooksTable = ({
         title: {
             _id: "29oice4med6v9liwle494953",
             path: "title",
-            name: "Title"
+            name: "Title",
+            component: (book) => (
+                <Link to={`/books/${book._id}`}>{book.title}</Link>
+            )
         },
         genres: {
             _id: "75ykdo4aea1y9blgnl414513",
