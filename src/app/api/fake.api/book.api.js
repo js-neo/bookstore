@@ -57,7 +57,7 @@ const books = [
         title: "Точка обмана",
         genre: genres.thriller,
         author: authors.brown,
-        publicationYear: 1998,
+        publicationYear: 2001,
         rating: 4.2,
         price: 20.99,
         status: false
@@ -174,10 +174,10 @@ const books = [
     },
     {
         _id: "67rdca3eeb7f6fgeed471832",
-        title: "Магнат",
+        title: "Возвращение Мюнхгаузена",
         genre: genres.fiction,
         author: authors.krzhizhanovsky,
-        publicationYear: 1926,
+        publicationYear: 1928,
         rating: 4.0,
         price: 13.99,
         status: false

@@ -24,7 +24,12 @@ const BooksTable = ({
             path: "title",
             name: "Title",
             component: (book) => (
-                <Link to={`/books/${book._id}`}>{book.title}</Link>
+                <Link
+                    className="text-decoration-none"
+                    to={`/books/${book._id}`}
+                >
+                    {book.title}
+                </Link>
             )
         },
         genres: {
