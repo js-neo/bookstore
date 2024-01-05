@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Badge from "./badge";
 import api from "../api";
 import _ from "lodash";
-import urlImg from "../assets/the_psychology_of_the_masses.jpg";
 
 const Book = ({ bookId }) => {
     const [book, setBook] = useState({});
@@ -21,7 +20,7 @@ const Book = ({ bookId }) => {
                                 maxHeight: "calc(100vh - 140px)",
                                 width: "auto"
                             }}
-                            src={urlImg}
+                            src={book.img}
                             alt=""
                         />
                         <div className="m-3">
