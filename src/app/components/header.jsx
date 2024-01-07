@@ -3,7 +3,6 @@ import Navbar from "./navbar";
 import PropTypes from "prop-types";
 
 const Header = (props) => {
-    console.log("props:", props);
     return (
         <div className="custom-container d-flex justify-content-center">
             <header className="py-3 text-bg-dark col-11 border-bottom">

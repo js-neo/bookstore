@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const Navbar = ({ currentLabel, onChangeLabel }) => {
-    console.log("currentLabel:", currentLabel);
     const navBarLabel = [
         {
             _id: "9b5d8k3d1e4l2q1g4p1h0j8f",
