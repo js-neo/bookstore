@@ -202,7 +202,7 @@ const books = [
     },
     {
         _id: "67rdca3eeb7f6fgeed471833",
-        title: "Странствия Чиполлино",
+        title: "Приключения Чиполлино",
         img: "https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_adventures_of_chipollino.jpg?raw=true",
         genre: genres.fantasy,
         author: authors.rodari,
