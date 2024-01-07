@@ -6,6 +6,7 @@ import Dropdown from "./dropdown";
 import BooksTable from "./booksTable";
 import _ from "lodash";
 import api from "../api";
+import ProgressBar from "./progress-bar";
 
 const BooksList = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -148,7 +149,7 @@ const BooksList = () => {
             </div>
         );
     }
-    return <span className="text-light">loading...</span>;
+    return <ProgressBar />;
 };
 
 export default BooksList;
