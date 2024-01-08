@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import api from "../api";
 import _ from "lodash";
@@ -9,6 +10,7 @@ import Badge from "./badge";
 const Book = ({ bookId }) => {
     const [book, setBook] = useState({});
     const [isMounted, setIsMounted] = useState(true);
+    const history = useHistory();
     const rowData = {
         title: {
             _id: "0a9t4l4q0c4m8j3o7j5k2v6k",
@@ -51,7 +53,7 @@ const Book = ({ bookId }) => {
         setImageLoaded(true);
     };
 
-    console.log("book-list:", Object.keys(book));
+    const handleHistory = () => history.push("/books");
 
     return (
         <>
@@ -75,9 +77,17 @@ const Book = ({ bookId }) => {
                                 alt="Book Cover"
                                 onLoad={handleImageLoad}
                             />
-                            {imageLoaded && (
-                                <CardContents {...{ book, rowData }} />
-                            )}
+                            <div className="d-flex flex-column m-3">
+                                {imageLoaded && (
+                                    <CardContents {...{ book, rowData }} />
+                                )}
+                                <button
+                                    className="btn btn-primary my-4 mx-auto"
+                                    onClick={handleHistory}
+                                >
+                                    All books
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </>

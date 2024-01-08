@@ -11,7 +11,7 @@ const CardContents = ({ book, rowData }) => {
             : _.get(item, rowData[key].path);
     };
     return (
-        <table className="table table-dark table-striped table-hover m-3">
+        <table className="table table-dark table-striped table-hover">
             <tbody>
                 {Object.keys(rowData).map((key) => (
                     <tr key={rowData[key]._id} className="align-middle">
