@@ -1,7 +1,8 @@
 import React from "react";
+import Carousel from "../components/carousel";
 
 const Main = () => {
-    return <h1 className="text-light">Main</h1>;
+    return <Carousel />;
 };
 
 export default Main;

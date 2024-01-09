@@ -11,6 +11,7 @@
         "lodash": "^4.17.15",
         "prop-types": "^15.7.2",
         "react": "^17.0.2",
+        "react-blur": "^1.1.1",
         "react-dom": "^17.0.2",
         "react-perfect-scrollbar": "^1.5.8",
         "react-router-dom": "^5.3.0",
