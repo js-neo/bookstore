@@ -1,33 +1,20 @@
-import React, { useEffect, useState } from "react";
-import Books from "./components/books";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
+
+import Books from "./layouts/books";
 import Header from "./components/header";
-import { Route, Switch, useHistory } from "react-router-dom";
-import Main from "./components/main";
-import Login from "./components/login";
+import Main from "./layouts/main";
+import Login from "./layouts/login";
 
 const App = () => {
-    const [currentLabel, setCurrentLabel] = useState("Main");
-
-    const history = useHistory();
-
-    useEffect(() => {
-        history.push("/");
-    }, []);
-    const handleChangeLabel = (label) => {
-        setCurrentLabel(label);
-    };
     return (
         <>
-            <Header
-                {...{
-                    currentLabel,
-                    onChangeLabel: handleChangeLabel
-                }}
-            />
+            <Header />
             <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/books/:bookId?" component={Books} />
                 <Route exact path="/" component={Main} />
+                <Redirect to="/" />
             </Switch>
         </>
     );

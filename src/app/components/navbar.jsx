@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const Navbar = ({ currentLabel, onChangeLabel }) => {
+const Navbar = () => {
     const navBarLabel = [
         {
             _id: "9b5d8k3d1e4l2q1g4p1h0j8f",
@@ -20,6 +20,7 @@ const Navbar = ({ currentLabel, onChangeLabel }) => {
             path: "/books"
         }
     ];
+    const { pathname } = useLocation();
     return (
         <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             {navBarLabel.map((item) => (
@@ -27,9 +28,9 @@ const Navbar = ({ currentLabel, onChangeLabel }) => {
                     <Link
                         to={`${item.path}`}
                         className={`nav-link px-2 ${
-                            currentLabel === item.label && "text-light"
+                            `/${pathname.split("/")[1]}` === item.path &&
+                            "text-light"
                         }`}
-                        onClick={() => onChangeLabel(item.label)}
                     >
                         {item.label}
                     </Link>
@@ -40,7 +41,6 @@ const Navbar = ({ currentLabel, onChangeLabel }) => {
 };
 
 Navbar.propTypes = {
-    currentLabel: PropTypes.string,
     onChangeLabel: PropTypes.func
 };
 

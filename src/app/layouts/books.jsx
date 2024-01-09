@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Book from "./book";
-import BooksList from "./booksList";
+import Book from "../components/book";
+import BooksList from "../components/booksList";
 
 const Books = () => {
     const { bookId } = useParams();

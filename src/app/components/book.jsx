@@ -41,10 +41,9 @@ const Book = ({ bookId }) => {
         price: { _id: "4u7v6w5o5x8e7o1b4n6v2y8s", name: "Price", path: "price" }
     };
     useEffect(() => {
-        bookId &&
-            api.books
-                .getBookById(bookId)
-                .then((data) => isMounted && setBook(data));
+        api.books
+            .getBookById(bookId)
+            .then((data) => isMounted && setBook(data));
         return () => setIsMounted(false);
     }, [bookId, isMounted]);
 
