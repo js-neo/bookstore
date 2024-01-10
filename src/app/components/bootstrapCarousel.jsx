@@ -1,6 +1,6 @@
 import React from "react";
 
-const Carousel = () => {
+const BootstrapCarousel = () => {
     const carouselContent = [
         {
             _id: "67rdca3eeb7f6fgeed471819",
@@ -102,4 +102,4 @@ const Carousel = () => {
     );
 };
 
-export default Carousel;
+export default BootstrapCarousel;
