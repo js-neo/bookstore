@@ -1,8 +1,8 @@
 import React from "react";
-import ModernCarousel from "../components/modernCarousel";
+import BootstrapCarousel from "../components/bootstrapCarousel";
 
 const Main = () => {
-    return <ModernCarousel />;
+    return <BootstrapCarousel />;
 };
 
 export default Main;

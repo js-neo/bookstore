@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ModernCarousel = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [previousIndex, setPreviousIndex] = useState(0);
 
     const carouselContent = [
         {
@@ -20,9 +21,10 @@ const ModernCarousel = () => {
             img: "https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_little_prince.jpg?raw=true"
         }
     ];
+    const totalSlides = carouselContent.length;
 
-    const quantytiSlides = carouselContent.length;
-
+    console.log("activeIndex:", activeIndex);
+    console.log("previousIndex:", previousIndex);
     const styles = {
         container_1: {
             height: "calc(100vh - 125px)",
@@ -48,35 +50,67 @@ const ModernCarousel = () => {
         }
     };
 
+    useEffect(() => {
+        const carouselItems = document.querySelectorAll(".carousel-item");
+        carouselItems[activeIndex].classList.add("active");
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveIndex((prevIndex) => (prevIndex + 1) % totalSlides);
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (activeIndex !== previousIndex) {
+            const carouselItems = document.querySelectorAll(".carousel-item");
+            carouselItems.forEach((item, index) => {
+                if (index === activeIndex) {
+                    item.classList.add(
+                        "carousel-item-next",
+                        "carousel-item-start"
+                    );
+                    setTimeout(() => {
+                        item.classList.remove(
+                            "carousel-item-next",
+                            "carousel-item-start"
+                        );
+                        item.classList.add("active");
+                    }, 1000);
+                }
+                if (index === previousIndex) {
+                    console.log("activeIndex_use:", activeIndex);
+                    console.log("previousIndex_use:", previousIndex);
+                    item.classList.add("carousel-item-start");
+                    setTimeout(() => {
+                        item.classList.remove("active", "carousel-item-start");
+                    }, 1000);
+                }
+            });
+            setPreviousIndex(activeIndex);
+        }
+    }, [activeIndex]);
+
     const handleNext = () => {
-        setActiveIndex((prevIndex) =>
-            prevIndex === quantytiSlides - 1 ? 0 : prevIndex + 1
-        );
+        setActiveIndex(activeIndex === totalSlides - 1 ? 0 : activeIndex + 1);
     };
 
     const handlePrev = () => {
-        setActiveIndex((prevIndex) =>
-            prevIndex === 0 ? quantytiSlides - 1 : prevIndex - 1
-        );
+        setActiveIndex(activeIndex === 0 ? totalSlides - 1 : activeIndex - 1);
     };
+
+    console.log("activeIndex_down:", activeIndex);
+    console.log("previousIndex_down:", previousIndex);
 
     return (
         <div id="myCarousel" className="carousel slide my-3 w-100">
             <div className="carousel-inner">
-                {carouselContent.map((item, index) => (
+                {carouselContent.map((item) => (
                     <div
                         key={item._id}
-                        className={`carousel-item ${
-                            index === activeIndex ? "active" : ""
-                        } ${
-                            index === activeIndex + 1
-                                ? "carousel-item-next"
-                                : ""
-                        } ${
-                            index === activeIndex - 1
-                                ? "carousel-item-prev"
-                                : ""
-                        }`}
+                        className="carousel-item"
                         style={styles.container_1}
                     >
                         <div
