@@ -33,10 +33,10 @@ const Login = () => {
     };
     return (
         <div
-            className="container d-flex justify-content-center align-items-center mt-3"
+            className="container d-flex justify-content-center align-items-center mt-3 border border-danger"
             style={{ height: "calc(100vh - 100px)" }}
         >
-            <div className="row justify-content-center col-5">
+            <div className="row mh-100 justify-content-center col-5 border border-primary">
                 <div className="text-white">
                     <div className="d-flex justify-content-center">
                         <h3>Enter your data</h3>
