@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./navbar";
 import PropTypes from "prop-types";
+import AuthNav from "./authNav";
 
 const Header = (props) => {
     return (
@@ -29,24 +30,7 @@ const Header = (props) => {
                             />
                         </form>
 
-                        <div className="text-end d-flex">
-                            <div className="button-container">
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-primary me-2 custom-button"
-                                >
-                                    Login
-                                </button>
-                            </div>
-                            <div className="button-container">
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-primary custom-button"
-                                >
-                                    Sign-up
-                                </button>
-                            </div>
-                        </div>
+                        <AuthNav />
                     </div>
                 </div>
             </header>

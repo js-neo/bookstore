@@ -15,7 +15,7 @@ const BooksList = () => {
     const [menuVisibility, setMenuVisibility] = useState({});
     const [filterValue, setFilterValue] = useState({});
     const [sortBy, setSortBy] = useState({ path: "title", order: "asc" });
-    const [books, setBooks] = useState({});
+    const [books, setBooks] = useState([]);
 
     useEffect(() => {
         api.books.fetchAllBooks().then((data) => setBooks(data));
