@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../components/textField";
+import { validator } from "../utils/validator";
 
 const Login = () => {
     const [data, setData] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({});
     console.log("errors: ", errors);
+
+    const validatorConfig = {
+        email: {
+            isRequired: {
+                message: "Field email is required"
+            }
+        },
+        password: {
+            isRequired: {
+                message: "Field password is required"
+            }
+        }
+    };
     const handleChange = ({ target }) =>
         setData((prevState) => {
             return { ...prevState, [target.name]: target.value };
         });
 
     const validate = () => {
-        const errors = {};
-        for (const fieldName in data) {
-            if (data[fieldName].trim() === "") {
-                errors[fieldName] = `Field ${fieldName} is required`;
-            }
-        }
+        const errors = validator(data, validatorConfig);
         setErrors(errors);
         return Object.keys(errors).length !== 0;
     };
@@ -47,6 +56,7 @@ const Login = () => {
                             name="email"
                             value={data.email}
                             onChange={handleChange}
+                            error={errors.email}
                         />
                         <TextField
                             label="Password"
@@ -54,6 +64,7 @@ const Login = () => {
                             name="password"
                             value={data.password}
                             onChange={handleChange}
+                            error={errors.password}
                         />
                         <button className="btn btn-primary w-50 mt-4 mx-auto">
                             Submit
