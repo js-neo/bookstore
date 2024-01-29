@@ -1,10 +1,10 @@
 export const validator = (data, config) => {
     let errors = {};
-    const validate = (validateMethod, data, config) => {
+    const validate = (validateMethod, data, message) => {
         switch (validateMethod) {
             case "isRequired":
                 if (data.trim() === "") {
-                    return config.message;
+                    return message;
                 }
                 break;
             default:
@@ -13,7 +13,7 @@ export const validator = (data, config) => {
     };
 
     for (const fieldName of Object.keys(data)) {
-        for (const [validateMethod, message] of Object.entries(
+        for (const [validateMethod, { message }] of Object.entries(
             config[fieldName]
         )) {
             const error = validate(validateMethod, data[fieldName], message);
