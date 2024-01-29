@@ -1,5 +1,5 @@
 export const validator = (data, config) => {
-    const errors = {};
+    let errors = {};
     const validate = (validateMethod, data, config) => {
         switch (validateMethod) {
             case "isRequired":
@@ -11,17 +11,17 @@ export const validator = (data, config) => {
                 break;
         }
     };
-    for (const fieldName in data) {
-        for (const validateMethod in config[fieldName]) {
-            const error = validate(
-                validateMethod,
-                data[fieldName],
-                config[fieldName][validateMethod]
-            );
+
+    for (const fieldName of Object.keys(data)) {
+        for (const [validateMethod, message] of Object.entries(
+            config[fieldName]
+        )) {
+            const error = validate(validateMethod, data[fieldName], message);
             if (error) {
-                errors[fieldName] = error;
+                errors = { ...errors, [fieldName]: error };
             }
         }
     }
+
     return errors;
 };
