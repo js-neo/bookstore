@@ -1,22 +1,19 @@
 export const validator = (data, config) => {
     let errors = {};
-    const validate = (validateMethod, data, message) => {
-        switch (validateMethod) {
-            case "isRequired":
-                if (data.trim() === "") {
-                    return message;
-                }
-                break;
-            default:
-                break;
-        }
+
+    const validationMethods = {
+        isRequired: (data, message) =>
+            data.trim() === "" ? message : undefined
+    };
+    const validate = (verifyMethod, data, message) => {
+        return validationMethods[verifyMethod]?.(data, message);
     };
 
     for (const fieldName of Object.keys(data)) {
-        for (const [validateMethod, { message }] of Object.entries(
+        for (const [verifyMethod, { message }] of Object.entries(
             config[fieldName]
         )) {
-            const error = validate(validateMethod, data[fieldName], message);
+            const error = validate(verifyMethod, data[fieldName], message);
             if (error) {
                 errors = { ...errors, [fieldName]: error };
             }
