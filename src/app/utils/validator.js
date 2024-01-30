@@ -3,7 +3,11 @@ export const validator = (data, config) => {
 
     const validationMethods = {
         isRequired: (data, message) =>
-            data.trim() === "" ? message : undefined
+            data.trim() === "" ? message : undefined,
+        isEmail: (data, message) => {
+            const emailRegExp = /^\S+@\S+\.\S+$/g;
+            return !emailRegExp.test(data) ? message : undefined;
+        }
     };
     const validate = (verifyMethod, data, message) => {
         return validationMethods[verifyMethod]?.(data, message);
@@ -13,9 +17,11 @@ export const validator = (data, config) => {
         for (const [verifyMethod, { message }] of Object.entries(
             config[fieldName]
         )) {
-            const error = validate(verifyMethod, data[fieldName], message);
-            if (error) {
-                errors = { ...errors, [fieldName]: error };
+            if (!errors[fieldName]) {
+                const error = validate(verifyMethod, data[fieldName], message);
+                if (error) {
+                    errors = { ...errors, [fieldName]: error };
+                }
             }
         }
     }

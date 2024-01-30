@@ -11,6 +11,9 @@ const Login = () => {
         email: {
             isRequired: {
                 message: "Field email is required"
+            },
+            isEmail: {
+                message: "Email entered incorrectly"
             }
         },
         password: {
