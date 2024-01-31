@@ -28,7 +28,8 @@ const BootstrapCarousel = () => {
         container_img: {
             margin: "0 auto",
             objectFit: "contain",
-            height: "100%"
+            height: "100%",
+            boxShadow: "0px 0px 30px rgba(0, 0, 0, 0.5)"
         },
         blurredBackground: {
             position: "absolute",
@@ -67,7 +68,7 @@ const BootstrapCarousel = () => {
                         ></div>
                         <img
                             src={item.img}
-                            className="d-block w-100"
+                            className="d-block"
                             alt={item.title}
                             style={styles.container_img}
                         />
