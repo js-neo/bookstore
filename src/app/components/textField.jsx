@@ -8,7 +8,9 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
                 {label}
             </label>
             <input
-                className="form-control form-control-dark custom-input"
+                className={`form-control custom-input ${
+                    error ? "is-invalid" : ""
+                }`}
                 type={type}
                 id={name}
                 name={name}
@@ -24,7 +26,7 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
                 value={value}
                 onChange={onChange}
             />
-            {error && <p className="text-danger mt-2">{error}</p>}
+            {error && <div className="invalid-feedback mt-2">{error}</div>}
         </div>
     );
 };

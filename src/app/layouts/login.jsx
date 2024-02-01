@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../components/textField";
 import { validator } from "../utils/validator";
+import _ from "lodash";
 
 const Login = () => {
     const [data, setData] = useState({ email: "", password: "" });
@@ -56,15 +57,13 @@ const Login = () => {
     };
     return (
         <div
-            className="container d-flex justify-content-center align-items-center mt-3"
+            className="container mt-3"
             style={{ height: "calc(100vh - 100px)" }}
         >
-            <div className="row mh-100 justify-content-center col-5">
-                <div className="text-white">
-                    <div className="d-flex justify-content-center">
-                        <h3>Enter your data</h3>
-                    </div>
-                    <form onSubmit={handleSubmit} className="d-grid mt-3">
+            <div className="row">
+                <div className="col-md-6 offset-md-3 p-4 text-white">
+                    <h3 className="text-center">Enter your data</h3>
+                    <form onSubmit={handleSubmit} className="form-control-dark">
                         <TextField
                             label="Email"
                             name="email"
@@ -80,7 +79,13 @@ const Login = () => {
                             onChange={handleChange}
                             error={errors.password}
                         />
-                        <button className="btn btn-primary w-50 mt-4 mx-auto">
+                        <button
+                            className={`btn w-50 mt-4 mx-auto d-flex justify-content-center btn-${
+                                !_.isEmpty(errors)
+                                    ? "secondary disabled"
+                                    : "primary"
+                            }`}
+                        >
                             Submit
                         </button>
                     </form>
