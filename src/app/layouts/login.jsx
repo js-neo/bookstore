@@ -19,6 +19,17 @@ const Login = () => {
         password: {
             isRequired: {
                 message: "Field password is required"
+            },
+            isCapitalLetter: {
+                message: "The password must contain at least one capital letter"
+            },
+            isContainDigit: {
+                message: "The password must contain at least one decimal number"
+            },
+            isMinLength: {
+                getMessage: (value) =>
+                    `The password must contain at least ${value} characters`,
+                value: 8
             }
         }
     };
