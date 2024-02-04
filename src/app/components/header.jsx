@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./navbar";
 import PropTypes from "prop-types";
 import AuthNav from "./authNav";
+import SearchField from "./searchField";
 
 const Header = (props) => {
     return (
@@ -10,26 +11,9 @@ const Header = (props) => {
                 <div className="container">
                     <div className="d-flex flex-wrap align-items-center justify-content-lg-start">
                         <Navbar {...props} />
-
-                        <form
-                            className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 text-white"
-                            role="search"
-                        >
-                            <input
-                                type="search"
-                                className="form-control form-control-dark custom-input"
-                                placeholder="Search..."
-                                aria-label="Search"
-                                style={{
-                                    color: "#fff",
-                                    "::placeholder": {
-                                        color: "#fff",
-                                        opacity: 0.7
-                                    }
-                                }}
-                            />
-                        </form>
-
+                        <div className="me-lg-3">
+                            <SearchField />
+                        </div>
                         <AuthNav />
                     </div>
                 </div>

@@ -7,6 +7,7 @@ import BooksTable from "./booksTable";
 import _ from "lodash";
 import api from "../api";
 import ProgressBar from "./progress-bar";
+import SearchField from "./searchField";
 
 const BooksList = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -16,6 +17,7 @@ const BooksList = () => {
     const [filterValue, setFilterValue] = useState({});
     const [sortBy, setSortBy] = useState({ path: "title", order: "asc" });
     const [books, setBooks] = useState([]);
+    const [data, setData] = useState("");
 
     useEffect(() => {
         api.books.fetchAllBooks().then((data) => setBooks(data));
@@ -58,10 +60,17 @@ const BooksList = () => {
             listItem,
             propKey
         });
+        setData("");
     };
     const handleClearFilter = () => setFilterValue({});
     const handleSort = (sortConfig) => {
         setSortBy(sortConfig);
+    };
+
+    const handleChange = ({ target }) => {
+        const { value } = target;
+        setData(value);
+        setFilterValue({});
     };
 
     useEffect(() => {
@@ -80,13 +89,20 @@ const BooksList = () => {
     }, [filterValue]);
 
     if (!_.isEmpty(books) && !_.isEmpty(genres) && !_.isEmpty(authors)) {
-        const filteredBooks = _.isEmpty(filterValue)
-            ? books
-            : books.filter((book) => {
-                  return typeof book[filterValue.propKey] === "object"
-                      ? filterValue.listItem === book[filterValue.propKey]
-                      : filterValue.listItem === book;
-              });
+        const filteredBooks =
+            _.isEmpty(filterValue) && data === ""
+                ? books
+                : !_.isEmpty(filterValue)
+                ? books.filter((book) => {
+                      return typeof book[filterValue.propKey] === "object"
+                          ? filterValue.listItem === book[filterValue.propKey]
+                          : filterValue.listItem === book;
+                  })
+                : books.filter((book) => {
+                      const { title } = book;
+                      return title.toLowerCase().includes(data.toLowerCase());
+                  });
+
         const count = filteredBooks.length;
         const sortedBooks = _.orderBy(
             filteredBooks,
@@ -102,10 +118,15 @@ const BooksList = () => {
         }
 
         return (
-            <div className="custom-container">
+            <div className="custom-container bg-dark">
                 <div className="d-flex justify-content-center">
                     <div className="col-11">
-                        <div className="vh-100 bg-dark">
+                        <div className="vh-100">
+                            <div className=" d-flex justify-content-end">
+                                <div className="mt-3 col-6">
+                                    <SearchField onChange={handleChange} />
+                                </div>
+                            </div>
                             <TotalStatus
                                 length={count}
                                 favorites={
