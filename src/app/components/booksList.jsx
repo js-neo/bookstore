@@ -17,7 +17,7 @@ const BooksList = () => {
     const [filterValue, setFilterValue] = useState({});
     const [sortBy, setSortBy] = useState({ path: "title", order: "asc" });
     const [books, setBooks] = useState([]);
-    const [data, setData] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         api.books.fetchAllBooks().then((data) => setBooks(data));
@@ -60,7 +60,7 @@ const BooksList = () => {
             listItem,
             propKey
         });
-        setData("");
+        setSearchQuery("");
     };
     const handleClearFilter = () => setFilterValue({});
     const handleSort = (sortConfig) => {
@@ -69,7 +69,7 @@ const BooksList = () => {
 
     const handleChange = ({ target }) => {
         const { value } = target;
-        setData(value);
+        setSearchQuery(value);
         setFilterValue({});
     };
 
@@ -86,22 +86,25 @@ const BooksList = () => {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [filterValue]);
+    }, [filterValue, searchQuery]);
 
     if (!_.isEmpty(books) && !_.isEmpty(genres) && !_.isEmpty(authors)) {
-        const filteredBooks =
-            _.isEmpty(filterValue) && data === ""
-                ? books
-                : !_.isEmpty(filterValue)
-                ? books.filter((book) => {
-                      return typeof book[filterValue.propKey] === "object"
-                          ? filterValue.listItem === book[filterValue.propKey]
-                          : filterValue.listItem === book;
-                  })
-                : books.filter((book) => {
-                      const { title } = book;
-                      return title.toLowerCase().includes(data.toLowerCase());
-                  });
+        const filteredBooks = searchQuery.trim()
+            ? books.filter((book) => {
+                  console.log("book: ", book.author.name);
+                  const { title, author } = book;
+                  const { name } = author;
+                  return `${title} ${name}`
+                      .toLowerCase()
+                      .includes(searchQuery.trim().toLowerCase());
+              })
+            : !_.isEmpty(filterValue)
+            ? books.filter((book) => {
+                  return typeof book[filterValue.propKey] === "object"
+                      ? filterValue.listItem === book[filterValue.propKey]
+                      : filterValue.listItem === book;
+              })
+            : books;
 
         const count = filteredBooks.length;
         const sortedBooks = _.orderBy(
