@@ -20,7 +20,6 @@ const Navbar = () => {
         }
     ];
     const { pathname } = useLocation();
-    console.log("pathname: ", pathname);
     return (
         <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             {navBarLabel.map((item) => (

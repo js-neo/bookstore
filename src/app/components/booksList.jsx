@@ -91,7 +91,6 @@ const BooksList = () => {
     if (!_.isEmpty(books) && !_.isEmpty(genres) && !_.isEmpty(authors)) {
         const filteredBooks = searchQuery.trim()
             ? books.filter((book) => {
-                  console.log("book: ", book.author.name);
                   const { title, author } = book;
                   const { name } = author;
                   return `${title} ${name}`
@@ -127,7 +126,10 @@ const BooksList = () => {
                         <div className="vh-100">
                             <div className=" d-flex justify-content-end">
                                 <div className="mt-3 col-6">
-                                    <SearchField onChange={handleChange} />
+                                    <SearchField
+                                        value={searchQuery}
+                                        onChange={handleChange}
+                                    />
                                 </div>
                             </div>
                             <TotalStatus
