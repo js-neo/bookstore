@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Badge from "./badge";
-import Bookmark from "./bookmark";
-import Table from "./table";
+import Badge from "../common/badge";
+import Bookmark from "../common/bookmark";
+import Table from "../common/table";
 import { Link } from "react-router-dom";
 
 const BooksTable = ({

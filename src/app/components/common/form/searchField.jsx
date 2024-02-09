@@ -18,13 +18,6 @@ const SearchField = ({ value, onChange }) => {
                 className="form-control form-control-dark custom-input"
                 placeholder="Search..."
                 aria-label="Search"
-                style={{
-                    color: "#fff",
-                    "::placeholder": {
-                        color: "#fff",
-                        opacity: 0.7
-                    }
-                }}
                 onChange={onChange}
             />
         </form>

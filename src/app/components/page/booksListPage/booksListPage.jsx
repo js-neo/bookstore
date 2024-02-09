@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Pagination from "./pagination";
-import TotalStatus from "./totalStatus";
-import { paginate } from "../utils/paginate";
-import Dropdown from "./dropdown";
-import BooksTable from "./booksTable";
+import Pagination from "../../common/pagination";
+import TotalStatus from "../../ui/totalStatus";
+import { paginate } from "../../../utils/paginate";
+import Dropdown from "../../ui/dropdown";
+import BooksTable from "../../ui/booksTable";
 import _ from "lodash";
-import api from "../api";
-import ProgressBar from "./progress-bar";
-import SearchField from "./searchField";
+import api from "../../../api";
+import ProgressBar from "../../common/progress-bar";
+import SearchField from "../../common/form/searchField";
 
-const BooksList = () => {
+const BooksListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedFilter, setSelectedFilter] = useState("");
 
@@ -178,4 +178,4 @@ const BooksList = () => {
     return <ProgressBar />;
 };
 
-export default BooksList;
+export default BooksListPage;

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import api from "../api";
+import api from "../../../api";
 import _ from "lodash";
-import ProgressBar from "./progress-bar";
-import CardContents from "./cardContents";
-import Badge from "./badge";
+import ProgressBar from "../../common/progress-bar";
+import CardContents from "../../ui/cardContents";
+import Badge from "../../common/badge";
 
-const Book = ({ bookId }) => {
+const BookPage = ({ bookId }) => {
     const [book, setBook] = useState({});
     const [isMounted, setIsMounted] = useState(true);
     const history = useHistory();
@@ -73,7 +73,7 @@ const Book = ({ bookId }) => {
                                     display: imageLoaded ? "block" : "none"
                                 }}
                                 src={book.img}
-                                alt="Book Cover"
+                                alt="BookPage Cover"
                                 onLoad={handleImageLoad}
                             />
                             <div className="d-flex flex-column m-3">
@@ -97,8 +97,8 @@ const Book = ({ bookId }) => {
     );
 };
 
-Book.propTypes = {
+BookPage.propTypes = {
     bookId: PropTypes.string
 };
 
-export default Book;
+export default BookPage;

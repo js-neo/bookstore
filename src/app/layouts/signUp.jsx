@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TextField from "../components/textField";
+import TextField from "../components/common/form/textField";
 
 const SignUp = () => {
     const [data, setData] = useState({ email: "", password: "" });

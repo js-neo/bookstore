@@ -21,13 +21,6 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
                     name={name}
                     placeholder={`enter ${name}`}
                     aria-label={label}
-                    style={{
-                        color: "#fff",
-                        "::placeholder": {
-                            color: "#fff",
-                            opacity: 0.7
-                        }
-                    }}
                     value={value}
                     onChange={onChange}
                 />

@@ -1,12 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Book from "../components/book";
-import BooksList from "../components/booksList";
+import BookPage from "../components/page/bookPage";
+import BooksListPage from "../components/page/booksListPage";
 
 const Books = () => {
     const { bookId } = useParams();
 
-    return <>{bookId ? <Book bookId={bookId} /> : <BooksList />}</>;
+    return <>{bookId ? <BookPage bookId={bookId} /> : <BooksListPage />}</>;
 };
 
 export default Books;

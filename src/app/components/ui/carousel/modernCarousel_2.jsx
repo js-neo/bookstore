@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import sherlockHolmesImg from "../assets/the_adventures_of_sherlock_holmes.jpg";
-import monteCristoImg from "../assets/the_count_of_monte_cristo.jpg";
-import littlePrinceImg from "../assets/the_little_prince.jpg";
+import sherlockHolmesImg from "../../../assets/the_adventures_of_sherlock_holmes.jpg";
+import monteCristoImg from "../../../assets/the_count_of_monte_cristo.jpg";
+import littlePrinceImg from "../../../assets/the_little_prince.jpg";
 
 const ModernCarousel2 = () => {
     const [activeIndex, setActiveIndex] = useState(0);

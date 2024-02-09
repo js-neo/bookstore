@@ -1,5 +1,5 @@
 import React from "react";
-import BootstrapCarousel from "../components/bootstrapCarousel";
+import BootstrapCarousel from "../components/ui/carousel/bootstrapCarousel";
 
 const Main = () => {
     return <BootstrapCarousel />;

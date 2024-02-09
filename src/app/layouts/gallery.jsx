@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import api from "../api";
-import Modal from "../components/modal";
+import Modal from "../components/ui/modal";
 import _ from "lodash";
-import ProgressBar from "../components/progress-bar";
+import ProgressBar from "../components/common/progress-bar";
 
 const Gallery = () => {
     const [books, setBooks] = useState([]);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "./navbar";
 import PropTypes from "prop-types";
 import AuthNav from "./authNav";
-import SearchField from "./searchField";
+import SearchField from "../common/form/searchField";
 
 const Header = (props) => {
     const [searchQuery, setSearchQuery] = useState("");

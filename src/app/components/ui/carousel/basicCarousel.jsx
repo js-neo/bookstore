@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { genres } from "../api/fake.api/genres";
-import { authors } from "../api/fake.api/authors";
+import { genres } from "../../../api/fake.api/genres";
+import { authors } from "../../../api/fake.api/authors";
 
 const Carousel = () => {
     const [currentIndex, setCurrentIndex] = useState(1);

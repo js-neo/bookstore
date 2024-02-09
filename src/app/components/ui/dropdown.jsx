@@ -1,5 +1,5 @@
 import React from "react";
-import { sortingCriteria } from "../constants/sortingCriteria";
+import { sortingCriteria } from "../../constants/sortingCriteria";
 import PropTypes from "prop-types";
 
 const Dropdown = ({
