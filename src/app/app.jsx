@@ -13,7 +13,7 @@ const App = () => {
         <>
             <Header />
             <Switch>
-                <Route path="/login" component={Login} />
+                <Route path="/login/:type?" component={Login} />
                 <Route path="/sign-up" component={SignUp} />
                 <Route path="/gallery" component={Gallery} />
                 <Route path="/books/:bookId?" component={Books} />
