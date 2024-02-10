@@ -9,15 +9,10 @@ const SelectField = ({
     options,
     onChange
 }) => {
-    const optionsArray =
-        !Array.isArray(options) && typeof options === "object"
-            ? Object.keys(options).map((optionName) => {
-                  return {
-                      name: options[optionName].name,
-                      _id: options[optionName]._id
-                  };
-              })
-            : options;
+    const optionsArray = Object.values(options).map(({ _id, name }) => ({
+        _id,
+        name
+    }));
     return (
         <div className="mt-2">
             <label htmlFor="validationCustom04" className="form-label">
@@ -34,9 +29,9 @@ const SelectField = ({
                     {defaultOption}
                 </option>
                 {optionsArray &&
-                    optionsArray.map((genre) => (
-                        <option key={genre._id} value={genre._id}>
-                            {genre.name}
+                    optionsArray.map(({ _id, name }) => (
+                        <option key={_id} value={_id}>
+                            {name}
                         </option>
                     ))}
             </select>

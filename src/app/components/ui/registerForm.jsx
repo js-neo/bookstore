@@ -86,34 +86,6 @@ const RegisterForm = () => {
                 defaultOption="Choose..."
                 onChange={handleChange}
             />
-            <div className="mt-2">
-                <label htmlFor="validationCustom04" className="form-label">
-                    Genre
-                </label>
-                <select
-                    className="form-select custom-select"
-                    id="validationCustom04"
-                    value={data.genre}
-                    name="genre"
-                    onChange={handleChange}
-                >
-                    <option disabled value="">
-                        Choose...
-                    </option>
-                    {!_.isEmpty(genres) &&
-                        Object.keys(genres).map((genreName) => (
-                            <option
-                                key={genres[genreName]._id}
-                                value={genres[genreName]._id}
-                            >
-                                {genres[genreName].name}
-                            </option>
-                        ))}
-                </select>
-                <div className="invalid-feedback">
-                    Please select a valid state.
-                </div>
-            </div>
             <button
                 className={`btn w-50 mt-4 mx-auto d-flex justify-content-center btn-${
                     !_.isEmpty(errors) ? "secondary disabled" : "primary"
