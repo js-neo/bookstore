@@ -30,6 +30,18 @@ code {
     border-color: blue;
 }
 
+.custom-select.form-select {
+    background-color: #212529;
+    color: white;
+    border-color: white;
+}
+
+.custom-select.form-select option[disabled] {
+    color: blue;
+    opacity: 0.5;
+    background-color: #212529;
+}
+
 /* Изменение цвета ползунка скролла */
 .dropdown-menu::-webkit-scrollbar-thumb {
     background-color: blue;

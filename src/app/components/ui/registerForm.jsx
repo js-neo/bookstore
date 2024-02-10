@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
 import _ from "lodash";
+import api from "../../api";
+import SelectField from "../common/form/selectField";
 
 const RegisterForm = () => {
-    const [data, setData] = useState({ email: "", password: "" });
+    const [data, setData] = useState({ email: "", password: "", genre: "" });
     const [errors, setErrors] = useState({});
+    const [genres, setGenres] = useState({});
 
     const validatorConfig = {
         email: {
@@ -48,6 +51,10 @@ const RegisterForm = () => {
         validate();
     }, [data]);
 
+    useEffect(() => {
+        api.genres.fetchAllGenres().then((data) => setGenres(data));
+    }, []);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const isValid = validate();
@@ -71,6 +78,42 @@ const RegisterForm = () => {
                 onChange={handleChange}
                 error={errors.password}
             />
+            <SelectField
+                label="Genre"
+                name="genre"
+                value={data.genre}
+                options={genres}
+                defaultOption="Choose..."
+                onChange={handleChange}
+            />
+            <div className="mt-2">
+                <label htmlFor="validationCustom04" className="form-label">
+                    Genre
+                </label>
+                <select
+                    className="form-select custom-select"
+                    id="validationCustom04"
+                    value={data.genre}
+                    name="genre"
+                    onChange={handleChange}
+                >
+                    <option disabled value="">
+                        Choose...
+                    </option>
+                    {!_.isEmpty(genres) &&
+                        Object.keys(genres).map((genreName) => (
+                            <option
+                                key={genres[genreName]._id}
+                                value={genres[genreName]._id}
+                            >
+                                {genres[genreName].name}
+                            </option>
+                        ))}
+                </select>
+                <div className="invalid-feedback">
+                    Please select a valid state.
+                </div>
+            </div>
             <button
                 className={`btn w-50 mt-4 mx-auto d-flex justify-content-center btn-${
                     !_.isEmpty(errors) ? "secondary disabled" : "primary"

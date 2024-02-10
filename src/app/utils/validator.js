@@ -18,13 +18,19 @@ export const validator = (data, config) => {
     };
 
     for (const fieldName of Object.keys(data)) {
-        for (const [verifyMethod, params] of Object.entries(
-            config[fieldName]
-        )) {
-            if (!errors[fieldName]) {
-                const error = validate(verifyMethod, data[fieldName], params);
-                if (error) {
-                    errors = { ...errors, [fieldName]: error };
+        if (fieldName in config) {
+            for (const [verifyMethod, params] of Object.entries(
+                config[fieldName]
+            )) {
+                if (!errors[fieldName]) {
+                    const error = validate(
+                        verifyMethod,
+                        data[fieldName],
+                        params
+                    );
+                    if (error) {
+                        errors = { ...errors, [fieldName]: error };
+                    }
                 }
             }
         }
