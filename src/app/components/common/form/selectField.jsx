@@ -7,6 +7,7 @@ const SelectField = ({
     name,
     defaultOption,
     options,
+    error,
     onChange
 }) => {
     const optionsArray = Object.values(options).map(({ _id, name }) => ({
@@ -15,12 +16,14 @@ const SelectField = ({
     }));
     return (
         <div className="mt-2">
-            <label htmlFor="validationCustom04" className="form-label">
+            <label htmlFor={name} className="form-label">
                 {label}
             </label>
             <select
-                className="form-select custom-select"
-                id="validationCustom04"
+                className={`form-select custom-select ${
+                    error ? "is-invalid" : ""
+                }`}
+                id={name}
                 value={value}
                 name={name}
                 onChange={onChange}
@@ -35,7 +38,7 @@ const SelectField = ({
                         </option>
                     ))}
             </select>
-            <div className="invalid-feedback">Please select a valid state.</div>
+            {error && <div className="invalid-feedback">{error}</div>}
         </div>
     );
 };
@@ -46,6 +49,7 @@ SelectField.propTypes = {
     name: PropTypes.string,
     defaultOption: PropTypes.string,
     options: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    error: PropTypes.string,
     onChange: PropTypes.func
 };
 

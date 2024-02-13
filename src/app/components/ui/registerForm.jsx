@@ -34,6 +34,11 @@ const RegisterForm = () => {
                     `The password must contain at least ${value} characters`,
                 value: 8
             }
+        },
+        genre: {
+            isRequired: {
+                message: "Field genre is required"
+            }
         }
     };
     const handleChange = ({ target }) =>
@@ -85,6 +90,7 @@ const RegisterForm = () => {
                 options={genres}
                 defaultOption="Choose..."
                 onChange={handleChange}
+                error={errors.genre}
             />
             <button
                 className={`btn w-50 mt-4 mx-auto d-flex justify-content-center btn-${

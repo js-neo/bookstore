@@ -1,0 +1,7 @@
+{
+  "users": "/fake-api/authentication/users.json",
+  "books": "/fake-api/library/books.json",
+  "authors": "/fake-api/library/authors.json",
+  "genres": "/fake-api/library/genres.json",
+  "comments": "/fake-api/library/comments.json"
+}
