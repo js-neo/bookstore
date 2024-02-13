@@ -1,3 +1,4 @@
 {
-  "users": "public/fake-api/authentication/users.json"
+  "users": "public/fake-api/authentication/users.json",
+  "books": "public/fake-api/library/books.json"
 }
