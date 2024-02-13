@@ -1,4 +1,7 @@
 {
   "users": "public/fake-api/authentication/users.json",
-  "books": "public/fake-api/library/books.json"
+  "books": "public/fake-api/library/books.json",
+  "authors": "public/fake-api/library/authors.json",
+  "genres": "public/fake-api/library/genres.json",
+  "comments": "public/fake-api/library/comments.json"
 }
