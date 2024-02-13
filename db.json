@@ -1,7 +1,393 @@
 {
-  "users": "./public/fake-api/authentication/users.json",
-  "books": "./public/fake-api/library/books.json",
-  "authors": "./public/fake-api/library/authors.json",
-  "genres": "./public/fake-api/library/genres.json",
-  "comments": "./public/fake-api/library/comments.json"
+  "users": [
+    { "id": 1, "username": "guest1", "email": "guest1@example.com", "password": "guestpassword", "role": "guest" },
+    { "id": 2, "username": "user1", "email": "user1@example.com", "password": "userpassword", "role": "user" },
+    { "id": 3, "username": "admin1", "email": "admin1@example.com", "password": "adminpassword", "role": "admin" }
+  ],
+  "books": [
+    {
+      "_id":"67rdca3eeb7f6fgeed471815",
+      "title":"Властелин колец",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_fellowship_of_the_ring.jpg?raw=true",
+      "genre":"fantasy",
+      "author":"tolkien",
+      "publicationYear":1954,
+      "rating":4.8,
+      "price":25.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471816",
+      "title":"Гарри Поттер и философский камень",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/harry_potter_and_the_sorcerer's_stone.jpg?raw=true",
+      "genre":"fantasy",
+      "author":"rowling",
+      "publicationYear":1997,
+      "rating":4.5,
+      "price":19.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471817",
+      "title":"Оно",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/it.jpg?raw=true",
+      "genre":"horror",
+      "author":"king",
+      "publicationYear":1986,
+      "rating":4.4,
+      "price":22.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471818",
+      "title":"Гордость и предубеждение",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/pride_and_prejudice.jpg?raw=true",
+      "genre":"romance",
+      "author":"austen",
+      "publicationYear":1813,
+      "rating":4.6,
+      "price":18.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471819",
+      "title":"Приключения Шерлока Холмса",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_adventures_of_sherlock_holmes.jpg?raw=true",
+      "genre":"mystery",
+      "author":"doyle",
+      "publicationYear":1892,
+      "rating":4.7,
+      "price":21.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471820",
+      "title":"Точка обмана",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/deception_point_dan_brown.jpg?raw=true",
+      "genre":"thriller",
+      "author":"brown",
+      "publicationYear":2001,
+      "rating":4.2,
+      "price":20.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471821",
+      "title":"1984",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/1984_george_orwell.png?raw=true",
+      "genre":"fiction",
+      "author":"orwell",
+      "publicationYear":1949,
+      "rating":4.5,
+      "price":16.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471822",
+      "title":"Ромео и Джульетта",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/romeo_and_juliet.jpg?raw=true",
+      "genre":"romance",
+      "author":"shakespeare",
+      "publicationYear":1597,
+      "rating":4.7,
+      "price":14.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471823",
+      "title":"Игра престолов",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/a_game_of_thrones.jpg?raw=true",
+      "genre":"fantasy",
+      "author":"martin",
+      "publicationYear":1996,
+      "rating":4.8,
+      "price":23.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471824",
+      "title":"Мастер и Маргарита",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_master_and_margarita.jpg?raw=true",
+      "genre":"fiction",
+      "author":"bulgakov",
+      "publicationYear":1967,
+      "rating":4.6,
+      "price":19.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471825",
+      "title":"Война и мир",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/war_and_peace.jpg?raw=true",
+      "genre":"fiction",
+      "author":"tolstoy",
+      "publicationYear":1869,
+      "rating":4.9,
+      "price":29.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471826",
+      "title":"Три товарища",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/three_comrades.jpg?raw=true",
+      "genre":"fiction",
+      "author":"remarque",
+      "publicationYear":1936,
+      "rating":4.4,
+      "price":17.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471827",
+      "title":"Метро 2033",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/metro-2033.jpg?raw=true",
+      "genre":"science",
+      "author":"glukhovsky",
+      "publicationYear":2005,
+      "rating":4.2,
+      "price":20.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471828",
+      "title":"Психология масс",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_psychology_of_the_masses.jpg?raw=true",
+      "genre":"science",
+      "author":"lebon",
+      "publicationYear":1895,
+      "rating":4.1,
+      "price":12.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471829",
+      "title":"Тень ветра",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_shadow_of_the_wind.jpg?raw=true",
+      "genre":"mystery",
+      "author":"zafon",
+      "publicationYear":2001,
+      "rating":4.5,
+      "price":18.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471830",
+      "title":"Граф Монте-Кристо",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_count_of_monte_cristo.jpg?raw=true",
+      "genre":"adventure",
+      "author":"dumas",
+      "publicationYear":1844,
+      "rating":4.7,
+      "price":21.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471831",
+      "title":"Маленький принц",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_little_prince.jpg?raw=true",
+      "genre":"fiction",
+      "author":"saintExupery",
+      "publicationYear":1943,
+      "rating":4.8,
+      "price":15.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471832",
+      "title":"Возвращение Мюнхгаузена",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_return_of_munchausen.jpg?raw=true",
+      "genre":"fiction",
+      "author":"krzhizhanovsky",
+      "publicationYear":1928,
+      "rating":4.0,
+      "price":13.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471833",
+      "title":"Приключения Чиполлино",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_adventures_of_chipollino.jpg?raw=true",
+      "genre":"fantasy",
+      "author":"rodari",
+      "publicationYear":1971,
+      "rating":4.2,
+      "price":9.99,
+      "status":false
+    },
+    {
+      "_id":"67rdca3eeb7f6fgeed471834",
+      "title":"Код Да Винчи",
+      "img":"https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/the_da_vinci_code.jpg?raw=true",
+      "genre":"mystery",
+      "author":"brown",
+      "publicationYear":2003,
+      "rating":4.3,
+      "price":24.99,
+      "status":false
+    }
+  ],
+  "authors": {
+    "tolkien":{
+      "_id":"67rdca3eeb1f6fgeed471815",
+      "name":"Дж.Р.Р. Толкин",
+      "birthYear":1892,
+      "deathYear":1973
+    },
+    "rowling":{
+      "_id":"67rdca3eeb2f6fgeed471816",
+      "name":"Джоан Роулинг",
+      "birthYear":1965,
+      "deathYear":null
+    },
+    "king":{
+      "_id":"67rdca3eeb3f6fgeed471817",
+      "name":"Стивен Кинг",
+      "birthYear":1947,
+      "deathYear":null
+    },
+    "austen":{
+      "_id":"67rdca3eeb4f6fgeed471818",
+      "name":"Джейн Остин",
+      "birthYear":1775,
+      "deathYear":1817
+    },
+    "doyle":{
+      "_id":"67rdca3eeb5f6fgeed471819",
+      "name":"Артур Конан Дойл",
+      "birthYear":1859,
+      "deathYear":1930
+    },
+    "brown":{
+      "_id":"67rdca3eeb6f6fgeed471820",
+      "name":"Дэн Браун",
+      "birthYear":1964,
+      "deathYear":null
+    },
+    "orwell":{
+      "_id":"67rdca3eeb7f7fgeed471821",
+      "name":"Джордж Оруэлл",
+      "birthYear":1903,
+      "deathYear":1950
+    },
+    "shakespeare":{
+      "_id":"67rdca3eeb8f6fgeed471822",
+      "name":"Уильям Шекспир",
+      "birthYear":1564,
+      "deathYear":1616
+    },
+    "martin":{
+      "_id":"67rdca3eeb9f6fgeed471823",
+      "name":"Джордж Мартин",
+      "birthYear":1948,
+      "deathYear":null
+    },
+    "bulgakov":{
+      "_id":"67rdca3eeb7f1fgeed471824",
+      "name":"Михаил Булгаков",
+      "birthYear":1891,
+      "deathYear":1940
+    },
+    "tolstoy":{
+      "_id":"67rdca3eeb7f2fgeed471825",
+      "name":"Лев Толстой",
+      "birthYear":1828,
+      "deathYear":1910
+    },
+    "remarque":{
+      "_id":"67rdca3eeb7f3fgeed471826",
+      "name":"Эрих Мария Ремарк",
+      "birthYear":1898,
+      "deathYear":1970
+    },
+    "rodari":{
+      "_id":"67rdca3eeb7f4fgeed471818",
+      "name":"Джани Родари",
+      "birthYear":1920,
+      "deathYear":1980
+    },
+    "krzhizhanovsky":{
+      "_id":"67rdca3eeb7f6fgeed471819",
+      "name":"Сигизмунд Кржижановский",
+      "birthYear":1887,
+      "deathYear":1950
+    },
+    "saintExupery":{
+      "_id":"67rdca3eeb7f7fgeed471820",
+      "name":"Антуан де Сент-Экзюпери",
+      "birthYear":1900,
+      "deathYear":1944
+    },
+    "dumas":{
+      "_id":"67rdca3eeb7f8fgeed471821",
+      "name":"Александр Дюма",
+      "birthYear":1802,
+      "deathYear":1870
+    },
+    "zafon":{
+      "_id":"67rdca3eeb7f9fgeed471822",
+      "name":"Карлос Руис Сафон",
+      "birthYear":1964,
+      "deathYear":null
+    },
+    "lebon":{
+      "_id":"67rdca3eeb7f6fgeed571823",
+      "name":"Гюстав Лебон",
+      "birthYear":1841,
+      "deathYear":1931
+    },
+    "glukhovsky":{
+      "_id":"67rdca3eeb7f6fgeed671824",
+      "name":"Дмитрий Глуховский",
+      "birthYear":1979,
+      "deathYear":null
+    }
+  },
+  "genres": {
+    "fantasy":{
+      "_id":"60rdca3eeb7f6fgeed471811",
+      "name":"Фэнтези",
+      "color":"primary"
+    },
+    "horror":{
+      "_id":"61rdca3eeb7f6fgeed471812",
+      "name":"Ужасы",
+      "color":"danger"
+    },
+    "romance":{
+      "_id":"62rdca3eeb7f6fgeed471813",
+      "name":"Романтика",
+      "color":"success"
+    },
+    "mystery":{
+      "_id":"63rdca3eeb7f6fgeed471814",
+      "name":"Мистика",
+      "color":"warning"
+    },
+    "fiction":{
+      "_id":"64rdca3eeb7f6fgeed471815",
+      "name":"Художественная литература",
+      "color":"secondary"
+    },
+    "history":{
+      "_id":"65rdca3eeb7f6fgeed471816",
+      "name":"Исторический роман",
+      "color":"info"
+    },
+    "thriller":{
+      "_id":"66rdca3eeb7f6fgeed471817",
+      "name":"Триллер",
+      "color":"dark"
+    },
+    "science":{
+      "_id":"67rdca5eeb7f6fgeed471816",
+      "name":"Научная литература",
+      "color":"info"
+    },
+    "adventure":{
+      "_id":"68rdca3eeb7f6fgeed471817",
+      "name":"Приключения",
+      "color":"success"
+    }
+  },
+  "comments": []
 }
