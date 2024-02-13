@@ -1,7 +1,3 @@
 {
-  "users": [
-    { "id": 1, "username": "guest1", "email": "guest1@example.com", "password": "guestpassword", "role": "guest" },
-    { "id": 2, "username": "user1", "email": "user1@example.com", "password": "userpassword", "role": "user" },
-    { "id": 3, "username": "admin1", "email": "admin1@example.com", "password": "adminpassword", "role": "admin" }
-  ]
+  "users": "public/fake-api/authentication/users.json"
 }
