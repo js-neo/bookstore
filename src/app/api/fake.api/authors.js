@@ -1,3 +1,5 @@
+import apiMethods from "../apiMethods";
+
 export const authors = {
     tolkien: {
         _id: "67rdca3eeb1f6fgeed471815",
@@ -114,11 +116,7 @@ export const authors = {
         deathYear: null
     }
 };
-const fetchAllAuthors = () => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(authors), 2000);
-    });
-};
+const fetchAllAuthors = () => apiMethods.getAllData(authors);
 
 export default {
     fetchAllAuthors

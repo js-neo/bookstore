@@ -1,5 +1,6 @@
 export const validator = (data, config) => {
     let errors = {};
+    const { password } = data;
 
     const validationMethods = {
         isRequired: (data, { message }) =>
@@ -11,7 +12,9 @@ export const validator = (data, config) => {
         isContainDigit: (data, { message }) =>
             !/\d+/g.test(data) ? message : undefined,
         isMinLength: (data, { getMessage, value }) =>
-            data.length < value ? getMessage(value) : undefined
+            data.length < value ? getMessage(value) : undefined,
+        isEqual: (data, { message }) =>
+            data !== password ? message : undefined
     };
     const validate = (verifyMethod, data, message) => {
         return validationMethods[verifyMethod]?.(data, message);

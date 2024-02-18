@@ -1,3 +1,5 @@
+import apiMethods from "../apiMethods";
+
 export const genres = {
     fantasy: {
         _id: "60rdca3eeb7f6fgeed471811",
@@ -45,11 +47,7 @@ export const genres = {
         color: "success"
     }
 };
-const fetchAllGenres = () => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(genres), 2000);
-    });
-};
+const fetchAllGenres = () => apiMethods.getAllData(genres);
 
 export default {
     fetchAllGenres

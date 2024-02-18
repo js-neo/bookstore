@@ -1,31 +1,16 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
-import api from "../../api";
 import _ from "lodash";
+import api from "../../api";
+import SelectField from "../common/form/selectField";
 
 const RegisterForm = () => {
-    const [users, setUsers] = useState([]);
-    const [data, setData] = useState({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: ""
-    });
+    const [data, setData] = useState({ email: "", password: "", genre: "" });
     const [errors, setErrors] = useState({});
+    const [genres, setGenres] = useState({});
 
     const validatorConfig = {
-        username: {
-            isRequired: {
-                message: "Field email is required"
-            },
-            isMinLength: {
-                getMessage: (value) =>
-                    `The username must contain at least ${value} characters`,
-                value: 4
-            },
-            isUnique: {}
-        },
         email: {
             isRequired: {
                 message: "Field email is required"
@@ -50,23 +35,15 @@ const RegisterForm = () => {
                 value: 8
             }
         },
-        confirmPassword: {
-            isEqual: {
-                message: "Passwords must match"
+        genre: {
+            isRequired: {
+                message: "Field genre is required"
             }
         }
     };
-
-    useEffect(() => {
-        api.users.fetchAllUsers().then((data) => setUsers(data));
-    }, []);
-
-    useEffect(() => {
-        console.log("users-Rex: ", users);
-    }, [users]);
     const handleChange = ({ target }) =>
         setData((prevState) => {
-            return { ...prevState, [target.name]: target.value.trim() };
+            return { ...prevState, [target.name]: target.value };
         });
 
     const validate = () => {
@@ -79,28 +56,18 @@ const RegisterForm = () => {
         validate();
     }, [data]);
 
+    useEffect(() => {
+        api.genres.fetchAllGenres().then((data) => setGenres(data));
+    }, []);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const isValid = validate();
         if (isValid) return;
-        const modifiedUser = (({
-            confirmPassword,
-            role = "user",
-            ...rest
-        }) => ({ ...rest, role }))(data);
-        api.users
-            .createNewUser(modifiedUser)
-            .then((newUsers) => setUsers(newUsers));
+        console.log("data: ", data);
     };
     return (
         <form onSubmit={handleSubmit} className="form-control-dark">
-            <TextField
-                label="UserName"
-                name="username"
-                value={data.username}
-                onChange={handleChange}
-                error={errors.username}
-            />
             <TextField
                 label="Email"
                 name="email"
@@ -116,13 +83,14 @@ const RegisterForm = () => {
                 onChange={handleChange}
                 error={errors.password}
             />
-            <TextField
-                label="Confirm password"
-                type="password"
-                name="confirmPassword"
-                value={data.confirmPassword}
+            <SelectField
+                label="Genre"
+                name="genre"
+                value={data.genre}
+                options={genres}
+                defaultOption="Choose..."
                 onChange={handleChange}
-                error={errors.confirmPassword}
+                error={errors.genre}
             />
             <button
                 className={`btn w-50 mt-4 mx-auto d-flex justify-content-center btn-${

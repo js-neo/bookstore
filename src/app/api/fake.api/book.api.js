@@ -1,5 +1,6 @@
 import { genres } from "./genres";
 import { authors } from "./authors";
+import apiMethods from "../apiMethods";
 
 const books = [
     {
@@ -224,22 +225,21 @@ const books = [
     }
 ];
 
-function fetchAllBooks() {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(books), 2000);
-    });
-}
+const fetchAllBooks = () => apiMethods.getAllData(books);
 
-function getBookById(bookId) {
-    return new Promise((resolve) => {
-        setTimeout(
-            () => resolve(books.find((book) => book._id === bookId)),
-            1000
-        );
-    });
-}
+const getBookById = (bookId) => apiMethods.getDataById(books, bookId);
+
+const createNewBook = (newBook) => {
+    return apiMethods
+        .createNewData([...books], newBook)
+        .then((updatedBooks) => {
+            books.splice(0, books.length, updatedBooks);
+            return updatedBooks;
+        });
+};
 
 export default {
     fetchAllBooks,
-    getBookById
+    getBookById,
+    createNewBook
 };

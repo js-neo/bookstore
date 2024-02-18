@@ -59,7 +59,3 @@ export function generateUniqueId() {
 
     return id;
 }
-
-// Пример использования
-const uniqueId = generateUniqueId();
-console.log(uniqueId);
