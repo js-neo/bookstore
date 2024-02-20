@@ -19,14 +19,7 @@ const users = [
 
 const fetchAllUsers = () => apiMethods.getAllData(users);
 const getUserById = (userId) => apiMethods.getDataById(users, userId);
-const createNewUser = (newUser) => {
-    return apiMethods
-        .createNewData([...users], newUser)
-        .then((updatedUsers) => {
-            users.splice(0, users.length, ...updatedUsers);
-            return updatedUsers;
-        });
-};
+const createNewUser = (newUser) => apiMethods.createNewData(users, newUser);
 
 export default {
     fetchAllUsers,

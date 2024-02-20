@@ -6,6 +6,7 @@ import _ from "lodash";
 
 const RegisterForm = () => {
     const [users, setUsers] = useState([]);
+    console.log("UP_users: ", users);
     const [data, setData] = useState({
         username: "",
         email: "",
@@ -58,12 +59,14 @@ const RegisterForm = () => {
     };
 
     useEffect(() => {
-        api.users.fetchAllUsers().then((data) => setUsers(data));
+        console.log("Render new data");
+        api.users.fetchAllUsers().then((data) => setUsers([...data]));
     }, []);
 
     useEffect(() => {
-        console.log("users-Rex: ", users);
-    }, [users]);
+        console.log("users-RexForm: ", users);
+    });
+
     const handleChange = ({ target }) =>
         setData((prevState) => {
             return { ...prevState, [target.name]: target.value.trim() };
@@ -79,7 +82,7 @@ const RegisterForm = () => {
         validate();
     }, [data]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const isValid = validate();
         if (isValid) return;
@@ -88,50 +91,63 @@ const RegisterForm = () => {
             role = "user",
             ...rest
         }) => ({ ...rest, role }))(data);
-        api.users
-            .createNewUser(modifiedUser)
-            .then((newUsers) => setUsers(newUsers));
+        console.log("SUBMIT");
+        try {
+            const newUsers = await api.users.createNewUser(modifiedUser);
+            console.log("newUsers: ", newUsers);
+            console.log("users: ", users);
+            console.log(
+                "JSON.stringify(newUsers) === JSON.stringify(users): ",
+                JSON.stringify(newUsers) === JSON.stringify(users)
+            );
+            setUsers(newUsers);
+        } catch (error) {
+            console.error("Error creating new user: ", error);
+        }
     };
     return (
-        <form onSubmit={handleSubmit} className="form-control-dark">
-            <TextField
-                label="UserName"
-                name="username"
-                value={data.username}
-                onChange={handleChange}
-                error={errors.username}
-            />
-            <TextField
-                label="Email"
-                name="email"
-                value={data.email}
-                onChange={handleChange}
-                error={errors.email}
-            />
-            <TextField
-                label="Password"
-                type="password"
-                name="password"
-                value={data.password}
-                onChange={handleChange}
-                error={errors.password}
-            />
-            <TextField
-                label="Confirm password"
-                type="password"
-                name="confirmPassword"
-                value={data.confirmPassword}
-                onChange={handleChange}
-                error={errors.confirmPassword}
-            />
-            <button
-                className={`btn w-50 mt-4 mx-auto d-flex justify-content-center btn-${
-                    !_.isEmpty(errors) ? "secondary disabled" : "primary"
-                }`}
-            >
-                Submit
-            </button>
-        </form>
+        <>
+            <p>{users.length}</p>
+            <form onSubmit={handleSubmit} className="form-control-dark">
+                <TextField
+                    label="UserName"
+                    name="username"
+                    value={data.username}
+                    onChange={handleChange}
+                    error={errors.username}
+                />
+                <TextField
+                    label="Email"
+                    name="email"
+                    value={data.email}
+                    onChange={handleChange}
+                    error={errors.email}
+                />
+                <TextField
+                    label="Password"
+                    type="password"
+                    name="password"
+                    value={data.password}
+                    onChange={handleChange}
+                    error={errors.password}
+                />
+                <TextField
+                    label="Confirm password"
+                    type="password"
+                    name="confirmPassword"
+                    value={data.confirmPassword}
+                    onChange={handleChange}
+                    error={errors.confirmPassword}
+                />
+                <button
+                    className={`btn w-50 mt-4 mx-auto d-flex justify-content-center btn-${
+                        !_.isEmpty(errors) ? "secondary disabled" : "primary"
+                    }`}
+                >
+                    Submit
+                </button>
+            </form>
+        </>
     );
 };
 
