@@ -11,10 +11,16 @@ export const validator = (data, config) => {
             !/[A-Z]+/g.test(data) ? message : undefined,
         isContainDigit: (data, { message }) =>
             !/\d+/g.test(data) ? message : undefined,
+        isOnlyNumbers: (data, { message }) =>
+            !/^[0-9]+$/g.test(data) ? message : undefined,
         isMinLength: (data, { getMessage, value }) =>
             data.length < value ? getMessage(value) : undefined,
         isEqual: (data, { message }) =>
-            data !== password ? message : undefined
+            data !== password ? message : undefined,
+        isURL: (data, { message }) =>
+            !/^(ftp|http|https):\/\/[^ "]+\.[^ "]+$/g.test(data)
+                ? message
+                : undefined
     };
     const validate = (verifyMethod, data, message) => {
         return validationMethods[verifyMethod]?.(data, message);

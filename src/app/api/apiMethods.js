@@ -5,7 +5,7 @@ function getAllData(data) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             if (dataArray.length > 0) {
-                resolve(data);
+                resolve([...dataArray]);
             } else {
                 reject(new Error("Data not found"));
             }
@@ -18,7 +18,7 @@ function getDataById(data, dataId) {
         setTimeout(() => {
             const item = data.find((item) => item._id === dataId);
             if (item) {
-                resolve(item);
+                resolve([{ ...item }]);
             } else {
                 reject(new Error("Data not found"));
             }
@@ -46,7 +46,7 @@ function deleteData(data, dataId) {
             const index = data.findIndex((item) => item._id === dataId);
             if (index !== -1) {
                 data.splice(index, 1);
-                resolve(data);
+                resolve([...data]);
             } else {
                 reject(new Error("Data not found"));
             }
@@ -65,7 +65,7 @@ function createNewData(data, newData) {
             if (newEntry) {
                 data.push(newEntry);
                 console.log("data_2: ", data);
-                resolve(data);
+                resolve([...data]);
             } else {
                 reject(new Error("Failed to create new data"));
             }

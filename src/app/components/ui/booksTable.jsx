@@ -6,6 +6,8 @@ import Table from "../common/table";
 import { Link } from "react-router-dom";
 
 const BooksTable = ({
+    genres,
+    authors,
     books,
     selectedSort,
     currentPage,
@@ -14,6 +16,8 @@ const BooksTable = ({
     onSort,
     onToggleBookmark
 }) => {
+    const getDataById = (data, dataId) =>
+        Object.values(data).find((item) => item._id === dataId);
     const columns = {
         rowNumber: {
             _id: "42gths3daw1x9gscwl566272",
@@ -36,12 +40,16 @@ const BooksTable = ({
             _id: "75ykdo4aea1y9blgnl414513",
             path: "genre.name",
             name: "Genre",
-            component: (book) => <Badge {...book.genre} />
+            component: (book) => <Badge {...getDataById(genres, book.genre)} />
         },
         authors: {
             _id: "19hwiy1srb6y4chiso290687",
             path: "author.name",
-            name: "Author"
+            name: "Author",
+            component: (book) =>
+                getDataById(authors, book.author)
+                    ? getDataById(authors, book.author).name
+                    : "No author"
         },
         publicationYear: {
             _id: "18cieb1ssk5s7siybk258557",
@@ -89,6 +97,8 @@ const BooksTable = ({
 BooksTable.propTypes = {
     books: PropTypes.array,
     selectedSort: PropTypes.object,
+    genres: PropTypes.object,
+    authors: PropTypes.object,
     currentPage: PropTypes.number,
     pageSize: PropTypes.number,
     onDelete: PropTypes.func,

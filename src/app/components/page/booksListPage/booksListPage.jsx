@@ -17,20 +17,16 @@ const BooksListPage = () => {
     const [filterValue, setFilterValue] = useState({});
     const [sortBy, setSortBy] = useState({ path: "title", order: "asc" });
     const [books, setBooks] = useState([]);
+    const [genres, setGenres] = useState({});
+    const [authors, setAuthors] = useState({});
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         api.books.fetchAllBooks().then((data) => setBooks(data));
-    }, []);
-    const [genres, setGenres] = useState({});
-    useEffect(() => {
         api.genres.fetchAllGenres().then((data) => setGenres(data));
+        api.authors.fetchAllAuthors().then((data) => setAuthors(data));
     }, []);
 
-    const [authors, setAuthors] = useState({});
-    useEffect(() => {
-        api.authors.fetchAllAuthors().then((data) => setAuthors(data));
-    });
     const PAGE_SIZE = 8;
     const handleDelete = (status, bookId) => {
         if (status) return;
@@ -91,17 +87,20 @@ const BooksListPage = () => {
     if (!_.isEmpty(books) && !_.isEmpty(genres) && !_.isEmpty(authors)) {
         const filteredBooks = searchQuery.trim()
             ? books.filter((book) => {
-                  const { title, author } = book;
-                  const { name } = author;
+                  const { title, author: authorId } = book;
+                  const { name } = authors.find(
+                      (author) => author._id === authorId
+                  );
                   return `${title} ${name}`
                       .toLowerCase()
                       .includes(searchQuery.trim().toLowerCase());
               })
             : !_.isEmpty(filterValue)
             ? books.filter((book) => {
-                  return typeof book[filterValue.propKey] === "object"
-                      ? filterValue.listItem === book[filterValue.propKey]
-                      : filterValue.listItem === book;
+                  const { listItem, propKey } = filterValue;
+                  return listItem[propKey]
+                      ? listItem[propKey] === book[propKey]
+                      : listItem._id === book[propKey];
               })
             : books;
 
@@ -151,6 +150,7 @@ const BooksListPage = () => {
                             />
                             {count > 0 && (
                                 <BooksTable
+                                    {...{ genres, authors }}
                                     books={booksSlice}
                                     selectedSort={sortBy}
                                     currentPage={currentPage}

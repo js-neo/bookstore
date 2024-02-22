@@ -19,7 +19,7 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
                     type={showPassword ? "text" : type}
                     id={name}
                     name={name}
-                    placeholder={`enter ${name}`}
+                    placeholder={`enter ${label.toLocaleLowerCase()}`}
                     aria-label={label}
                     value={value}
                     onChange={onChange}

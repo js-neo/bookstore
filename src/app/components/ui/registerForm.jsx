@@ -60,7 +60,7 @@ const RegisterForm = () => {
 
     useEffect(() => {
         console.log("Render new data");
-        api.users.fetchAllUsers().then((data) => setUsers([...data]));
+        api.users.fetchAllUsers().then((data) => setUsers(data));
     }, []);
 
     useEffect(() => {
@@ -94,12 +94,6 @@ const RegisterForm = () => {
         console.log("SUBMIT");
         try {
             const newUsers = await api.users.createNewUser(modifiedUser);
-            console.log("newUsers: ", newUsers);
-            console.log("users: ", users);
-            console.log(
-                "JSON.stringify(newUsers) === JSON.stringify(users): ",
-                JSON.stringify(newUsers) === JSON.stringify(users)
-            );
             setUsers(newUsers);
         } catch (error) {
             console.error("Error creating new user: ", error);
