@@ -5,48 +5,28 @@ import { paginate } from "../../../utils/paginate";
 import Dropdown from "../../ui/dropdown";
 import BooksTable from "../../ui/booksTable";
 import _ from "lodash";
-import api from "../../../api";
 import ProgressBar from "../../common/progress-bar";
 import SearchField from "../../common/form/searchField";
+import PropTypes from "prop-types";
 
-const BooksListPage = () => {
+const BooksListPage = ({
+    books,
+    genres,
+    authors,
+    onToggleBookmark,
+    onDelete
+}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedFilter, setSelectedFilter] = useState("");
 
     const [menuVisibility, setMenuVisibility] = useState({});
     const [filterValue, setFilterValue] = useState({});
     const [sortBy, setSortBy] = useState({ path: "title", order: "asc" });
-    const [books, setBooks] = useState([]);
-    const [genres, setGenres] = useState({});
-    const [authors, setAuthors] = useState({});
+
     const [searchQuery, setSearchQuery] = useState("");
 
-    useEffect(() => {
-        Promise.all([
-            api.books.fetchAllBooks(),
-            api.genres.fetchAllGenres(),
-            api.authors.fetchAllAuthors()
-        ]).then(([booksData, genresData, authorsData]) => {
-            setBooks(booksData);
-            setGenres(genresData);
-            setAuthors(authorsData);
-        });
-    }, []);
-
     const PAGE_SIZE = 8;
-    const handleDelete = (status, bookId) => {
-        if (status) return;
-        setBooks(books.filter((book) => book._id !== bookId));
-    };
-    const handleToggleBookmark = (bookId) => {
-        setBooks(
-            books.map((book) => {
-                return book._id === bookId
-                    ? { ...book, status: !book.status }
-                    : book;
-            })
-        );
-    };
+
     const handleChangePage = (page) => {
         setCurrentPage(page);
     };
@@ -111,6 +91,7 @@ const BooksListPage = () => {
             : books;
 
         const count = filteredBooks.length;
+
         function sortingWithSearchValue(
             collection,
             path,
@@ -194,9 +175,9 @@ const BooksListPage = () => {
                                     selectedSort={sortBy}
                                     currentPage={currentPage}
                                     pageSize={PAGE_SIZE}
-                                    onDelete={handleDelete}
+                                    onDelete={onDelete}
                                     onSort={handleSort}
-                                    onToggleBookmark={handleToggleBookmark}
+                                    onToggleBookmark={onToggleBookmark}
                                 />
                             )}
                             {pagesCount > 1 && (
@@ -217,4 +198,11 @@ const BooksListPage = () => {
     return <ProgressBar />;
 };
 
+BooksListPage.propTypes = {
+    books: PropTypes.array,
+    genres: PropTypes.array,
+    authors: PropTypes.array,
+    onToggleBookmark: PropTypes.func,
+    onDelete: PropTypes.func
+};
 export default BooksListPage;

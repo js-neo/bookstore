@@ -7,10 +7,12 @@ import ProgressBar from "../../common/progress-bar";
 import CardContents from "../../ui/cardContents";
 import Badge from "../../common/badge";
 
-const BookPage = ({ bookId }) => {
+const BookPage = ({ bookId, books, genres, authors }) => {
     const [book, setBook] = useState({});
     const [isMounted, setIsMounted] = useState(true);
     const history = useHistory();
+    const getDataById = (data, dataId) =>
+        Object.values(data).find((item) => item._id === dataId);
     const rowData = {
         title: {
             _id: "0a9t4l4q0c4m8j3o7j5k2v6k",
@@ -21,12 +23,19 @@ const BookPage = ({ bookId }) => {
             _id: "2o0w8k7r2x8l9v7x0q3a5j1v",
             name: "Genre",
             path: "genre",
-            component: (book) => <Badge {...book.genre} />
+            component: (book) =>
+                genres.length > 0 ? (
+                    <Badge {...getDataById(genres, book.genre)} />
+                ) : (
+                    ""
+                )
         },
         author: {
             _id: "7o8f6a2l9d5l8u5c1e8b0e3v",
             name: "Author",
-            path: "author.name"
+            path: "author",
+            component: (book) =>
+                authors.length > 0 ? getDataById(authors, book.author).name : ""
         },
         publicationYear: {
             _id: "6h4r2y3r8x7q7p4p1k9h8j1r",
@@ -56,7 +65,7 @@ const BookPage = ({ bookId }) => {
 
     return (
         <>
-            {!_.isEmpty(book) ? (
+            {!_.isEmpty(book) && genres.length > 0 && authors.length > 0 ? (
                 <>
                     {!imageLoaded && <ProgressBar />}
                     <div className="custom-container d-flex justify-content-center">
@@ -98,7 +107,10 @@ const BookPage = ({ bookId }) => {
 };
 
 BookPage.propTypes = {
-    bookId: PropTypes.string
+    bookId: PropTypes.string,
+    books: PropTypes.array,
+    genres: PropTypes.array,
+    authors: PropTypes.array
 };
 
 export default BookPage;

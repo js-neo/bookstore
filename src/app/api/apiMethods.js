@@ -18,7 +18,7 @@ function getDataById(data, dataId) {
         setTimeout(() => {
             const item = data.find((item) => item._id === dataId);
             if (item) {
-                resolve([{ ...item }]);
+                resolve({ ...item });
             } else {
                 reject(new Error("Data not found"));
             }

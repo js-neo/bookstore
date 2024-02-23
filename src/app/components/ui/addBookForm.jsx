@@ -7,9 +7,9 @@ import SelectField from "../common/form/selectField";
 
 const AddBookForm = () => {
     const [books, setBooks] = useState([]);
-    const [genres, setGenres] = useState({});
-    const [authors, setAuthors] = useState({});
-    console.log("UP_books: ", books);
+    const [genres, setGenres] = useState([]);
+    const [authors, setAuthors] = useState([]);
+
     const [data, setData] = useState({
         title: "",
         img: "",
@@ -71,18 +71,20 @@ const AddBookForm = () => {
     };
 
     useEffect(() => {
-        api.books.fetchAllBooks().then((data) => setBooks(data));
-        api.genres.fetchAllGenres().then((data) => setGenres(data));
-        api.authors.fetchAllAuthors().then((data) => setAuthors(data));
+        Promise.all([
+            api.books.fetchAllBooks(),
+            api.genres.fetchAllGenres(),
+            api.authors.fetchAllAuthors()
+        ]).then(([booksData, genresData, authorsData]) => {
+            setBooks(booksData);
+            setGenres(genresData);
+            setAuthors(authorsData);
+        });
     }, []);
-
-    useEffect(() => {
-        console.log("books-RexForm: ", books);
-    });
 
     const handleChange = ({ target }) =>
         setData((prevState) => {
-            return { ...prevState, [target.name]: target.value.trim() };
+            return { ...prevState, [target.name]: target.value };
         });
 
     const validate = () => {
@@ -108,19 +110,24 @@ const AddBookForm = () => {
     };
     return (
         <div className="d-flex justify-content-center text-white">
-            <div className="flex-grow-1">
+            <div className="flex-grow-1 mw-100">
                 <p>{books.length}</p>
-                <p className="text-center">
+                <p className="text-center mw-100">
                     Заполните данные для добавления новой книги
                 </p>
-                <p>Два URL адреса для добавления книг приведены ниже:</p>
-                <h6>
+                <p className="mw-100">
+                    Два URL адреса для добавления обложки книги приведены ниже:
+                </p>
+                <h6 className="text-break mt-4 text-primary">
                     https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/eric_freeman_head_first_javascript_programming.jpg?raw=true
                 </h6>
-                <h6>
+                <h6 className="text-break mt-4 text-primary">
                     https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/kyle_simpson_you_dont_know_js.jpg?raw=true
                 </h6>
-                <form onSubmit={handleSubmit} className="form-control-dark">
+                <form
+                    onSubmit={handleSubmit}
+                    className="form-control-dark mt-4"
+                >
                     <TextField
                         label="Title"
                         name="title"

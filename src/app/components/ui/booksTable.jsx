@@ -47,7 +47,7 @@ const BooksTable = ({
             path: "author",
             name: "Author",
             component: (book) =>
-                getDataById(authors, book.author)
+                authors.length > 0
                     ? getDataById(authors, book.author).name
                     : "No author"
         },

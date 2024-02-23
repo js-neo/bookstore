@@ -14,7 +14,6 @@ const SelectField = ({
         _id,
         name
     }));
-    console.log("optionsArray: ", optionsArray);
     return (
         <div className="mt-2">
             <label htmlFor={name} className="form-label">
