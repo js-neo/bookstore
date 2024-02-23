@@ -10,8 +10,8 @@ const AuthNav = () => {
         },
         {
             _id: "4j6i3h5o9a1c5w4z0k8m2b7p",
-            label: "Sign up",
-            path: "/sign-up"
+            label: "Admin",
+            path: "/admin"
         }
     ];
     const { pathname } = useLocation();
