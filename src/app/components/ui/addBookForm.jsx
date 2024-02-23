@@ -113,6 +113,13 @@ const AddBookForm = () => {
                 <p className="text-center">
                     Заполните данные для добавления новой книги
                 </p>
+                <p>Два URL адреса для добавления книг приведены ниже:</p>
+                <h6>
+                    https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/eric_freeman_head_first_javascript_programming.jpg?raw=true
+                </h6>
+                <h6>
+                    https://github.com/Yupiter78/bookstore/blob/main/src/app/assets/kyle_simpson_you_dont_know_js.jpg?raw=true
+                </h6>
                 <form onSubmit={handleSubmit} className="form-control-dark">
                     <TextField
                         label="Title"
