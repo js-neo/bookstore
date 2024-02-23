@@ -22,9 +22,15 @@ const BooksListPage = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
-        api.books.fetchAllBooks().then((data) => setBooks(data));
-        api.genres.fetchAllGenres().then((data) => setGenres(data));
-        api.authors.fetchAllAuthors().then((data) => setAuthors(data));
+        Promise.all([
+            api.books.fetchAllBooks(),
+            api.genres.fetchAllGenres(),
+            api.authors.fetchAllAuthors()
+        ]).then(([booksData, genresData, authorsData]) => {
+            setBooks(booksData);
+            setGenres(genresData);
+            setAuthors(authorsData);
+        });
     }, []);
 
     const PAGE_SIZE = 8;
@@ -105,10 +111,43 @@ const BooksListPage = () => {
             : books;
 
         const count = filteredBooks.length;
-        const sortedBooks = _.orderBy(
+        function sortingWithSearchValue(
+            collection,
+            path,
+            order,
+            genres,
+            authors
+        ) {
+            return collection.sort((a, b) => {
+                const valueA = getValue(a, path, genres, authors);
+                const valueB = getValue(b, path, genres, authors);
+
+                if (valueA < valueB) {
+                    return order === "asc" ? -1 : 1;
+                }
+                if (valueA > valueB) {
+                    return order === "asc" ? 1 : -1;
+                }
+                return 0;
+            });
+        }
+
+        function getValue(obj, path, genres, authors) {
+            if (path === "genre") {
+                return genres.find((genre) => genre._id === obj.genre).name;
+            } else if (path === "author") {
+                return authors.find((author) => author._id === obj.author).name;
+            } else {
+                return obj[path];
+            }
+        }
+
+        const sortedBooks = sortingWithSearchValue(
             filteredBooks,
-            [sortBy.path],
-            [sortBy.order]
+            sortBy.path,
+            sortBy.order,
+            genres,
+            authors
         );
         const booksSlice = paginate(sortedBooks, PAGE_SIZE, currentPage);
         const pagesCount = Math.ceil(count / PAGE_SIZE);

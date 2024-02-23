@@ -96,8 +96,8 @@ const Dropdown = ({
 
 Dropdown.propTypes = {
     books: PropTypes.array,
-    genres: PropTypes.object,
-    authors: PropTypes.object,
+    genres: PropTypes.array,
+    authors: PropTypes.array,
     selectedFilter: PropTypes.string,
     menuVisibility: PropTypes.object,
     filterValue: PropTypes.object,

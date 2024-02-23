@@ -34,7 +34,7 @@ export const authors = {
     freeman: {
         _id: "46ybzx6cat6q5zybrl915717",
         name: "Эрик Фримэн",
-        birthYear: 1979,
+        birthYear: null,
         deathYear: null
     },
     glukhovsky: {
@@ -96,6 +96,12 @@ export const authors = {
         name: "Антуан де Сент-Экзюпери",
         birthYear: 1900,
         deathYear: 1944
+    },
+    simpson: {
+        _id: "51ywxq0ctk5z1oxugn518024",
+        name: "Кайл Симпсон",
+        birthYear: null,
+        deathYear: null
     },
     shakespeare: {
         _id: "13ecje8kdt1p6gwpsd586763",

@@ -38,13 +38,13 @@ const BooksTable = ({
         },
         genres: {
             _id: "75ykdo4aea1y9blgnl414513",
-            path: "genre.name",
+            path: "genre",
             name: "Genre",
             component: (book) => <Badge {...getDataById(genres, book.genre)} />
         },
         authors: {
             _id: "19hwiy1srb6y4chiso290687",
-            path: "author.name",
+            path: "author",
             name: "Author",
             component: (book) =>
                 getDataById(authors, book.author)
@@ -97,8 +97,8 @@ const BooksTable = ({
 BooksTable.propTypes = {
     books: PropTypes.array,
     selectedSort: PropTypes.object,
-    genres: PropTypes.object,
-    authors: PropTypes.object,
+    genres: PropTypes.array,
+    authors: PropTypes.array,
     currentPage: PropTypes.number,
     pageSize: PropTypes.number,
     onDelete: PropTypes.func,
