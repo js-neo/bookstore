@@ -1,0 +1,7 @@
+
+  [
+    { "username": "guest1", "email": "guest1@example.com", "password": "guestpassword", "role": "guest" },
+    { "username": "user1", "email": "user1@example.com", "password": "userpassword", "role": "user" },
+    { "username": "admin1", "email": "admin1@example.com", "password": "adminpassword", "role": "admin" }
+  ]
+
