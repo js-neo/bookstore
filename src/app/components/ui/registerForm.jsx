@@ -3,10 +3,9 @@ import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
 import api from "../../api";
 import _ from "lodash";
+import PropTypes from "prop-types";
 
-const RegisterForm = () => {
-    const [users, setUsers] = useState([]);
-    console.log("UP_users: ", users);
+const RegisterForm = ({ users, onUpdateUsers }) => {
     const [data, setData] = useState({
         username: "",
         email: "",
@@ -25,7 +24,9 @@ const RegisterForm = () => {
                     `The username must contain at least ${value} characters`,
                 value: 4
             },
-            isUnique: {}
+            isUnique: {
+                message: "A user with the same name already exists"
+            }
         },
         email: {
             isRequired: {
@@ -33,6 +34,9 @@ const RegisterForm = () => {
             },
             isEmail: {
                 message: "Email entered incorrectly"
+            },
+            isUnique: {
+                message: "A user with this email already exists"
             }
         },
         password: {
@@ -58,22 +62,13 @@ const RegisterForm = () => {
         }
     };
 
-    useEffect(() => {
-        console.log("Render new data");
-        api.users.fetchAllUsers().then((data) => setUsers(data));
-    }, []);
-
-    useEffect(() => {
-        console.log("users-RexForm: ", users);
-    });
-
     const handleChange = ({ target }) =>
         setData((prevState) => {
             return { ...prevState, [target.name]: target.value.trim() };
         });
 
     const validate = () => {
-        const errors = validator(data, validatorConfig);
+        const errors = validator(data, validatorConfig, users);
         setErrors(errors);
         return Object.keys(errors).length !== 0;
     };
@@ -94,7 +89,7 @@ const RegisterForm = () => {
         console.log("SUBMIT");
         try {
             const newUsers = await api.users.createNewUser(modifiedUser);
-            setUsers(newUsers);
+            onUpdateUsers(newUsers);
         } catch (error) {
             console.error("Error creating new user: ", error);
         }
@@ -143,6 +138,11 @@ const RegisterForm = () => {
             </form>
         </>
     );
+};
+
+RegisterForm.propTypes = {
+    users: PropTypes.array,
+    onUpdateUsers: PropTypes.func
 };
 
 export default RegisterForm;

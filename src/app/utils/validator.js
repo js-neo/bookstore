@@ -1,4 +1,4 @@
-export const validator = (data, config) => {
+export const validator = (data, config, users) => {
     let errors = {};
     const { password } = data;
 
@@ -20,10 +20,18 @@ export const validator = (data, config) => {
         isURL: (data, { message }) =>
             !/^(ftp|http|https):\/\/[^ "]+\.[^ "]+$/g.test(data)
                 ? message
-                : undefined
+                : undefined,
+        isUnique: (data, { message }, field) => {
+            const foundUser = users.find((user) => user[field] === data);
+            return foundUser ? message : undefined;
+        },
+        isExist: (data, { message }, field) => {
+            const foundUser = users.find((user) => user[field] === data);
+            return !foundUser ? message : undefined;
+        }
     };
-    const validate = (verifyMethod, data, message) => {
-        return validationMethods[verifyMethod]?.(data, message);
+    const validate = (verifyMethod, data, message, fieldName) => {
+        return validationMethods[verifyMethod]?.(data, message, fieldName);
     };
 
     for (const fieldName of Object.keys(data)) {
@@ -35,7 +43,8 @@ export const validator = (data, config) => {
                     const error = validate(
                         verifyMethod,
                         data[fieldName],
-                        params
+                        params,
+                        fieldName
                     );
                     if (error) {
                         errors = { ...errors, [fieldName]: error };
