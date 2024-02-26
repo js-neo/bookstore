@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
+import { useUser } from "../../contexts/userContext";
 import _ from "lodash";
 import PropTypes from "prop-types";
 
 const LoginForm = ({ users }) => {
-    const [currentUser, setCurrentUser] = useState({});
+    const { currentUser, setCurrentUser } = useUser();
     console.log("currentUser: ", currentUser);
     const [message, setMessage] = useState("");
     const [data, setData] = useState({ email: "", password: "" });

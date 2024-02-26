@@ -7,12 +7,15 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 import App from "./app/app";
 import { BrowserRouter } from "react-router-dom";
+import { UserProvider } from "./app/contexts/userContext";
 
 // eslint-disable-next-line react/no-deprecated
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App />
+            <UserProvider>
+                <App />
+            </UserProvider>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")

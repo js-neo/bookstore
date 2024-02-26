@@ -17,7 +17,7 @@ const App = () => {
                 <Route path="/login/:type?" component={Login} />
                 <Route path="/sign-up" component={SignUp} />
                 <Route path="/gallery" component={Gallery} />
-                <Route path="/admin" component={AdminDashboard} />
+                <Route path="/admin-cabinet" component={AdminDashboard} />
                 <Route path="/books/:bookId?" component={Books} />
                 <Route exact path="/" component={Main} />
                 <Redirect to="/" />

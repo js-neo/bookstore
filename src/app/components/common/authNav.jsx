@@ -1,36 +1,51 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useUser } from "../../contexts/userContext";
 
 const AuthNav = () => {
-    const authNavLabel = [
-        {
-            _id: "1s2p7i9o5c2j1h4v9z6t5d6x",
-            label: "Login",
-            path: "/login"
-        },
-        {
-            _id: "4j6i3h5o9a1c5w4z0k8m2b7p",
-            label: "Admin",
-            path: "/admin"
-        }
-    ];
+    const { currentUser } = useUser();
     const { pathname } = useLocation();
     const isActive = (path) => (pathname === path ? "light" : "primary");
     return (
         <div className="text-end d-flex">
-            {authNavLabel.map((item) => (
-                <div key={item._id} className="button-container">
+            {currentUser ? (
+                <div className="button-container">
+                    {currentUser.role === "user" && (
+                        <Link
+                            to="/user-cabinet"
+                            type="button"
+                            className={`btn me-2 custom-button btn-outline-${isActive(
+                                "/user-cabinet"
+                            )}`}
+                        >
+                            Личный кабинет пользователя
+                        </Link>
+                    )}
+                    {currentUser.role === "admin" && (
+                        <Link
+                            to="/admin-cabinet"
+                            type="button"
+                            className={`btn me-2 custom-button btn-outline-${isActive(
+                                "/admin-cabinet"
+                            )}`}
+                        >
+                            Панель администратора
+                        </Link>
+                    )}
+                </div>
+            ) : (
+                <div className="button-container">
                     <Link
-                        to={item.path}
+                        to="/login"
                         type="button"
                         className={`btn me-2 custom-button btn-outline-${isActive(
-                            item.path
+                            "/login"
                         )}`}
                     >
-                        {item.label}
+                        Login
                     </Link>
                 </div>
-            ))}
+            )}
         </div>
     );
 };
