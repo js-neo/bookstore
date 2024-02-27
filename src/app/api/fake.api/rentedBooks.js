@@ -1,6 +1,6 @@
 import apiMethods from "../apiMethods";
 
-export let rentedBooks = [
+export const rentedBooks = [
     {
         userId: "66kzei8bbv9m0fylgv982463",
         booksRented: [
@@ -28,22 +28,11 @@ const getRentedBookById = (bookId) =>
 const addRentedBook = (userId, newRentedBook) => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            const userRentingBooks = rentedBooks.find(
+            const userIndex = rentedBooks.findIndex(
                 (userRentalCard) => userRentalCard.userId === userId
             );
-            if (userRentingBooks) {
-                const updatedUserRentalCard = {
-                    ...userRentingBooks,
-                    booksRented: [
-                        ...userRentingBooks.booksRented,
-                        newRentedBook
-                    ]
-                };
-                rentedBooks = rentedBooks.map((userRentalCard) =>
-                    userRentalCard.userId === userId
-                        ? updatedUserRentalCard
-                        : userRentalCard
-                );
+            if (userIndex !== -1) {
+                rentedBooks[userIndex].booksRented.push(newRentedBook);
             } else {
                 rentedBooks.push({ userId, booksRented: [newRentedBook] });
             }
