@@ -85,7 +85,7 @@ const BooksTable = ({
                     className="btn btn-sm btn-danger"
                     onClick={() => onDelete(book.status, book._id)}
                 >
-                    Delete
+                    Buy
                 </button>
             )
         },
@@ -109,7 +109,7 @@ const BooksTable = ({
                         <li>
                             <button
                                 className="dropdown-item"
-                                onClick={() => onRent("week")}
+                                onClick={() => onRent(book._id, "week")}
                             >
                                 На неделю
                             </button>
@@ -117,7 +117,7 @@ const BooksTable = ({
                         <li>
                             <button
                                 className="dropdown-item"
-                                onClick={() => onRent("twoWeeks")}
+                                onClick={() => onRent(book._id, "twoWeeks")}
                             >
                                 На две недели
                             </button>
@@ -125,7 +125,7 @@ const BooksTable = ({
                         <li>
                             <button
                                 className="dropdown-item"
-                                onClick={() => onRent("month")}
+                                onClick={() => onRent(book._id, "month")}
                             >
                                 На месяц
                             </button>

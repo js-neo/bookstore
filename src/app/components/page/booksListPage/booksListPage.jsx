@@ -9,8 +9,10 @@ import ProgressBar from "../../common/progress-bar";
 import SearchField from "../../common/form/searchField";
 import PropTypes from "prop-types";
 import api from "../../../api";
+import { useUser } from "../../../contexts/userContext";
 
 const BooksListPage = ({ books, genres, authors, onToggleBookmark }) => {
+    const { currentUser } = useUser();
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedFilter, setSelectedFilter] = useState("");
 
@@ -20,7 +22,8 @@ const BooksListPage = ({ books, genres, authors, onToggleBookmark }) => {
 
     const [searchQuery, setSearchQuery] = useState("");
 
-    const handleRent = (userId, bookId, rentalPeriod) => {
+    const handleRent = (bookId, rentalPeriod) => {
+        console.log("bookId: ", bookId);
         const currentDate = new Date();
 
         // Вычисление даты возврата на основе выбранного периода аренды
@@ -41,7 +44,7 @@ const BooksListPage = ({ books, genres, authors, onToggleBookmark }) => {
 
         // Обновление коллекции арендованных книг пользователя через ваш fake-api
         api.rentedBooks
-            .addRentedBook(userId, {
+            .addRentedBook(currentUser._id, {
                 bookId,
                 rentalPeriod,
                 rentalDate: currentDate.toISOString().split("T")[0],
@@ -54,6 +57,9 @@ const BooksListPage = ({ books, genres, authors, onToggleBookmark }) => {
             .catch((error) => {
                 console.error("Ошибка при аренде книги:", error);
             });
+        api.rentedBooks
+            .fetchAllRentedBooks()
+            .then((data) => console.log("rentedBooks: ", data));
     };
 
     const PAGE_SIZE = 8;

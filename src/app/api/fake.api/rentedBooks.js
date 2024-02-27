@@ -26,6 +26,7 @@ const getRentedBookById = (bookId) =>
     apiMethods.getDataById(rentedBooks, bookId);
 
 const addRentedBook = (userId, newRentedBook) => {
+    console.log("newRentedBook: ", newRentedBook);
     return new Promise((resolve) => {
         setTimeout(() => {
             const userIndex = rentedBooks.findIndex(
@@ -36,7 +37,9 @@ const addRentedBook = (userId, newRentedBook) => {
             } else {
                 rentedBooks.push({ userId, booksRented: [newRentedBook] });
             }
-            resolve("Арендованная книга успешно добавлена в коллекцию");
+            resolve(
+                `Книга арендована на ${newRentedBook.rentalPeriod} и успешно добавлена в коллекцию`
+            );
         }, 1000);
     });
 };
