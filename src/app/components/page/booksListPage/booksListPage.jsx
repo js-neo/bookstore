@@ -8,14 +8,9 @@ import _ from "lodash";
 import ProgressBar from "../../common/progress-bar";
 import SearchField from "../../common/form/searchField";
 import PropTypes from "prop-types";
+import api from "../../../api";
 
-const BooksListPage = ({
-    books,
-    genres,
-    authors,
-    onToggleBookmark,
-    onDelete
-}) => {
+const BooksListPage = ({ books, genres, authors, onToggleBookmark }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedFilter, setSelectedFilter] = useState("");
 
@@ -24,6 +19,42 @@ const BooksListPage = ({
     const [sortBy, setSortBy] = useState({ path: "title", order: "asc" });
 
     const [searchQuery, setSearchQuery] = useState("");
+
+    const handleRent = (userId, bookId, rentalPeriod) => {
+        const currentDate = new Date();
+
+        // Вычисление даты возврата на основе выбранного периода аренды
+        const returnDate = new Date(currentDate);
+        switch (rentalPeriod) {
+            case "week":
+                returnDate.setDate(returnDate.getDate() + 7);
+                break;
+            case "twoWeeks":
+                returnDate.setDate(returnDate.getDate() + 14);
+                break;
+            case "month":
+                returnDate.setMonth(returnDate.getMonth() + 1);
+                break;
+            default:
+                break;
+        }
+
+        // Обновление коллекции арендованных книг пользователя через ваш fake-api
+        api.rentedBooks
+            .addRentedBook(userId, {
+                bookId,
+                rentalPeriod,
+                rentalDate: currentDate.toISOString().split("T")[0],
+                returnDate: returnDate.toISOString().split("T")[0]
+            })
+            .then((message) => {
+                console.log(message);
+                // Здесь можно добавить логику для обновления интерфейса или состояния при успешной аренде книги
+            })
+            .catch((error) => {
+                console.error("Ошибка при аренде книги:", error);
+            });
+    };
 
     const PAGE_SIZE = 8;
 
@@ -175,7 +206,7 @@ const BooksListPage = ({
                                     selectedSort={sortBy}
                                     currentPage={currentPage}
                                     pageSize={PAGE_SIZE}
-                                    onDelete={onDelete}
+                                    onRent={handleRent}
                                     onSort={handleSort}
                                     onToggleBookmark={onToggleBookmark}
                                 />

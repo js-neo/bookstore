@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
 import { useUser } from "../../contexts/userContext";
@@ -11,6 +12,7 @@ const LoginForm = ({ users }) => {
     const [message, setMessage] = useState("");
     const [data, setData] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({});
+    const history = useHistory();
 
     const validatorConfig = {
         email: {
@@ -51,6 +53,7 @@ const LoginForm = ({ users }) => {
         );
         if (user) {
             setCurrentUser(user);
+            history.replace("/books");
         } else {
             setData({ email: "", password: "" });
             setMessage("Invalid email or password. Please try again.");

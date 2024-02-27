@@ -12,9 +12,10 @@ const BooksTable = ({
     selectedSort,
     currentPage,
     pageSize,
-    onDelete,
+    onRent,
     onSort,
-    onToggleBookmark
+    onToggleBookmark,
+    onDelete
 }) => {
     const getDataById = (data, dataId) =>
         Object.values(data).find((item) => item._id === dataId);
@@ -77,7 +78,7 @@ const BooksTable = ({
                 />
             )
         },
-        delete: {
+        buy: {
             _id: "71lvpb4qfu9h8tbsgh207532",
             component: (book) => (
                 <button
@@ -86,6 +87,51 @@ const BooksTable = ({
                 >
                     Delete
                 </button>
+            )
+        },
+        rent: {
+            _id: "64kwpd7glu0b4unsqh503519",
+            component: (book) => (
+                <div className="dropdown">
+                    <button
+                        className="btn btn-primary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        Арендовать
+                    </button>
+                    <ul
+                        className="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton"
+                    >
+                        <li>
+                            <button
+                                className="dropdown-item"
+                                onClick={() => onRent("week")}
+                            >
+                                На неделю
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className="dropdown-item"
+                                onClick={() => onRent("twoWeeks")}
+                            >
+                                На две недели
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className="dropdown-item"
+                                onClick={() => onRent("month")}
+                            >
+                                На месяц
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             )
         }
     };
@@ -102,6 +148,7 @@ BooksTable.propTypes = {
     currentPage: PropTypes.number,
     pageSize: PropTypes.number,
     onDelete: PropTypes.func,
+    onRent: PropTypes.func,
     onSort: PropTypes.func,
     onToggleBookmark: PropTypes.func
 };
