@@ -125,7 +125,13 @@ code {
 /*    word-wrap: break-word;*/
 /*}*/
 
+.dropdown-menu li:last-child a {
+    color: #007bff;
+}
 
+.dropdown-menu li:last-child a:hover {
+    color: white;
+}
 
 
 

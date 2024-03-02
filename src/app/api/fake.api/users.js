@@ -6,6 +6,7 @@ const users = [
         username: "user1",
         email: "user1@example.com",
         password: "userpassword",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=c2ezq",
         role: "user"
     },
     {
@@ -13,13 +14,18 @@ const users = [
         username: "admin",
         email: "admin1@example.com",
         password: "adminpassword",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=e0ng6",
         role: "admin"
     }
 ];
 
 const fetchAllUsers = () => apiMethods.getAllData(users);
 const getUserById = (userId) => apiMethods.getDataById(users, userId);
-const createNewUser = (newUser) => apiMethods.createNewData(users, newUser);
+const createNewUser = (newUser) => {
+    const storedUsers = JSON.parse(localStorage.getItem("users"));
+    const usersList = storedUsers ?? users;
+    return apiMethods.createNewData(usersList, newUser);
+};
 
 export default {
     fetchAllUsers,

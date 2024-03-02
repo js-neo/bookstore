@@ -77,6 +77,14 @@ const RegisterForm = ({ users, onUpdateUsers }) => {
         validate();
     }, [data]);
 
+    const createUrlAvatar = () => {
+        return `https://api.dicebear.com/7.x/avataaars/svg?seed=${(
+            Math.random() + 1
+        )
+            .toString(36)
+            .substring(7)}`;
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const isValid = validate();
@@ -85,11 +93,12 @@ const RegisterForm = ({ users, onUpdateUsers }) => {
             confirmPassword,
             role = "user",
             ...rest
-        }) => ({ ...rest, role }))(data);
+        }) => ({ ...rest, avatar: createUrlAvatar(), role }))(data);
         console.log("SUBMIT");
         try {
             const newUsers = await api.users.createNewUser(modifiedUser);
             onUpdateUsers(newUsers);
+            localStorage.setItem("users", JSON.stringify(newUsers));
         } catch (error) {
             console.error("Error creating new user: ", error);
         }

@@ -13,9 +13,11 @@ export const AppProvider = ({ children }) => {
     const [genres, setGenres] = useState([]);
     const [rentedBooks, setRentedBooks] = useState([]);
     const [purchasedBooks, setPurchasedBooks] = useState([]);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const storedBooks = JSON.parse(localStorage.getItem("books"));
+        const storedUsers = JSON.parse(localStorage.getItem("users"));
         const storedRentedBooks = JSON.parse(
             localStorage.getItem("rentedBooks")
         );
@@ -26,6 +28,14 @@ export const AppProvider = ({ children }) => {
             setBooks(storedBooks);
         } else {
             api.books.fetchAllBooks().then((booksData) => setBooks(booksData));
+        }
+        if (storedUsers) {
+            setUsers(storedUsers);
+        } else {
+            api.users.fetchAllUsers().then((usersData) => {
+                console.log("usersData: ", usersData);
+                setUsers(usersData);
+            });
         }
 
         if (storedRentedBooks) {
@@ -68,6 +78,8 @@ export const AppProvider = ({ children }) => {
             value={{
                 currentUser,
                 setCurrentUser,
+                users,
+                setUsers,
                 books,
                 setBooks,
                 authors,

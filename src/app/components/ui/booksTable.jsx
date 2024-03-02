@@ -11,6 +11,7 @@ const BooksTable = ({
     onSort
 }) => {
     const startRowIndex = currentPage * pageSize - pageSize;
+    console.log("BooksTable_users: ", books);
     return (
         <Table {...{ onSort, selectedSort, columns, books, startRowIndex }} />
     );

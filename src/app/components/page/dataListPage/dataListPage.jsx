@@ -10,7 +10,8 @@ import SearchField from "../../common/form/searchField";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 
-const BooksListPage = ({ books, genres, authors, columns }) => {
+const DataListPage = ({ books, genres = [], authors = [], columns }) => {
+    console.log("books:", books);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedFilter, setSelectedFilter] = useState("");
 
@@ -24,9 +25,16 @@ const BooksListPage = ({ books, genres, authors, columns }) => {
     console.log("location: ", location);
 
     useEffect(() => {
-        if (location === "/user-cabinet") {
+        console.log("SET_SHOW");
+        if (location === "/user-cabinet" || location === "/admin-cabinet") {
+            console.log("SET_SHOW");
             setShowComponents(false);
         }
+    }, []);
+    console.log("showComponents: ", showComponents);
+
+    useEffect(() => {
+        console.log("START");
     }, []);
 
     const PAGE_SIZE = 8;
@@ -74,7 +82,8 @@ const BooksListPage = ({ books, genres, authors, columns }) => {
         setCurrentPage(1);
     }, [filterValue, searchQuery]);
 
-    if (!_.isEmpty(books) && !_.isEmpty(genres) && !_.isEmpty(authors)) {
+    if (!_.isEmpty(books)) {
+        console.log("BOOKS: ", books);
         const filteredBooks = searchQuery.trim()
             ? books.filter((book) => {
                   const { title, author: authorId } = book;
@@ -135,6 +144,7 @@ const BooksListPage = ({ books, genres, authors, columns }) => {
             authors
         );
         const booksSlice = paginate(sortedBooks, PAGE_SIZE, currentPage);
+        console.log("bookSlice: ", booksSlice);
         const pagesCount = Math.ceil(count / PAGE_SIZE);
         const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
 
@@ -206,7 +216,7 @@ const BooksListPage = ({ books, genres, authors, columns }) => {
     return <ProgressBar />;
 };
 
-BooksListPage.propTypes = {
+DataListPage.propTypes = {
     books: PropTypes.array,
     genres: PropTypes.array,
     authors: PropTypes.array,
@@ -214,4 +224,4 @@ BooksListPage.propTypes = {
     onToggleBookmark: PropTypes.func,
     onDelete: PropTypes.func
 };
-export default BooksListPage;
+export default DataListPage;

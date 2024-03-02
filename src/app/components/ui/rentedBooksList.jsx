@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useApp } from "../../contexts/appContext";
-import BooksListPage from "../page/booksListPage";
+import DataListPage from "../page/dataListPage";
 import PropTypes from "prop-types";
 
 const RentedBooksList = () => {
@@ -56,13 +56,13 @@ const RentedBooksList = () => {
         }
     };
     return booksRented ? (
-        <BooksListPage {...{ books: booksRented, genres, authors, columns }} />
+        <DataListPage {...{ books: booksRented, genres, authors, columns }} />
     ) : (
         "Not found"
     );
 };
 
-BooksListPage.propTypes = {
+RentedBooksList.propTypes = {
     currentUser: PropTypes.object
 };
 

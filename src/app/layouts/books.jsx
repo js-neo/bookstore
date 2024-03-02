@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import BookPage from "../components/page/bookPage";
-import BooksListPage from "../components/page/booksListPage";
+import DataListPage from "../components/page/dataListPage";
 import { useApp } from "../contexts/appContext";
 import api from "../api";
 import Badge from "../components/common/badge";
@@ -219,7 +219,7 @@ const Books = () => {
             {bookId ? (
                 <BookPage bookId={bookId} {...{ books, genres, authors }} />
             ) : (
-                <BooksListPage {...{ books, genres, authors, columns }} />
+                <DataListPage {...{ books, genres, authors, columns }} />
             )}
         </>
     );

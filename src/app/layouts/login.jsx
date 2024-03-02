@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import LoginForm from "../components/ui/loginForm";
 import { useParams } from "react-router-dom";
 import RegisterForm from "../components/ui/registerForm";
-import api from "../api";
+import { useApp } from "../contexts/appContext";
 
 const Login = () => {
     const { type } = useParams();
-    const [users, setUsers] = useState([]);
+    const { users, setUsers } = useApp();
     const [formType, setFormType] = useState(
         type === "register" ? type : "login"
     );
 
-    useEffect(() => {
-        api.users.fetchAllUsers().then((data) => setUsers(data));
-    }, []);
     const handleToggleFormType = () => {
         setFormType((prevState) =>
             prevState === "login" ? "register" : "login"

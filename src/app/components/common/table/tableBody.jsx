@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 
 const TableBody = ({ data, columns, startRowIndex }) => {
+    console.log("DATA: ", data, columns);
     const renderContent = (item, key) => {
         return columns[key].component
             ? typeof columns[key].component === "function"
@@ -16,7 +17,12 @@ const TableBody = ({ data, columns, startRowIndex }) => {
                 <tr key={item._id}>
                     {Object.keys(columns).map((key) => {
                         return (
-                            <td key={columns[key]._id}>
+                            <td
+                                key={columns[key]._id}
+                                className={`${
+                                    key === "delete" ? "text-end" : ""
+                                }`}
+                            >
                                 {key === "rowNumber"
                                     ? i + startRowIndex + 1
                                     : renderContent(item, key)}

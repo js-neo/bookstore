@@ -28,6 +28,9 @@ const TableHeader = ({ selectedSort, onSort, columns }) => {
             <tr className="border border-light border-2">
                 {Object.keys(columns).map((column) => (
                     <th
+                        className={`${
+                            column === "delete" ? "text-center" : ""
+                        }`}
                         key={columns[column]._id}
                         scope="col"
                         onClick={
