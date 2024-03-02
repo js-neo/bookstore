@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useUser } from "../../contexts/userContext";
+import { useApp } from "../../contexts/appContext";
 
 const AuthNav = () => {
-    const { currentUser } = useUser();
+    const { currentUser } = useApp();
     const { pathname } = useLocation();
     const isActive = (path) => (pathname === path ? "light" : "primary");
     return (

@@ -1,7 +1,13 @@
-import React from "react";
-import AddBookForm from "../components/ui/addBookForm";
+import React, { useState } from "react";
+import PurchasedBooksList from "../components/ui/purchasedBooksList";
+import RentedBooksList from "../components/ui/rentedBooksList";
+import { useApp } from "../contexts/appContext";
 
 const UserDashboard = () => {
+    const { currentUser } = useApp();
+    const [selectedItem, setSelectedItem] = useState("purchased-books");
+    const handleItemClick = (item) => setSelectedItem(item);
+
     return (
         <div className="custom-container d-flex justify-content-center">
             <div className="row col-11 d-flex">
@@ -11,35 +17,38 @@ const UserDashboard = () => {
                             <li className="nav-item">
                                 <a
                                     href="#"
-                                    className="nav-link active"
+                                    className={`nav-link ${
+                                        selectedItem === "purchased-books"
+                                            ? "active"
+                                            : ""
+                                    }`}
                                     aria-current="page"
+                                    role="button"
+                                    onClick={() =>
+                                        handleItemClick("purchased-books")
+                                    }
                                 >
-                                    <i className="bi bi-house-door"></i>
-                                    <span className="ms-2">Home</span>
+                                    <i className="bi bi-book-fill"></i>
+                                    <span className="ms-2">
+                                        Purchased books
+                                    </span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" className="nav-link text-white">
-                                    <i className="bi bi-speedometer2"></i>
-                                    <span className="ms-2">Dashboard</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="nav-link text-white">
-                                    <i className="bi bi-table"></i>
-                                    <span className="ms-2">Orders</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="nav-link text-white">
-                                    <i className="bi bi-grid"></i>
-                                    <span className="ms-2">Products</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="nav-link text-white">
-                                    <i className="bi bi-person-circle"></i>
-                                    <span className="ms-2">Customers</span>
+                                <a
+                                    href="#"
+                                    className={`nav-link ${
+                                        selectedItem === "rented-books"
+                                            ? "active"
+                                            : ""
+                                    }`}
+                                    role="button"
+                                    onClick={() =>
+                                        handleItemClick("rented-books")
+                                    }
+                                >
+                                    <i className="bi bi-book-half"></i>
+                                    <span className="ms-2">Rented books</span>
                                 </a>
                             </li>
                         </ul>
@@ -59,22 +68,12 @@ const UserDashboard = () => {
                                     height="32"
                                     className="rounded-circle me-2"
                                 />
-                                <strong>mdo</strong>
+                                <strong>{currentUser.username}</strong>
                             </a>
                             <ul
                                 className="dropdown-menu dropdown-menu-dark text-small shadow"
                                 aria-labelledby="dropdownUser1"
                             >
-                                <li>
-                                    <a className="dropdown-item" href="#">
-                                        New project...
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="dropdown-item" href="#">
-                                        Settings
-                                    </a>
-                                </li>
                                 <li>
                                     <a className="dropdown-item" href="#">
                                         Profile
@@ -92,10 +91,15 @@ const UserDashboard = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-9">
-                    <div className="col-md-8 offset-md-2 shadow p-4 text-white my-4">
-                        <AddBookForm />
-                    </div>
+                <div className="col-9 text-white d-flex justify-content-center mt-4">
+                    {selectedItem === "purchased-books" ? (
+                        <PurchasedBooksList />
+                    ) : selectedItem === "rented-books" ? (
+                        <div className="mw-100">
+                            <h3 className="text-center">Арендованные книги</h3>
+                            <RentedBooksList />
+                        </div>
+                    ) : null}
                 </div>
             </div>
         </div>

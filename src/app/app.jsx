@@ -8,6 +8,7 @@ import Login from "./layouts/login";
 import Gallery from "./layouts/gallery";
 import AdminDashboard from "./layouts/adminDashboard";
 import SignUp from "./layouts/signUp";
+import UserDashboard from "./layouts/userDashboard";
 
 const App = () => {
     return (
@@ -18,6 +19,7 @@ const App = () => {
                 <Route path="/sign-up" component={SignUp} />
                 <Route path="/gallery" component={Gallery} />
                 <Route path="/admin-cabinet" component={AdminDashboard} />
+                <Route path="/user-cabinet" component={UserDashboard} />
                 <Route path="/books/:bookId?" component={Books} />
                 <Route exact path="/" component={Main} />
                 <Redirect to="/" />

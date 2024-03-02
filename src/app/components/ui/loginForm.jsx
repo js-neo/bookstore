@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
-import { useUser } from "../../contexts/userContext";
 import _ from "lodash";
 import PropTypes from "prop-types";
+import { useApp } from "../../contexts/appContext";
 
 const LoginForm = ({ users }) => {
-    const { currentUser, setCurrentUser } = useUser();
+    const { currentUser, setCurrentUser } = useApp();
     console.log("currentUser: ", currentUser);
     const [message, setMessage] = useState("");
     const [data, setData] = useState({ email: "", password: "" });
@@ -53,6 +53,7 @@ const LoginForm = ({ users }) => {
         );
         if (user) {
             setCurrentUser(user);
+            localStorage.setItem("currentUser", JSON.stringify(user));
             history.replace("/books");
         } else {
             setData({ email: "", password: "" });

@@ -104,6 +104,8 @@ const AddBookForm = () => {
         try {
             const newBooks = await api.books.createNewBook(data);
             setBooks(newBooks);
+
+            localStorage.setItem("books", JSON.stringify(newBooks));
         } catch (error) {
             console.error("Error creating new user: ", error);
         }

@@ -8,11 +8,9 @@ import _ from "lodash";
 import ProgressBar from "../../common/progress-bar";
 import SearchField from "../../common/form/searchField";
 import PropTypes from "prop-types";
-import api from "../../../api";
-import { useUser } from "../../../contexts/userContext";
+import { useLocation } from "react-router-dom";
 
-const BooksListPage = ({ books, genres, authors, onToggleBookmark }) => {
-    const { currentUser } = useUser();
+const BooksListPage = ({ books, genres, authors, columns }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedFilter, setSelectedFilter] = useState("");
 
@@ -21,46 +19,15 @@ const BooksListPage = ({ books, genres, authors, onToggleBookmark }) => {
     const [sortBy, setSortBy] = useState({ path: "title", order: "asc" });
 
     const [searchQuery, setSearchQuery] = useState("");
+    const [showComponents, setShowComponents] = useState(true);
+    const location = useLocation().pathname;
+    console.log("location: ", location);
 
-    const handleRent = (bookId, rentalPeriod) => {
-        console.log("bookId: ", bookId);
-        const currentDate = new Date();
-
-        // Вычисление даты возврата на основе выбранного периода аренды
-        const returnDate = new Date(currentDate);
-        switch (rentalPeriod) {
-            case "week":
-                returnDate.setDate(returnDate.getDate() + 7);
-                break;
-            case "twoWeeks":
-                returnDate.setDate(returnDate.getDate() + 14);
-                break;
-            case "month":
-                returnDate.setMonth(returnDate.getMonth() + 1);
-                break;
-            default:
-                break;
+    useEffect(() => {
+        if (location === "/user-cabinet") {
+            setShowComponents(false);
         }
-
-        // Обновление коллекции арендованных книг пользователя через ваш fake-api
-        api.rentedBooks
-            .addRentedBook(currentUser._id, {
-                bookId,
-                rentalPeriod,
-                rentalDate: currentDate.toISOString().split("T")[0],
-                returnDate: returnDate.toISOString().split("T")[0]
-            })
-            .then((message) => {
-                console.log(message);
-                // Здесь можно добавить логику для обновления интерфейса или состояния при успешной аренде книги
-            })
-            .catch((error) => {
-                console.error("Ошибка при аренде книги:", error);
-            });
-        api.rentedBooks
-            .fetchAllRentedBooks()
-            .then((data) => console.log("rentedBooks: ", data));
-    };
+    }, []);
 
     const PAGE_SIZE = 8;
 
@@ -180,41 +147,45 @@ const BooksListPage = ({ books, genres, authors, onToggleBookmark }) => {
                 <div className="d-flex justify-content-center">
                     <div className="col-11">
                         <div className="vh-100">
-                            <div className=" d-flex justify-content-end">
-                                <div className="mt-3 col-6">
-                                    <SearchField
-                                        value={searchQuery}
-                                        onChange={handleChange}
-                                    />
+                            {showComponents && (
+                                <div className=" d-flex justify-content-end">
+                                    <div className="mt-3 col-6">
+                                        <SearchField
+                                            value={searchQuery}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            <TotalStatus
-                                length={count}
-                                favorites={
-                                    filteredBooks.filter(
-                                        (book) => book.status === true
-                                    ).length
-                                }
-                            />
-                            <Dropdown
-                                {...{ books, genres, authors }}
-                                selectedFilter={selectedFilter}
-                                menuVisibility={menuVisibility}
-                                filterValue={filterValue}
-                                onSelect={handleSelect}
-                                onFilter={handleFilter}
-                                onClearFilter={handleClearFilter}
-                            />
+                            )}
+                            {showComponents && (
+                                <TotalStatus
+                                    length={count}
+                                    favorites={
+                                        filteredBooks.filter(
+                                            (book) => book.status === true
+                                        ).length
+                                    }
+                                />
+                            )}
+                            {showComponents && (
+                                <Dropdown
+                                    {...{ books, genres, authors }}
+                                    selectedFilter={selectedFilter}
+                                    menuVisibility={menuVisibility}
+                                    filterValue={filterValue}
+                                    onSelect={handleSelect}
+                                    onFilter={handleFilter}
+                                    onClearFilter={handleClearFilter}
+                                />
+                            )}
                             {count > 0 && (
                                 <BooksTable
-                                    {...{ genres, authors }}
                                     books={booksSlice}
+                                    columns={columns}
                                     selectedSort={sortBy}
                                     currentPage={currentPage}
                                     pageSize={PAGE_SIZE}
-                                    onRent={handleRent}
                                     onSort={handleSort}
-                                    onToggleBookmark={onToggleBookmark}
                                 />
                             )}
                             {pagesCount > 1 && (
@@ -239,6 +210,7 @@ BooksListPage.propTypes = {
     books: PropTypes.array,
     genres: PropTypes.array,
     authors: PropTypes.array,
+    columns: PropTypes.object,
     onToggleBookmark: PropTypes.func,
     onDelete: PropTypes.func
 };
