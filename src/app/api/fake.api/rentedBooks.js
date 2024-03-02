@@ -8,6 +8,7 @@ export const rentedBooks = [
             {
                 _id: "75hbjd4fkv4s5asdco530669",
                 bookId: "75hbjd4fkv4s5asdco530669",
+                total: 1,
                 rentalPeriod: "week",
                 rentalDate: "2024-02-26",
                 returnDate: "2024-03-04"
@@ -15,6 +16,7 @@ export const rentedBooks = [
             {
                 _id: "04lzag0lpm6n8hkqbd150483",
                 bookId: "04lzag0lpm6n8hkqbd150483",
+                total: 1,
                 rentalPeriod: "twoWeeks",
                 rentalDate: "2024-02-28",
                 returnDate: "2024-03-07"
@@ -40,11 +42,29 @@ const addRentedBook = (userId, newRentedBook) => {
                 (userRentalCard) => userRentalCard.userId === userId
             );
             if (userIndex !== -1) {
-                booksList[userIndex].booksRented.push(newRentedBook);
+                console.log("booksList[userIndex].booksRented: ");
+                const foundBookId = booksList[userIndex].booksRented.findIndex(
+                    (book) => {
+                        return book._id === newRentedBook._id;
+                    }
+                );
+                console.log("foundBookId: ", foundBookId);
+                if (foundBookId !== -1) {
+                    console.log("FOUND");
+
+                    booksList[userIndex].booksRented[foundBookId].total++;
+                    console.log(
+                        "booksList[userIndex].booksRented[foundBookId]",
+                        booksList[userIndex].booksRented[foundBookId]
+                    );
+                } else {
+                    booksList[userIndex].booksRented.push(newRentedBook);
+                }
             } else {
                 booksList.push({
                     _id: userId,
                     userId,
+                    total: 1,
                     booksRented: [newRentedBook]
                 });
             }

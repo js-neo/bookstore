@@ -12,9 +12,9 @@ const RentedBooksList = () => {
         Object.values(data).find((item) => item._id === dataId);
     const userRentalCard = getDataById(rentedBooks, currentUser._id);
     const booksRentedId = userRentalCard ? userRentalCard.booksRented : null;
-    const booksRented = booksRentedId.map(({ _id, returnDate }) => {
+    const booksRented = booksRentedId.map(({ _id, total, returnDate }) => {
         const foundBook = books.find((book) => book._id === _id);
-        return { ...foundBook, returnDate };
+        return { ...foundBook, total, returnDate };
     });
 
     const columns = {
@@ -48,6 +48,11 @@ const RentedBooksList = () => {
             _id: "18cieb1ssk5s7siybk258557",
             path: "publicationYear",
             name: "Publication Year"
+        },
+        total: {
+            _id: "15cweb2sk5k9siynk256557",
+            path: "total",
+            name: "Total"
         },
         returnDate: {
             _id: "29ruiv3pml4t6buwjn319348",

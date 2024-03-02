@@ -4,8 +4,10 @@ import { validator } from "../../utils/validator";
 import api from "../../api";
 import _ from "lodash";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 
 const RegisterForm = ({ users, onUpdateUsers }) => {
+    const history = useHistory();
     const [data, setData] = useState({
         username: "",
         email: "",
@@ -99,6 +101,7 @@ const RegisterForm = ({ users, onUpdateUsers }) => {
             const newUsers = await api.users.createNewUser(modifiedUser);
             onUpdateUsers(newUsers);
             localStorage.setItem("users", JSON.stringify(newUsers));
+            history.replace("/login");
         } catch (error) {
             console.error("Error creating new user: ", error);
         }

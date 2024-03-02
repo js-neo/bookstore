@@ -7,13 +7,11 @@ import PropTypes from "prop-types";
 import { useApp } from "../../contexts/appContext";
 
 const LoginForm = ({ users }) => {
-    const { currentUser, setCurrentUser } = useApp();
-    console.log("currentUser: ", currentUser);
+    const { setCurrentUser } = useApp();
     const [message, setMessage] = useState("");
     const [data, setData] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({});
     const history = useHistory();
-
     const validatorConfig = {
         email: {
             isRequired: {
