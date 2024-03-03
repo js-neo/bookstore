@@ -17,8 +17,6 @@ const Books = () => {
         setRentedBooks,
         setPurchasedBooks
     } = useApp();
-    console.log("books: ", books);
-
     const { bookId } = useParams();
 
     const handleRent = (bookId, rentalPeriod) => {
@@ -43,6 +41,7 @@ const Books = () => {
             .addRentedBook(currentUser._id, {
                 _id: bookId,
                 bookId,
+                total: 1,
                 rentalPeriod,
                 rentalDate: currentDate.toISOString().split("T")[0],
                 returnDate: returnDate.toISOString().split("T")[0]

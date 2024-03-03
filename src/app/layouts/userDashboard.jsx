@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 const UserDashboard = () => {
     const { currentUser } = useApp();
-    console.log("CURRENT_USER: ", currentUser);
 
     const [selectedItem, setSelectedItem] = useState("purchased-books");
 

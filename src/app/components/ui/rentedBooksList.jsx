@@ -6,14 +6,18 @@ import PropTypes from "prop-types";
 
 const RentedBooksList = () => {
     const { rentedBooks, books, genres, authors, currentUser } = useApp();
-
-    console.log("rentedBooks :", rentedBooks);
     const getDataById = (data, dataId) =>
         Object.values(data).find((item) => item._id === dataId);
     const userRentalCard = getDataById(rentedBooks, currentUser._id);
     const booksRentedId = userRentalCard ? userRentalCard.booksRented : null;
     const booksRented = booksRentedId.map(({ _id, total, returnDate }) => {
         const foundBook = books.find((book) => book._id === _id);
+        console.log(
+            "foundBook, total, returnDate: ",
+            foundBook,
+            total,
+            returnDate
+        );
         return { ...foundBook, total, returnDate };
     });
 

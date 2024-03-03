@@ -223,11 +223,23 @@ const books = [
     }
 ];
 
-const fetchAllBooks = () => apiMethods.getAllData(books);
+const fetchAllBooks = () => {
+    const storedBooks = JSON.parse(localStorage.getItem("books"));
+    const booksList = storedBooks ?? books;
+    return apiMethods.getAllData(booksList);
+};
 
-const getBookById = (bookId) => apiMethods.getDataById(books, bookId);
+const getBookById = (bookId) => {
+    const storedBooks = JSON.parse(localStorage.getItem("books"));
+    const booksList = storedBooks ?? books;
+    return apiMethods.getDataById(booksList, bookId);
+};
 
-const createNewBook = (newBook) => apiMethods.createNewData(books, newBook);
+const createNewBook = (newBook) => {
+    const storedBooks = JSON.parse(localStorage.getItem("books"));
+    const booksList = storedBooks ?? books;
+    return apiMethods.createNewData(booksList, newBook);
+};
 
 export default {
     fetchAllBooks,

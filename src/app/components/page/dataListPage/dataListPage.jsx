@@ -22,19 +22,11 @@ const DataListPage = ({ books, genres = [], authors = [], columns }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [showComponents, setShowComponents] = useState(true);
     const location = useLocation().pathname;
-    console.log("location: ", location);
 
     useEffect(() => {
-        console.log("SET_SHOW");
         if (location === "/user-cabinet" || location === "/admin-cabinet") {
-            console.log("SET_SHOW");
             setShowComponents(false);
         }
-    }, []);
-    console.log("showComponents: ", showComponents);
-
-    useEffect(() => {
-        console.log("START");
     }, []);
 
     const PAGE_SIZE = 8;
@@ -83,7 +75,6 @@ const DataListPage = ({ books, genres = [], authors = [], columns }) => {
     }, [filterValue, searchQuery]);
 
     if (!_.isEmpty(books)) {
-        console.log("BOOKS: ", books);
         const filteredBooks = searchQuery.trim()
             ? books.filter((book) => {
                   const { title, author: authorId } = book;
@@ -144,7 +135,6 @@ const DataListPage = ({ books, genres = [], authors = [], columns }) => {
             authors
         );
         const booksSlice = paginate(sortedBooks, PAGE_SIZE, currentPage);
-        console.log("bookSlice: ", booksSlice);
         const pagesCount = Math.ceil(count / PAGE_SIZE);
         const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
 

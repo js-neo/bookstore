@@ -33,7 +33,6 @@ export const AppProvider = ({ children }) => {
             setUsers(storedUsers);
         } else {
             api.users.fetchAllUsers().then((usersData) => {
-                console.log("usersData: ", usersData);
                 setUsers(usersData);
             });
         }
@@ -67,7 +66,6 @@ export const AppProvider = ({ children }) => {
 
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem("currentUser"));
-        console.log("storedUser: ", storedUser);
         if (storedUser) {
             setCurrentUser(storedUser);
         }

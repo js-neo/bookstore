@@ -25,7 +25,11 @@ export const rentedBooks = [
     }
 ];
 
-const fetchAllRentedBooks = () => apiMethods.getAllData(rentedBooks);
+const fetchAllRentedBooks = () => {
+    const storedRentedBooks = JSON.parse(localStorage.getItem("rentedBooks"));
+    const booksList = storedRentedBooks ?? rentedBooks;
+    return apiMethods.getAllData(booksList);
+};
 
 const getRentedBookById = (bookId) =>
     apiMethods.getDataById(rentedBooks, bookId);
@@ -37,26 +41,17 @@ const addRentedBook = (userId, newRentedBook) => {
                 localStorage.getItem("rentedBooks")
             );
             const booksList = storedRentedBooks ?? rentedBooks;
-            console.log("storedRentedBooks: ", storedRentedBooks);
             const userIndex = booksList.findIndex(
                 (userRentalCard) => userRentalCard.userId === userId
             );
             if (userIndex !== -1) {
-                console.log("booksList[userIndex].booksRented: ");
                 const foundBookId = booksList[userIndex].booksRented.findIndex(
                     (book) => {
                         return book._id === newRentedBook._id;
                     }
                 );
-                console.log("foundBookId: ", foundBookId);
                 if (foundBookId !== -1) {
-                    console.log("FOUND");
-
-                    booksList[userIndex].booksRented[foundBookId].total++;
-                    console.log(
-                        "booksList[userIndex].booksRented[foundBookId]",
-                        booksList[userIndex].booksRented[foundBookId]
-                    );
+                    booksList[userIndex].booksRented[foundBookId].total += 1;
                 } else {
                     booksList[userIndex].booksRented.push(newRentedBook);
                 }
@@ -64,7 +59,6 @@ const addRentedBook = (userId, newRentedBook) => {
                 booksList.push({
                     _id: userId,
                     userId,
-                    total: 1,
                     booksRented: [newRentedBook]
                 });
             }

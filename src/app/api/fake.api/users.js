@@ -19,7 +19,11 @@ const users = [
     }
 ];
 
-const fetchAllUsers = () => apiMethods.getAllData(users);
+const fetchAllUsers = () => {
+    const storedUsers = JSON.parse(localStorage.getItem("users"));
+    const usersList = storedUsers ?? users;
+    return apiMethods.getAllData(usersList);
+};
 const getUserById = (userId) => apiMethods.getDataById(users, userId);
 const createNewUser = (newUser) => {
     const storedUsers = JSON.parse(localStorage.getItem("users"));

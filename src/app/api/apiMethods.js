@@ -55,7 +55,6 @@ function deleteData(data, dataId) {
 }
 
 function createNewData(data, newData) {
-    console.log("data_1: ", data);
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             const newEntry = {
@@ -64,7 +63,6 @@ function createNewData(data, newData) {
             };
             if (newEntry) {
                 data.push(newEntry);
-                console.log("data_2: ", data);
                 resolve([...data]);
             } else {
                 reject(new Error("Failed to create new data"));
