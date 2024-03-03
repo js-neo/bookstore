@@ -24,6 +24,7 @@ export const AppProvider = ({ children }) => {
         const storedPurchasedBooks = JSON.parse(
             localStorage.getItem("purchasedBooks")
         );
+
         if (storedBooks) {
             setBooks(storedBooks);
         } else {

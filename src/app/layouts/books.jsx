@@ -47,7 +47,6 @@ const Books = () => {
                 returnDate: returnDate.toISOString().split("T")[0]
             })
             .then((data) => {
-                console.log("data: ", data);
                 setRentedBooks(data);
                 localStorage.setItem("rentedBooks", JSON.stringify(data));
 
@@ -58,16 +57,15 @@ const Books = () => {
             .catch((error) => {
                 console.error("Ошибка при аренде книги:", error);
             });
-        api.rentedBooks
-            .fetchAllRentedBooks()
-            .then((data) => console.log("rentedBooks: ", data));
     };
     const handleBuy = (bookId) => {
         const currentDate = new Date();
 
         api.purchasedBooks
             .addPurchasedBook(currentUser._id, {
+                _id: bookId,
                 bookId,
+                total: 1,
                 purchaseDate: currentDate.toISOString().split("T")[0]
             })
             .then((data) => {
@@ -78,9 +76,6 @@ const Books = () => {
             .catch((error) => {
                 console.error("Ошибка при покупке книги:", error);
             });
-        api.purchasedBooks
-            .fetchAllPurchasedBooks()
-            .then((data) => console.log("purchasedBooks: ", data));
     };
 
     const handleToggleBookmark = (bookId) => {

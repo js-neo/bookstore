@@ -19,17 +19,21 @@ const users = [
     }
 ];
 
-const fetchAllUsers = () => {
-    const storedUsers = JSON.parse(localStorage.getItem("users"));
-    const usersList = storedUsers ?? users;
-    return apiMethods.getAllData(usersList);
+const dataList = (data, storedKey) => {
+    try {
+        const storedData = localStorage.getItem(storedKey);
+        return storedData ? JSON.parse(storedData) : data;
+    } catch (error) {
+        console.error("Error parsing JSON data:", error);
+        return data;
+    }
 };
-const getUserById = (userId) => apiMethods.getDataById(users, userId);
-const createNewUser = (newUser) => {
-    const storedUsers = JSON.parse(localStorage.getItem("users"));
-    const usersList = storedUsers ?? users;
-    return apiMethods.createNewData(usersList, newUser);
-};
+
+const usersList = dataList(users, "users");
+
+const fetchAllUsers = () => apiMethods.getAllData(usersList);
+const getUserById = (userId) => apiMethods.getDataById(usersList, userId);
+const createNewUser = (newUser) => apiMethods.createNewData(usersList, newUser);
 
 export default {
     fetchAllUsers,

@@ -223,23 +223,23 @@ const books = [
     }
 ];
 
-const fetchAllBooks = () => {
-    const storedBooks = JSON.parse(localStorage.getItem("books"));
-    const booksList = storedBooks ?? books;
-    return apiMethods.getAllData(booksList);
+const dataList = (data, storedKey) => {
+    try {
+        const storedData = localStorage.getItem(storedKey);
+        return storedData ? JSON.parse(storedData) : data;
+    } catch (error) {
+        console.error("Error parsing JSON data:", error);
+        return data;
+    }
 };
 
-const getBookById = (bookId) => {
-    const storedBooks = JSON.parse(localStorage.getItem("books"));
-    const booksList = storedBooks ?? books;
-    return apiMethods.getDataById(booksList, bookId);
-};
+const booksList = dataList(books, "books");
 
-const createNewBook = (newBook) => {
-    const storedBooks = JSON.parse(localStorage.getItem("books"));
-    const booksList = storedBooks ?? books;
-    return apiMethods.createNewData(booksList, newBook);
-};
+const fetchAllBooks = () => apiMethods.getAllData(booksList);
+
+const getBookById = (bookId) => apiMethods.getDataById(booksList, bookId);
+
+const createNewBook = (newBook) => apiMethods.createNewData(booksList, newBook);
 
 export default {
     fetchAllBooks,

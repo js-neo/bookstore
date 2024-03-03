@@ -1,6 +1,6 @@
 export const sortingCriteria = [
     {
-        _id: "12abde3fgc456f7e8d9r0013",
+        _id: "12abde3fgc756f7e8d9r0w13",
         eventKey: "author",
         criteria: "Автор",
         category: "authors",

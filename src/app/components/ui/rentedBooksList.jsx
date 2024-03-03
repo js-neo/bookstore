@@ -12,12 +12,6 @@ const RentedBooksList = () => {
     const booksRentedId = userRentalCard ? userRentalCard.booksRented : null;
     const booksRented = booksRentedId.map(({ _id, total, returnDate }) => {
         const foundBook = books.find((book) => book._id === _id);
-        console.log(
-            "foundBook, total, returnDate: ",
-            foundBook,
-            total,
-            returnDate
-        );
         return { ...foundBook, total, returnDate };
     });
 

@@ -11,7 +11,6 @@ import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 
 const DataListPage = ({ books, genres = [], authors = [], columns }) => {
-    console.log("books:", books);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedFilter, setSelectedFilter] = useState("");
 

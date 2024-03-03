@@ -25,22 +25,25 @@ export const rentedBooks = [
     }
 ];
 
-const fetchAllRentedBooks = () => {
-    const storedRentedBooks = JSON.parse(localStorage.getItem("rentedBooks"));
-    const booksList = storedRentedBooks ?? rentedBooks;
-    return apiMethods.getAllData(booksList);
+const dataList = (data, storedKey) => {
+    try {
+        const storedData = localStorage.getItem(storedKey);
+        return storedData ? JSON.parse(storedData) : data;
+    } catch (error) {
+        console.error("Error parsing JSON data:", error);
+        return data;
+    }
 };
 
-const getRentedBookById = (bookId) =>
-    apiMethods.getDataById(rentedBooks, bookId);
+const booksList = dataList(rentedBooks, "rentedBooks");
+
+const fetchAllRentedBooks = () => apiMethods.getAllData(booksList);
+
+const getRentedBookById = (bookId) => apiMethods.getDataById(booksList, bookId);
 
 const addRentedBook = (userId, newRentedBook) => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            const storedRentedBooks = JSON.parse(
-                localStorage.getItem("rentedBooks")
-            );
-            const booksList = storedRentedBooks ?? rentedBooks;
             const userIndex = booksList.findIndex(
                 (userRentalCard) => userRentalCard.userId === userId
             );
