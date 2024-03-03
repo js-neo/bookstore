@@ -3,17 +3,22 @@ import { Link } from "react-router-dom";
 import { useApp } from "../../contexts/appContext";
 import DataListPage from "../page/dataListPage";
 import PropTypes from "prop-types";
+import _ from "lodash";
+import ProgressBar from "../common/progress-bar";
 
 const RentedBooksList = () => {
     const { rentedBooks, books, genres, authors, currentUser } = useApp();
     const getDataById = (data, dataId) =>
         Object.values(data).find((item) => item._id === dataId);
-    const userRentalCard = getDataById(rentedBooks, currentUser._id);
-    const booksRentedId = userRentalCard ? userRentalCard.booksRented : null;
-    const booksRented = booksRentedId.map(({ _id, total, returnDate }) => {
-        const foundBook = books.find((book) => book._id === _id);
-        return { ...foundBook, total, returnDate };
-    });
+    const userRentalCard =
+        rentedBooks.length > 0 && getDataById(rentedBooks, currentUser._id);
+    const booksRentedId = userRentalCard && userRentalCard.booksRented;
+    const booksRented =
+        booksRentedId &&
+        booksRentedId.map(({ _id, total, returnDate }) => {
+            const foundBook = books.find((book) => book._id === _id);
+            return { ...foundBook, total, returnDate };
+        });
 
     const columns = {
         rowNumber: {
@@ -58,10 +63,16 @@ const RentedBooksList = () => {
             name: "Return date"
         }
     };
-    return booksRented ? (
+    return !_.isEmpty(booksRented) ? (
         <DataListPage {...{ books: booksRented, genres, authors, columns }} />
     ) : (
-        "Not found"
+        <>
+            <div className="text-center text-danger fs-3 mt-5">
+                Data not found
+            </div>
+
+            <ProgressBar />
+        </>
     );
 };
 

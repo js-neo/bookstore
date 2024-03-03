@@ -4,7 +4,7 @@ const ProgressBar = () => {
     return (
         <div
             className="m-4 d-flex justify-content-center align-items-center"
-            style={{ height: "calc(100vh - 120px)" }}
+            style={{ height: "calc(100vh - 300px)" }}
         >
             <div className="progress col-7">
                 <div

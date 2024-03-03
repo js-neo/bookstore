@@ -61,12 +61,17 @@ const UserDashboard = () => {
                             <hr />
                         </div>
                     </div>
-                    <div className="col-9 text-white d-flex justify-content-center mt-4">
+                    <div className="col-9 text-white">
                         {selectedItem === "purchased-books" ? (
-                            <PurchasedBooksList />
+                            <div className="w-100">
+                                <h3 className="text-center mt-5">
+                                    Купленные книги
+                                </h3>
+                                <PurchasedBooksList />
+                            </div>
                         ) : selectedItem === "rented-books" ? (
-                            <div className="mw-100">
-                                <h3 className="text-center">
+                            <div className="w-100">
+                                <h3 className="text-center mt-5">
                                     Арендованные книги
                                 </h3>
                                 <RentedBooksList />

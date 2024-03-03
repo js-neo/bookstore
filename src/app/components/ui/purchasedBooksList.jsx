@@ -3,6 +3,7 @@ import { useApp } from "../../contexts/appContext";
 import { Link } from "react-router-dom";
 import DataListPage from "../page/dataListPage";
 import _ from "lodash";
+import ProgressBar from "../common/progress-bar";
 
 const PurchasedBooksList = () => {
     const { purchasedBooks, books, genres, authors, currentUser } = useApp();
@@ -69,7 +70,13 @@ const PurchasedBooksList = () => {
             {...{ books: booksPurchased, genres, authors, columns }}
         />
     ) : (
-        "Not found"
+        <>
+            <div className="text-center text-danger fs-3 mt-5">
+                Data not found
+            </div>
+
+            <ProgressBar />
+        </>
     );
 };
 

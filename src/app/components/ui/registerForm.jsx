@@ -101,7 +101,7 @@ const RegisterForm = ({ users, onUpdateUsers }) => {
             const newUsers = await api.users.createNewUser(modifiedUser);
             onUpdateUsers(newUsers);
             localStorage.setItem("users", JSON.stringify(newUsers));
-            history.replace("/login");
+            history.replace("/books");
         } catch (error) {
             console.error("Error creating new user: ", error);
         }
