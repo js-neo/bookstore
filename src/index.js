@@ -12,7 +12,7 @@ import { AppProvider } from "./app/contexts/appContext";
 // eslint-disable-next-line react/no-deprecated
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
+        <BrowserRouter basename="/bookstore">
             <AppProvider>
                 <App />
             </AppProvider>
